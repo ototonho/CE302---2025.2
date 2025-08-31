@@ -1,0 +1,15 @@
+---
+title: "Parte 1"
+output: html_document
+date: "2025-08-31"
+---
+
+## Terminal Unix
+
+## Documentação em Markdown
+
+## Versionamento de Códigos
+
+## Git
+
+## Git no RStudio
