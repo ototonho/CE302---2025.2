@@ -18,6 +18,6 @@
 - Parte II: Prática (Provas sem códigos são anuladas)
 - 4 Provas + um trabalho (P5)
 
-####Exercícios - 20% da nota final
+#### Exercícios - 20% da nota final
 
-####Quizz - 10% da nota final
+#### Quizz - 10% da nota final
