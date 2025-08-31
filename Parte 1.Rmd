@@ -1,67 +1,73 @@
 ---
 title: "Parte 1"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-08-31"
+editor_options:
+  markdown:
+    wrap: sentence
 ---
 
 ## Terminal Unix
 
-- Terminal, Console ou Shell são nomes diferentes para a mesma coisa.
-- O Terminal é uma interface de linha de comando que permite interagir com o sistema operacional usando texto.
-- Em vez de clicar em ícones, você digita comandos.
-- É poderoso, rápido e essencial para tarefas de automação e para trabalhar em servidores remotos.
+-   Terminal, Console ou Shell são nomes diferentes para a mesma coisa.
+-   O Terminal é uma interface de linha de comando que permite interagir com o sistema operacional usando texto.
+-   Em vez de clicar em ícones, você digita comandos.
+-   É poderoso, rápido e essencial para tarefas de automação e para trabalhar em servidores remotos.
 
 ### Comandos Fundamentais
 
-**pwd** - **Print Working Directory**: Mostra em qual pasta se está no momento.
-**man** - **Manual**: Mostra o manual de um comando.
-**ls** - **List**: Lista os arquivos e pastas no diretório atual
-**cd** - **Change Directory**: Muda de Diretório
-**mkdir** - **Make Directory**: Cria uma nova pasta
-**mv** - **Move**: Move ou renomeia um arquivo/pasta
-**cp** - **Copy**: Copia um arquivo/pasta
-**rm** - **Remove**: Apaga um arvquivo. **CUIDADO**: Não tem lixeira!!!
-**rm -r** - **Remove Recursively**: Apaga uma pasta e todo o seu conteúdo. **CUIDADO!**
-**cat** - **Concatenate**: Mostra o conteúdo de um arquivo.
-**grep** - **Global Regular Expression Print**: Busca por padrões em arquivos.
-**find** - Busca por arquivos e pastas.
-**history** - Mostra o histórico de comandos usavos.
-**clear** - Limpa a tela do terminal.
-**echo** - Imprime texto na tela ou em uma arquivo.
+-   **pwd** - **Print Working Directory**: Mostra em qual pasta se está no momento.
+-   **man** - **Manual**: Mostra o manual de um comando.
+-   **ls** - **List**: Lista os arquivos e pastas no diretório atual
+-   **cd** - **Change Directory**: Muda de Diretório
+-   **mkdir** - **Make Directory**: Cria uma nova pasta
+-   **mv** - **Move**: Move ou renomeia um arquivo/pasta
+-   **cp** - **Copy**: Copia um arquivo/pasta
+-   **rm** - **Remove**: Apaga um arvquivo. **CUIDADO**: Não tem lixeira!!!
+-   **rm -r** - **Remove Recursively**: Apaga uma pasta e todo o seu conteúdo. **CUIDADO!**
+-   **cat** - **Concatenate**: Mostra o conteúdo de um arquivo.
+-   **grep** - **Global Regular Expression Print**: Busca por padrões em arquivos.
+-   **find** - Busca por arquivos e pastas.
+-   **history** - Mostra o histórico de comandos usavos.
+-   **clear** - Limpa a tela do terminal.
+-   **echo** - Imprime texto na tela ou em uma arquivo.
 
 ## Documentação em Markdown
 
 ### Comandos Básicos
 
-- **Hashtags** para Títulos, uma para título 1, duas para título 2 e assim por diante.
-- * ou _ para itálico e ** e __ para negrito.
-- **Listas**: - ou * para ítens de listas; 1. e 2. para listas numeradas; Para listas aninhadas, usar TAB na segunda.
-- **Links**: colchetes para texto do link seguidos de parênteses para criar os links.
-- **Imagens**: Usar ! seguidos de colchetes e parênteses como no ítem anterior.
-- **Imagens com Links**: Colchetes e dentro deles o processo anterior, uma vez fechados, parênteses com o link.
+-   **Hashtags** para Títulos, uma para título 1, duas para título 2 e assim por diante.
+-   
+    -   ou _ para itálico e ** e __ para negrito.
+-   **Listas**: - ou * para ítens de listas; 1. e 2. para listas numeradas; Para listas aninhadas, usar TAB na segunda.
+-   **Links**: colchetes para texto do link seguidos de parênteses para criar os links.
+-   **Imagens**: Usar ! seguidos de colchetes e parênteses como no ítem anterior.
+-   **Imagens com Links**: Colchetes e dentro deles o processo anterior, uma vez fechados, parênteses com o link.
 
 ### Blocos de Códigos
 
-- **Códigos em Linha**: Crase simples `código`.
-- **Blocos de Códigos**: Três crases seguidas da sinalização da linguagem. Pode-se usar o atalho *ctrl + alt + i*.
+-   **Códigos em Linha**: Crase simples `código`.
+-   **Blocos de Códigos**: Três crases seguidas da sinalização da linguagem. Pode-se usar o atalho *ctrl + alt + i*.
 
 ### Tabelas
 
-- **Para tabelas**: Usar --- e |.
+-   **Para tabelas**: Usar --- e |.
 
 ### Notas de Rodapé
 
-- Usar colchetes-circunflexo-número para notas de rodapé "[^1]". Ao final do documento, define-se o que é escrito na nota em questão.
+-   Usar colchetes-circunflexo-número para notas de rodapé "[^1]". Ao final do documento, define-se o que é escrito na nota em questão.
 
 ### Referências e Citações em Quarto
 
-- Referências: usar colchetes com @ e o nome-ano para citar as referências.
+-   Referências: usar colchetes com @ e o nome-ano para citar as referências.
 
 ### Principais comandos de GIT
 
-- **git init**: Inicializa um repositório Git em um diretório.
-- **git add <arquivo>**: Adiciona um arquivo ao índice.
-- **git commit -m "mensagem"**: Salva as alterações no repositório.
-- **git push**: Envia as alterações para o repositório remoto.
-- **git pull**: Atualiza o repositório local com as alterações do repositório remoto.
-- **git clone**: Clona o repositório remota para o repositório local.
+-   **git init**: Inicializa um repositório Git em um diretório.
+-   **git add** <arquivo>: Adiciona um arquivo ao índice.
+-   **git commit -m "mensagem"**: Salva as alterações no repositório.
+-   **git push**: Envia as alterações para o repositório remoto.
+-   **git pull**: Atualiza o repositório local com as alterações do repositório remoto.
+-   **git clone**: Clona o repositório remota para o repositório local.
