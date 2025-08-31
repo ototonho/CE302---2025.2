@@ -19,4 +19,5 @@
 - 4 Provas + um trabalho (P5)
 
 ####Exercícios - 20% da nota final
+
 ####Quizz - 10% da nota final
