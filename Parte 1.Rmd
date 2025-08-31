@@ -57,8 +57,11 @@ date: "2025-08-31"
 
 - Referências: usar colchetes com @ e o nome-ano para citar as referências.
 
-## Versionamento de Códigos
+### Principais comandos de GIT
 
-## Git
-
-## Git no RStudio
+- **git init**: Inicializa um repositório Git em um diretório.
+- **git add <arquivo>**: Adiciona um arquivo ao índice.
+- **git commit -m "mensagem"**: Salva as alterações no repositório.
+- **git push**: Envia as alterações para o repositório remoto.
+- **git pull**: Atualiza o repositório local com as alterações do repositório remoto.
+- **git clone**: Clona o repositório remota para o repositório local.
