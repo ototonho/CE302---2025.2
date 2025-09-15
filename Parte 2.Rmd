@@ -4,7 +4,7 @@ output: html_document
 date: "2025-09-14"
 ---
 
-# Módulo 2
+# **Módulo 2**
 
 ## Introdução e objetivos
 
@@ -613,8 +613,213 @@ novas_notas <- c(notas,
 novas_notas
 ```
 
-
-
 ## Matrizes, listas e tabelas
 
+### Matrizes
+
+Matrizes são um simples extensão dos vetores. São vetores com dimensão (número de linhas e colunas). Todos os elementos de uma matriz devem ser do mesmo tipo.
+Definindo uma matriz: 
+
+```{r}
+matriz <- matrix(data = c(1, 0, 0, 1),
+                 nrow = 2, ncol = 2)
+matriz
+
+```
+
+#### Acessando a dimensão de uma matriz
+
+```{r}
+dim(matriz)
+
+```
+
+Matrizes são por default preenchidas por colunas.
+
+```{r}
+matriz <- matrix(c(1,2,3,4,5,6,7,8),
+                 nrow = 4, ncol = 2)
+matriz
+```
+
+Mas pode-se preencher por linhas
+
+```{r}
+matriz <- matrix(c(1,2,3,4,5,6,7,8),
+                 nrow = 4, ncol = 2,
+                 byrow = TRUE)
+matriz
+
+```
+
+#### Acessando elementos de uma matriz
+
+Acesso por posição (linha e coluna).
+
+```{r}
+# Linha 1 Coluna 2
+matriz[1,2]
+
+# Linha 3 Coluna 1
+matriz[3,1]
+
+# Linhas 1 e 2 Coluna 2
+matriz[1:2, 2]
+
+# Linhas 2 e 3 e Colunas 1 e 2
+matriz[2:3, 1:2]
+
+```
+
+#### Seleção condicional por máscara
+
+```{r}
+## Elementos maiores do que 4
+matriz[matriz > 4]
+
+## Máscara lógica
+matriz > 4
+
+```
+
+### Listas
+
+A estrutura `list` é a mais exível em R. Pode armazenar diferentes tipos de objetos.
+
+```{r}
+minha_lista <- list(10, "Dez", TRUE, 1+10i)
+minha_lista
+
+```
+
+Acessando elementos de uma lista.
+
+```{r}
+# Primeiro elemento
+minha_lista[[1]]
+
+# Quarto elemento
+minha_lista[[4]]
+
+# Primeiro e quarto elemento
+minha_lista[c(1,4)]
+
+```
+
+#### Listas nomeadas
+
+Os elementos da lista podem ser nomeados.
+
+```{r}
+minha_lista <-  list("Números" = c(10, 100), 
+                     "Caracter" = c("Dez", "Cem", 
+                                    "Logico" = TRUE, 
+                                    "Complexo" = 1+10i))
+
+minha_lista
+
+```
+
+Acesso pelo nome
+
+```{r}
+minha_lista$Logico
+
+minha_lista$Números
+
+```
+
+Acessando os atributos de uma lista
+
+```{r}
+attributes(minha_lista)
+
+```
+
+### Tabelas
+
+- Classe mais utilizada para representar conjuntos de dados.
+- Similar a uma planilha eletrônica.
+- Um `data.frame` tem diversos atributos: `rownames()`, `colnames()`, `names()` e `dim()`.
+- É aconselhável usar a convenção: cada linha representa uma observação (registro) e cada coluna uma variável.
+- R permite ler conjuntos de dados de diversos formatos.
+- O R já vem equipado com conjuntos de dados para ns didáticos.
+- Conjunto de dados iris.
+
+```{r}
+str(iris)
+
+```
+
+#### Classe factor
+
+A classe factor é similar a character no entanto permite denir ordem. Por exemplo:
+
+```{r}
+fator <- factor(c("alta","baixa","baixa","media",
+                  "alta","media","baixa","media","media"),
+                levels = c("baixa", "media", "alta"),
+                ordered = TRUE)
+
+```
+
+Se zermos uma tabela, por exemplo, a ordem será respeitada
+
+```{r}
+table(fator)
+
+```
+
+
+#### Criando e inspecionando um `data.frame`
+
+Podemos criar um `data.frame` diretamente em R.
+
+```{r}
+dados <- data.frame(Letras = letters[1:6],
+                    Numeros = 1:6,
+                    Logico = rep(c(TRUE, FALSE),
+                                 each = 3))
+dados
+
+```
+
+Diversas opções de inspeção: 
+
+- `head()` - mostra as seis primeiras linhas.
+- `tail()` - mostra as seis últimas linhas.
+- `dim()` - número de linhas e de colunas.
+- `nrow()` - número de linhas.
+- `ncol()` - número de colunas.
+- `str()` - estrutura do `data.frame`.
+- `names()`, `colnames()` e `rownames()` nome das linhas e colunas.
+
+#### Acessando elementos de um `data.frame`
+
+O acesso é parecido com objetos da classe `matrix`.
+
+```{r}
+# Primeira linha todas as colunas
+iris[1,]
+
+# Segunda linha colunas de 1 a 3
+iris[2,1:3]
+
+# Linhas 1 e 5 todas as colunas
+iris[c(1, 5),]
+
+# Acesso pelo nome da coluna
+iris$Sepal.Length
+
+```
+
+## **Resumo**
+
+- Os principais tipos de dados são: `character`, `numeric`, `integer`, `logical`, `complex` e `raw`.
+- As principais estruturas de dados são: `vector`, `matrix`, `list` e `data.frame`.
+- Lembre-se:
+  - Vetores: conjunto de elementos unidimensional, todos do mesmo tipo.
+  - Matrizes: conjunto de elementos bidimensional (linha e coluna), todos do mesmo tipo.
+  - Listas: caso especial de vetor em que cada elemento pode ser uma estrutura diferente.
+  - Data frames: tabela. Cada coluna é um vetor, portanto os elementos dentro da coluna são de mesmo tipo mas os tipos entre colunas podem ser diferentes.
 
