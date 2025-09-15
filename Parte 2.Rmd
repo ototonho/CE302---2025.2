@@ -368,12 +368,250 @@ lista <- list("a" = 5, "b" = 5L,
 "c" = "Letra") # diferentes tipos de objetos
 
 tab <- data.frame("Nome" = c("Bent", "Jon"),
-"Idade" = c(3, 4))
+                  "Idade" = c(3, 4))
 
 ```
 
 
 ## Vetores atômicos
+
+Quando combinamos objetos de um único tipo temos os vetores **atômicos.**. Exemplo: `vetor_numerico <- c(1, 5, 11, 33)`. 
+Como nomear objetos em R?
+
+- Um nome pode consistir de letras, números, e _;
+- Não pode conter palavras reservadas: TRUE, FALSE, NULL, if entre outras;
+- Veja todas as palavras reservadas usando ? Reserved.
+
+1. Vetor de caracteres. Ex: `vetor_caracter <- c("hello", "world")`.
+2. Vetor Lógico. Ex: `vetor_logico <- c(TRUE, TRUE, FALSE)`.
+3. Vetor combinado. Ex: 
+
+```{r}
+vetor_combinado <- c(vetor_numerico,
+                     vetor_caracter,
+                     vetor_logico,
+                     "boo")
+```
+
+4. Coerção entre objetos. Ex: `class(vetor_combinado)`.
+
+### Como consultar o tipo de um objeto?
+
+Usa-se `is.*` para consultar o tipo de um objeto. Ex:
+
+```{r}
+# Funções que começam com is.
+# apropos("^is\\.")
+is.integer(1)
+is.numeric(1)
+is.integer(1L)
+is.numeric(1L)
+is.character("Curitiba")
+y <- factor(c("Solteiro", "Casado"))
+is.factor(y)
+is.character(y)
+is.logical(c(TRUE, FALSE))
+
+```
+
+Outra opção seria usar `typeof()`.
+
+```{r}
+x <- "caracter"
+typeof(x) ## [1] "character"
+
+x <- 10
+typeof(x) ## [1] "double"
+
+x <- 10L
+typeof(x) ## [1] "integer"
+
+x <- TRUE
+typeof(x) ## [1] "logical"
+```
+
+### Conversão e classe de objetos
+
+O R é uma linguagem automaticamente tipicada. Pode ser necessário converter um objeto para diferentes tipos.
+Exemplo: 
+
+```{r}
+x <- 10
+is.numeric(x)
+
+x <- as.logical(x)
+is.numeric(x)
+
+```
+
+A classe `(class())` de um objeto orienta que tipo de métodos podemos usar.
+Métodos são funções genéricas do R que atuam de forma diferente de acordo com o tipo do objeto.
+Exemplo:
+
+```{r}
+# Um vetor numérico.
+x <- c(1, 2, 3)
+class(x)
+
+methods(class = "numeric")
+
+```
+
+É possível, ainda, criar objetos com atributos.
+Exemplos:
+
+```{r}
+# Numérico mas com valores nomeados.
+notas <- c("João" = 7.8,
+"Bianca" = 10,
+"Eduarda" = 8.5)
+class(notas)
+
+attributes(notas)
+
+names(notas) # acessando os atributos do vetor
+
+length(notas) # acessando o tamanho do vetor
+
+```
+
+### Criando sequências estruturadas
+
+Função `seq()` cria sequências estruturadas.
+Exemplo: 
+
+```{r}
+# Sequencia de 1 a 7
+1:7
+
+# Sequencia de 1 a 10 de 2 em 2
+seq(from = 1, to = 10, by = 2)
+
+# Sequencia de 1 a 20 de tamanho 7
+seq(from = 1, to = 20, length.out = 7)
+
+# Sequencia começando em 1 de tamanho sete de 2 em 2.
+seq(from = 1, by = 2, length.out = 7)
+
+```
+
+### Criando repetições estruturadas
+
+Função `rep()` cria repetições estruturadas.
+Exemplo:
+
+```{r}
+# Repita o 0 5 vezes
+rep(0, 5)
+
+# Repita a sequencia 1 a 3, 2 vezes
+rep(1:3, times = 2)
+
+# Repita a sequencia 1 a 3, cada número 2 vezes
+rep(1:3, each = 2)
+
+```
+
+### Gerando valores aleatórios
+
+Dado um vetor de elementos podemos usar a função sample() para obter uma amostra aleatória.
+Exemplo:
+
+```{r}
+# Retire uma amostra aleatório de tamanho 10 de uma sequencia de 1 a 20 sem reposição.
+sample(1:20, size = 10, replace = FALSE)
+
+# Retire uma amostra de tamanho 10 da sequencia "a", "b", "c" de tamanho 10 com reposição.
+sample(c("a", "b", "c"), size = 10, replace = TRUE)
+
+```
+
+Ou ainda, usando distribuições de probabilidade:
+
+```{r}
+# 10 amostras da distribuição uniforme entre 0 e 1
+runif(n = 5, min = 0, max = 1)
+
+# 10 amostras da distribuição Normal com média 1.80 e desvio-padrão 0.1
+rnorm(n = 5, mean = 1.80, sd = 0.1)
+
+```
+
+
+### Selecionando elementos de um vetor
+
+Podemos selecionar os elementos de um vetor usando: alguma característica, posição ou nome.
+Exemplo:
+
+```{r}
+## Criando vetor numérico nomeado.
+notas <- c("João" = 7.8,
+"Bianca" = 10,
+"Eduarda" = 8.5,
+"Felipe" = 7.0,
+"Márcia" = 6.5)
+
+notas[1] # A posição 1.
+notas[5] # A posição 5.
+notas[1:2] # Um intervalo.
+notas[c(1, 3)] # Um conjunto.
+notas[-1] # Remove.
+
+```
+
+### Seleção com máscara lógica
+
+```{r}
+# Alunos com nota maior que 7.0
+mask <- notas > 7.0
+mask
+
+notas[mask]
+
+# Alunos com nota maior que 9.0
+notas[notas > 9.0]
+
+
+```
+
+### Modificando vetores
+
+```{r}
+# Atribui nota para um aluno.
+notas["João"] <- 0
+notas
+
+# Atribui nota "desconhecida" para aluno.
+notas["Felipe"] <- NA
+notas
+
+```
+
+### Removendo e adicionando componentes de um vetor
+
+#### Removendo
+
+```{r}
+# Remove elemento do vetor.
+notas <- notas[-4]
+notas
+
+```
+
+
+#### Adicionando
+
+```{r}
+append(notas, value = c("Carlos" = 9.0))
+
+append(notas, value = c("Simone" = 7.2),
+       after = 0)
+
+novas_notas <- c(notas,
+                 c("Pedro" = 8.0,
+                   "Luana" = 8.3))
+novas_notas
+```
 
 
 
