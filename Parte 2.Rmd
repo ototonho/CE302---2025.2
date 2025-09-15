@@ -123,6 +123,79 @@ install.packages("tidyverse")
 
 ## Arquivos, pacotes e documentação
 
+### Arquivos da linguagem R
+
+Há inúmeros arquivos para melhorar a experiência dos usuário:
+
+- .Rhistory: arquivo de texto que salva o histórico de instruções executadas.
+- .RData: arquivo binário que salva objetos na área de trabalho. Serve para restaurá-los e é útil quando o processamento é demorado.
+- .Rproj: arquivo que define configurações do projeto. O uso também pode ser configurado por meio do caminho *RStudio IDE > Tools > Global Options*
+- .Rprofile: Arquivos de configurações lido no início das seções. Carrega pacotes muito usados e configura opções, mensagem de boas vindas e diagnóstico do sistema, pode ser definido por projeto ou por usuário.
+
+### Instalação de pacotes
+
+#### Pacotes 
+
+São coleções de funções e conjuntos de dados organizados e documentados. Um pacote contém código R e eventualmente códigos de outras linguagens. Podem depender de *libs* do sistema operacional.
+
+##### Formas de instalação
+
+Pacotes podem ser instalados de repositórios: CRAN, Biocondutor, MRAN, etc; de arquivos de instalação: *.tar.gz; De repositórios GIT: Github, Gitlab, etc.
+
+```{r}
+# Para instalar um pacote do repositório.
+install.packages("tidyverse")
+
+# Para carregar o pacote e usá-lo.
+library(tidyverse)
+
+# Para ver o conteúdo dele.
+ls("package:tidyverse")
+
+# Documentação do pacote.
+help(package = "tidyverse")
+
+# Para ver onde foi instalado.
+system.file(package = "tidyverse")
+
+# Os caminhos para endereços de instalação.
+.libPaths()
+
+# Para remover o pacote da sessão.
+detach("package:tidyverse", unload = TRUE)
+
+# Funções relacionadas a pacotes.
+apropos("package")
+
+```
+
+### Documentação interna
+
+Consiste de documentação de objetos e funções. Tutoriais chamados de vinhetas (vignettes). Existem funções especícas para a consulta destes. Pode-se procurar na web também.
+
+```{r}
+# Duas formas iguais de chamar
+# a documentação.
+?women
+help(women)
+
+# Procura por ocorrêncians de `women`.
+help.search("women")
+
+# Objetos que batem com o termo.
+apropos("tukey")
+
+# Exibe as vinhetas de um pacote.
+browseVignettes(package = "survival")
+
+# Procura pelo termo no
+# r-project.org.
+RSiteSearch("spider plot")
+
+```
+
+
+
 ## Operações aritméticas e lógicas
 
 ## Estrutura de dados
