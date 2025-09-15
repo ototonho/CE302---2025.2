@@ -1,0 +1,132 @@
+---
+title: "Módulo 2"
+output: html_document
+date: "2025-09-14"
+---
+
+# Módulo 2
+
+## Introdução e objetivos
+
+### Objetivos
+
+Entender o R e como ele interage com o computador. Saber consultar sua documentação. Há mais de 18 mil pacotes oficiais no CRAN, multiplataforma, inpumeros recursos gráficos. Download e pipipipopopó. IDEs/Editores disponíveis para R: Rstudio, Rcode, Tinn-R; VIM, Visual Studio Code (VS Code), GNU Emacs, Spacemacs ou Doom-Emacs usando ESS.
+
+## Primeiros passos
+
+-   CLi - command line interface
+-   REPL - Read, eval, print and loop
+
+O básico é ter uma linha/cadeia de comando, coisa que já sabemos. Basicamente, é a linha de comandos redigidos.
+
+### Modos de uso
+
+-   Modo REPL: script com instruções, que são avaliadas no console, supervisionadas pelo analista, e salvas, duplicadas ou modificadas de acordo com a necessidade.
+-   Modo Batch: script pode ser executado sem supervisão; é usado em ambientes de produção ou simulação computacional.
+
+As instruções ou comentários são marcados pelas #. Após elas, tudo no código é entendido como comentário. Linhas sem # são executadas no terminal. Instruções podem ser dadas em uma linha ou em várias. Para mais de uma instrução em uma mesma linha, separar cm ponto e vírgula (;). Ex:
+
+```{r}
+# soma simples
+x <- 57 + 19
+print(x)
+
+# Meu IMC
+82/1.70^2
+
+# Instrução em uma única linha
+2 + 5 + 8 - 15 + 9
+
+# Instrução em várias linhas
+2 + 
+  9 -
+  7 +
+  2
+
+```
+
+#### Recomendações:
+
+1. Evitar passar de 72 ou 80 caracteres;
+2. Manter o código devidamente indentado (CTRL + i);
+3. Evitar muitas instruções em uma mesma linha.
+
+### Ordem de execução dos comandos
+
+É a mesma ordem de execução matemática usual
+
+```{r}
+2 + 2 * 4
+2 + (2 * 4)
+2^2 * 5^3
+(2^2) * (5^3)
+```
+
+### Área e espaço de trabalho
+
+**Criação de objetos**
+
+Ao fazer atribuições, são criados objetos na área de trabalho. Usa-se <- para atribuir algo a um objeto (alt + i). Objetos podem ser reusados para criar outros (é a intenção). Ex:
+
+```{r}
+
+# Criação de objetos para fazer operações
+peso <- 82
+altura <- 1.70
+IMC <- peso/altura^2
+IMC
+
+# Listar objetos da área de trabalho
+ls()
+
+# Apagar objetos
+rm(IMC)
+ls() # mostra o conteúdo do .GlobalEnv, a área de trabalho
+# peso  altura
+
+
+```
+
+O comando ls() mostra o conteúdo do .GlobalEnv, a área de trabalho, mas também há objetos em outros ambientes e espaços. Esses são os espaços dos pacotes. Quando não encontra um objeto em .GlobalEnv, ele parte para o próximo ambiente de trabalho. search() retorna a lista de espaços de trabalho. Cada pacote tem o seu próprio. Ex:
+
+```{r}
+# Espaços de trabalho
+women # já existente dentro do R
+
+# Para listar o conteúdo de um determinado espaço
+ls("package:datasets") # lista todos os datasets integrados ao R
+
+# Caso crie-se um objeto com um nome de um dataset do R, é possível acessá-lo por meio de 
+datasets::women
+
+```
+
+### Diretório de Trabalho
+
+O diretório de trabalho é o local no sistema operacional para onde o R está apontando. Isto é, de onde ele lê e escreve arquivos de modo padrão. Pode-se definir comandos (recomendável) ou usando *RStudio IDE > Session > Setting Work Directory*. Ex: 
+
+```{r}
+# Diretório atual de trabalho
+getwd()
+
+# Trocar diretório de trabalho
+# setwd("~/Downloads") # moveria para os downloads
+
+# Lista o conteúdo do diretório atual
+dir()
+
+# Instalação de pacotes
+install.packages("tidyverse")
+
+```
+
+
+## Arquivos, pacotes e documentação
+
+## Operações aritméticas e lógicas
+
+## Estrutura de dados
+
+## Vetores atômicos
+
+## Matrizes, listas e tabelas
