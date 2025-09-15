@@ -186,7 +186,7 @@ help.search("women")
 apropos("tukey")
 
 # Exibe as vinhetas de um pacote.
-browseVignettes(package = "survival")
+browseVignettes(package = "survival") # é outro tipo de documentação, mas não são padronizadas como a documentação oficial
 
 # Procura pelo termo no
 # r-project.org.
@@ -194,12 +194,189 @@ RSiteSearch("spider plot")
 
 ```
 
+#### Campos oficiais da documentação: 
+
+- **Cabeçalho**: Indica o pacote.
+- **Título**: Resumo do que são os objetos documentados
+- **Descrição**: do que o objeto é/faz
+- **Usage**: Como usar ou formas de montar as instruções
+- **Arguments**: Quais os argumentos formais da função
+- **Value**: O que a função retorna
+
+### Guia de sobrevivência do R
+
+**4 Principais funções para o iniciante**
+
+1. str()
+2. ls()
+3. apropos()
+4. help()
+
+**Outras funções úteis**
+
+1. help.search()
+2. help.start()
+3. RSiteSearch()
+4. browseVignettes()
+5. vignette()
+
+1. args()
+2. class()
+3. methods()
+4. find()
+5. example()
+6. demo()
 
 
 ## Operações aritméticas e lógicas
 
+### Operações básicas
+
+```{r}
+2 + 3 # Soma.
+2 - 3 # Subtração.
+2 * 3 # Multiplicação.
+2/3 # Divisão.
+2^3 # Potenciação.
+2^(1/3) # Radiciação.
+10 %% 3 # Resto.
+10 %/% 3 # Parte inteira.
+
+```
+
+### Logarítmo
+
+```{r}
+exp(2) # Exponencial neperiano.
+log(10) # Neperiano.
+log10(10) # Base 10.
+log2(10) # Base 2.
+log(10, base = 5) # Base qualquer.
+```
+
+### Trigonométricas
+
+```{r}
+sin(3) # Seno.
+cos(3) # Cosseno.
+tan(3) # Tangente.
+asin(0.5) # Arco seno.
+acos(0.5) # Arco cosseno.
+atan(0.5) # Arco tangente.
+
+```
+
+### Arredondamento
+
+```{r}
+round(pi, digits = 5)
+floor(pi) # Inteiro logo baixo.
+ceiling(pi) # Inteiro logo acima.
+trunc(pi) # Trunca em relação ao zero.
+
+```
+
+### Operações lógicas
+
+#### Comparações de valor
+
+```{r}
+x <- 3
+y <- 4
+
+2 == 2 # Igualdade.
+2 != 2 # Desigualdade.
+x <= y  # Outros operadores: "<", ">", and ">=".
+
+(2 < 5) & (7 >= 3) # Operador AND.
+(2 < 5) | (7 >= 3) # Operador OR.
+!(2 < 5) # Operador NOT.
+"a" == "b" # Compara strings.
+"a" < "b" # Ordem alfanumérica.
+
+```
+
+#### Tipos especiais
+
+**NA**: para valores ausentes.
+**NULL**: para objetos vazios.
+**Inf** e **-Inf**: para innitos.
+**NaN**: para resultados não razoavelmente
+denidos.
+
+
+```{r}
+5 + NA          # O resultado é NA.
+is.na(5 + NA)   # Verifica se é NA.
+
+10 + NULL       # Retorna objeto vazio.
+is.null(NULL)   # Verifica se é nulo.
+
+5/0             # Infinito.
+is.finite(5/0)  # Verifica se é finito.
+
+0/0             # Valor indeterminado.
+is.nan(0/0)     # Verifica se é not a number.
+```
+
+
 ## Estrutura de dados
+
+### Tipos de objetos
+
+Praticamente tudo em R são objetos. Objetos têm duas características: tipo(type) e classe(class). O tipo de um objeto diz o que é possível fazer com ele. A classe diz quais métodos podemos aplicar em um objeto. Precisamos conhecer as principais estruturas e suas características. Principais tipos de objetos em R: 
+
+- Caracteres (character); 
+- Números reais (double e numeric); 
+- Números inteiros (integer); 
+- Lógico (logical); 
+- Complexo (complex);
+- Raw (cru/bruto).
+
+```{r}
+inteiro <- 10L # O L força a interpretar o 10 como inteiro, e não real
+real <- 10
+is.numeric(inteiro)
+
+is.numeric(real)
+is.double(inteiro)
+is.double(real)
+is.integer(inteiro)
+is.integer(real)
+
+```
+
+
+### Estruturas de dados
+
+Conjuntos de dados são combinações dos de objetos. Como organizar tais dados é o que chamamos de estruturas de dados. O R vem equipado com diversas estruturas para trabalhar com dados. Essas estruturas são chamadas de classes, cujo comando é class().
+Estruturas mais importantes em R: 
+
+- atomic vector (vetores atômicos).
+- matrix (matrizes).
+- list (listas).
+- data.frame (tabelas).
+
+Exemplos de criação de objetos: 
+
+```{r}
+vetor_atomico <- c(1,2,3,4)
+
+matriz <- matrix(c(1,0,0,1),2, 2) # dá dimensão (linhas e colunas) a um vetor
+
+lista <- list("a" = 5, "b" = 5L,
+"c" = "Letra") # diferentes tipos de objetos
+
+tab <- data.frame("Nome" = c("Bent", "Jon"),
+"Idade" = c(3, 4))
+
+```
+
 
 ## Vetores atômicos
 
+
+
 ## Matrizes, listas e tabelas
+
+
