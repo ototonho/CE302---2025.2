@@ -1,6 +1,8 @@
 ---
 title: "Módulo 2"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-09-14"
 ---
 
@@ -107,16 +109,16 @@ O diretório de trabalho é o local no sistema operacional para onde o R está a
 
 ```{r}
 # Diretório atual de trabalho
-getwd()
+# getwd()
 
 # Trocar diretório de trabalho
 # setwd("~/Downloads") # moveria para os downloads
 
 # Lista o conteúdo do diretório atual
-dir()
+# dir()
 
 # Instalação de pacotes
-install.packages("tidyverse")
+# install.packages("tidyverse")
 
 ```
 
@@ -144,7 +146,7 @@ Pacotes podem ser instalados de repositórios: CRAN, Biocondutor, MRAN, etc; de 
 
 ```{r}
 # Para instalar um pacote do repositório.
-install.packages("tidyverse")
+# install.packages("tidyverse")
 
 # Para carregar o pacote e usá-lo.
 library(tidyverse)
@@ -387,10 +389,17 @@ Como nomear objetos em R?
 3. Vetor combinado. Ex: 
 
 ```{r}
+
+vetor_numerico <- c(1, 5, 11, 33)
+vetor_caracter <- c("hello", "world")
+vetor_logico <- c(TRUE, TRUE, FALSE)
+
 vetor_combinado <- c(vetor_numerico,
                      vetor_caracter,
                      vetor_logico,
                      "boo")
+
+vetor_combinado
 ```
 
 4. Coerção entre objetos. Ex: `class(vetor_combinado)`.
