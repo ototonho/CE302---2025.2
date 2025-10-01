@@ -1,0 +1,39 @@
+---
+title: "Parte 3"
+output: html_document
+date: "2025-10-01"
+---
+
+# Parte 3
+
+## Estruturas de Programação
+
+### Estruturas de Controle
+
+Elas permitem fazer execução condicional ou seletiva de instruções conforme o resultado de condições que são testadas.
+
+Os tipos mais comuns são:
+
+-   IF-ELSE.
+-   SWITCH ou CASES.
+
+### Estruturas de Repetição
+
+Também chamados de loops ou estruturas de iteração que permitem executar instruções um certo número de vezes até que uma condição seja atingida.
+
+Os tipos mais comuns são:
+
+-   FOR ou FOREACH.
+-   WHILE.
+-   REPEAT ou DO-UNTIL.
+
+## Estruturas de Controle
+
+### Estrutura de IF-ELSE
+
+O IF-ELSE permite desviar a execução do código conforme uma condição cujo resultado é lógico, ou seja, TRUE ou FALSE.
+
+Se o resultado da condição for TRUE, executa-se certas instruções.
+
+Se o resultado da condição for FALSE, executa-se outras instruções.
+
