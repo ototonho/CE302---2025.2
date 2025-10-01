@@ -217,3 +217,109 @@ s
 
 ### Estrutura WHILE
 
+O loop WHILE é usado quando precisa executar instruções um número desconhecido de vezes até que uma condição seja atendida.
+
+A condição é testada antes das instruções serem avaliadas.
+
+Cuidado: uma condição de parada deve ser declarada para que o loop não seja interminável.
+
+#### Exemplo de estrutura WHILE no R
+
+```{r}
+n_numbers <- 12
+total <- 0
+i <- 1L
+while (i < n_numbers){
+  u <- total + runif(1)
+  if (sum(u) > 4) break
+  total <- u
+  i <- i + 1L
+}
+total
+```
+
+### Estrutura REPEAT
+
+O loop REPEAT é usado quando precisa executar instruções um número **desconhecido** de vezes até que uma condição seja atendida.
+
+A condição é testada **em qualquer posição** dentro das instruções a serem executadas.
+
+Cuidado: uma condição de parada deve ser declarada para que o loop não seja interminável.
+
+
+#### Exemplo de estrutura REPEATA no R
+
+```{r}
+total <- 0
+i <- 1L
+repeat {
+  u <- total + runif(1)
+  if (sum(u) > 4 ) break
+  total <- u
+  i <- i + 1L
+}
+total
+```
+
+#### Exercício - Lançamento de Dados
+
+Considere o seguinte jogo: lançar 3 dados até que os valores das faces sejam uma sequência, por exemplo, 3, 4 e 5 ou 1, 2 e 3.
+
+1. Use um loop WHILE ou o REPEAT para contar quantas tentativas são necessárias até atingir o resultado.
+2. Dicas:
+  - use sample() para sortear 3 valores do espaço amostral.
+  - em seguida ordene os valores do menor para o maior com sort().
+  - calcule a diferença entre valores consecutivos com diff().
+
+**Com WHILE**
+
+```{r}
+n_max <- 100
+tentativas <- 1
+while (tentativas < n_max) {
+  l1 <- sample(1:6, 3, replace = TRUE) # joga os dados
+  l1_ordenado <- sort(l1) # ordenada
+  print(l1_ordenado)
+  seque <- sum(ifelse(diff(l1_ordenado) == 1, TRUE, FALSE))
+  if(seque == 2) break
+  tentativas <- tentativas + 1
+}
+
+tentativas
+```
+
+**Com REPEAT**
+
+E se quisermos saber: em média, quantos lançamentos são necessários?
+
+Refaça n-vezes
+
+- Para isso, pode-se usar o loop FOR com um loop WHILE dentro.
+- Cada ciclo do FOR determina o número de tentativas usadas no WHILE.
+- Depois é só calcular a média.
+- No entanto, para situações como essa de execuções independentes das mesmas instruções, pode-se usar a replicate().
+
+
+```{r}
+output <- c()
+for (i in 1:1000) {
+  n_max <- 100
+  tentativas <- 1
+  while (tentativas < n_max) {
+    l1 <- sample(1:6, 3, replace = TRUE) # joga os dados
+    l1_ordenado <- sort(l1) # ordenada
+    print(l1_ordenado)
+    seque <- sum(ifelse(diff(l1_ordenado) == 1, TRUE, FALSE))
+    if(seque == 2) break
+    tentativas <- tentativas + 1
+  }
+  output[i] <- tentativas
+}
+
+mean(output)
+hist(output)
+
+```
+
+## Funções
+
