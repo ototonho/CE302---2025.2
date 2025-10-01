@@ -37,3 +37,183 @@ Se o resultado da condição for TRUE, executa-se certas instruções.
 
 Se o resultado da condição for FALSE, executa-se outras instruções.
 
+#### Exemplo de estrutura IF-ELSE no R
+
+```{r}
+faltas <- 10
+nota <- 70
+if (nota >= 70 & faltas < 15) {
+  result <- "Aprovado"
+} else if (nota < 70) {
+  result <- "Reprovado por nota"
+} else {
+  result <- "Reprovado por faltas"
+}
+result
+```
+
+#### Exercício - Saudação conforme o horário em automação de email marketing
+
+Com base na hora do envio de uma mensagem, use bom dia, boa tarde ou boa noite.
+
+- Se entre 6h00 e 11h59, então "Bom dia!"
+- Se entre 12h00 e 17h59, então "Boa tarde!"
+- Se entre 18h00 e 22h59, então "Boa noite!"
+- Caso nenhum dos acima, não enviar a mensagem.
+
+```{r}
+horario <- as_hms("12:30:00")
+if ((horario > as_hms("06:00:00")) & (horario < as_hms("11:59:00"))) {
+  result <- "Bom dia"
+} else if ((horario > as_hms("12:00:00")) & (horario < as_hms("17:59:00"))) {
+  result <- "Boa tarde"
+} else if ((horario > as_hms("18:00:00")) & (horario < as_hms("05:59:00"))) {
+  result <- "Boa noite"
+} else {
+  result <- "Diga um horário"
+}
+result
+```
+
+#### Versão do professor:
+
+```{r}
+h <- 9
+
+if ((h >= 6) & (h < 12)) {
+  saudacao <- "Bom dia"
+} else if ((h >= 13) & (h < 18)) {
+  saudacao <- "Boa tarde"
+} else if ((h >= 19) & (h < 23)) {
+  saudacao <- "Boa noite"
+} else {
+  saudacao <- "Não enviar mensagem!"
+  stop("Não enviar mensagem!")
+}
+
+saudacao
+```
+
+### Estrutura SWITCH
+
+- O SWITCH nada mais é que um empilhamento de estruturas IF-ELSE.
+- No entanto, ele confere mais clareza para o código e eciência.
+- O caso mais comum é usar SWITCH para testar um valor contra um conjunto de strings.
+- Geralmente há uma condição nal ou de escape.
+
+#### Exemplo de Estrutura SWITCH
+
+```{r}
+#animal <- "gato"
+#som <-
+  #switch(animal,
+         #"cachorro" = {
+           #latir()
+         #},
+         #"gato" = {
+           #miar()
+         #},
+         #"vaca" = {
+           #mugir()
+         #},
+         #{
+           #silencio()
+         #})
+#som
+```
+
+#### Exemplo - Tipos de média
+
+**As médias estão após as # para que seja fácil de alterar no exemplo, só apagar um # e acrescentar na que não for usar**
+
+```{r}
+tipo <- "aritmetica"
+#tipo <- "harmonica"
+#tipo <- "geometrica"
+
+x <- 1:10
+
+switch(tipo,
+       "aritmetica" = {
+         mean(x)
+       },
+       "harmonica" = {
+         length(x)/sum(1/x)
+       },
+       "geometrica" = {
+         prod(x)^(1/length(x))
+       },
+       {
+         NA_real_
+       })
+
+
+```
+
+#### Versões Vetoriais
+
+- A estrutura IF-ELSE apresentada **não é vetorial**, ou seja, no teste da condição são comparados
+dois valores.
+- Quando a condição tiver que ser testada sobre uma série de valores em um vetor, pode-se usar a função `base::ifelse()` ou `dplyr::if_else()`.
+- A versão vetorial para a estrutura SWTICH é o `dplyr::case_when()`.
+
+##### Exemplo
+
+```{r}
+# Notas dos alunos.
+notas <- c("João" = 70, "Ana" = 89, "Márcia" = 81, "Tiago" = 65, "Rodrigo" = 35)
+
+# Usando IF-ELSE vetorial.
+ifelse(notas >= 70, "Aprovado",
+       ifelse(notas >= 40, "Exame",
+              "Reprovado"))
+```
+
+##### Exemplo com SWITCH vetorial
+
+```{r}
+dplyr::case_when(notas >= 70 ~ "Aprovado", 
+                 notas >= 40 ~ "Exame",
+                 TRUE ~ "Reprovado")
+```
+
+## Estruturas de Repetição
+
+### Estrutura de loop FOR
+
+O loop FOR é usado pra executar instruções um número previamente **conhecido** de vezes.
+
+O loop itera sobre uma sequência de valores, um vetor ou lista.
+
+Pode-se **interromper** a execução do loop ou **saltar** conforme condições que são avaliadas.
+
+Deve-se usar o FOR para situações em que deseja fazer a execução percorrendo uma série conhecida de elementos ou número de iterações conhecido.
+
+
+#### Exemplo de estrutura FOR no R
+
+```{r}
+tx_juros <- 0.01
+n_meses <- 12
+rend <- numeric(n_meses)
+rend[1] <- 100
+for (i in 2:n_meses) {
+  rend[i] <- rend[i - 1] * (1 + tx_juros)
+}
+rend
+```
+
+```{r}
+y <- c(1, 2, 1, 4, 0, NA, 3, 2, 4)
+s <- 0
+for (i in y) {
+  if (s > 10) break
+  if (is.na(i)) next
+  s <- s + i
+  print (s)
+}
+s
+```
+
+### Estrutura WHILE
+
