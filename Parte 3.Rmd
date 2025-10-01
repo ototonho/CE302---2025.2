@@ -323,3 +323,100 @@ hist(output)
 
 ## Funções
 
+### O que são funções
+
+Funções encapsulam uma tarefa composta de várias instruções.
+
+Funções pegam valores de entrada e geram valores de saída conforme as instruções nela implementadas.
+
+Funções permitem particionar um grande número de instruções em funções que atuam como partes de um algoritmo.
+
+Funções permitem reuso de código de uma forma enxuta.
+
+Permitem preservar o estado das variáveis na área de trabalho.
+
+### Anatomia de uma Função
+
+- Nome da função: usado para chamá-la.
+- Lista de parâmetros: também chamado de lista de argumentos formais que passa argumentos atuais ou valores como variáveis de entrada.
+- Corpo da função: contém a série de instruções que são realizadas.
+- Retorno da função: retorna o que a função determinou com as instruções nela implementadas.
+
+### Cuidados para implementar funções
+
+- **Conheça o procedimento** que deseja encapsular numa função.
+- colha um **nome apropriado** para a função, preferencialmente, um verbo ou composto por verbo.
+- Use nomes apropriados para os argumentos da função.
+  - Argumentos podem ser vetores, matrizes, listas, etc, e até outras funções.
+  - Argumentos podem ter valores default.
+- Coloque o resultado da função como valor de retorno.
+- Se for necessário retornar mais de um objeto, use uma lista.
+- Ao programar, faça os devidos **tratamentos de exceção**.
+- Coloque mensagem descritivas para erros, avisos, comentários, etc.
+- Modique variáveis **fora do escopo** da função apenas quando não houver outra solução.
+
+##### Exemplo de FUNÇÃO 
+
+```{r}
+imc <- function(peso, altura) {
+  imc <- peso/altura^2
+  limits <- c(0, 18.5, 25, 30, Inf)
+  labels <- c( "Magreza", "Adequado", "Pré-obeso", "Obesidade")
+  classif <- labels[findInterval(imc, vec = limits)]
+  return(list(IMC = imc, Classificação = classif))
+}
+```
+
+
+#### Exercício - Fórmula de Bhaskara
+
+Faça uma função que retorne as raízes de uma parábola com equação ax² + bx + c, usando a fórmula de Bhaskara.
+
+```{r}
+bhaskara <- function(a, b = 1, c = 0) {
+  delta <- b^2 - 4 * a * c
+  x <- (-b + c(-1, 1) * sqrt(delta))/(2 * a)
+  return(x)
+}
+
+args(bhaskara)
+formals(bhaskara)
+body(bhaskara)
+
+curve(2 * x^2 - 3 * x -3, from = -1, to = 3)
+abline(h = 0, col = "red")
+
+x <- bhaskara(a = 2, b = -3, c = -3)
+x
+```
+
+### Tratamento de exceções
+
+- Quando se faz funções para usos gerais e uma maior audiência, é importante fazer os tratamentos de exceção e fazer a função comunicar de forma clara com o usuário.
+- Tratar exceções é prever desvios de uso ou de processamento causados, por exemplo, por:
+  - Variáveis com tipos incorretos.
+  - Objetos de classe incorreta.
+  - Indeterminação nos resultados.
+  - Falha de convergência.
+  - Conexão/rede não disponível.
+  - Arquivos/objetos não encontrados.
+  - Etc.
+- `cat()` e `print()`: Usa-se para imprimir conteúdo no console.
+- `message()`: Usa-se para imprimir mensagens neutras para o usuário.
+- `warning()`: Usa-se para imprimir mensagens de aviso. Ela causa a saída Warning.
+- `stop()`: Usa-se para imprimir mensagens de erro. Ela causa a saída Error e interrompe a execução do código.
+
+#### Exercício - Lançamento de dados
+
+Reconsidere o seguinte jogo: lançar 3 dados até que os valores das faces sejam uma sequência, por exemplo, 3, 4 e 5 ou 1, 2 e 3.
+1. Use um loop WHILE ou o REPEAT para contar quantas tentativas são necessárias até atingir o resultado.
+2. Dicas:
+  - use `sample()` para sortear 3 os valores do espaço amostral.
+  - em seguida ordene os valores do menor para o maior com `sort()`.
+  - calcule a diferença entre valores consecutivos com `diff()`.
+3. Encapsule tudo dentro de uma função de forma a generalizar o seu jogo.
+
+```{r}
+
+```
+
