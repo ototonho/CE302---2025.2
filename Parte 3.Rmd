@@ -1,6 +1,8 @@
 ---
 title: "Parte 3"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-10-01"
 ---
 
@@ -62,6 +64,7 @@ Com base na hora do envio de uma mensagem, use bom dia, boa tarde ou boa noite.
 - Caso nenhum dos acima, não enviar a mensagem.
 
 ```{r}
+library(hms)
 horario <- as_hms("12:30:00")
 if ((horario > as_hms("06:00:00")) & (horario < as_hms("11:59:00"))) {
   result <- "Bom dia"
@@ -439,5 +442,89 @@ mean(jogadas)
 jogadas <- joga_dados(n_dados = 4, n_max = 100, n_simulacao = 1000)
 mean(jogadas)
 
+```
+
+### Aspectos avançados
+
+```{r}
+## Aspectos avançados
+# Calculo do IMC
+
+calcula_imc <- function(peso, altura) {
+  imc <- peso/(altura^2)
+  limits <- c(0, 18.5, 25, 30, Inf)
+  labels <- c("Magreza", "Adequado", "Pré-obeso", "Obesidade")
+  classif <- labels[findInterval(imc, limits)]
+  return(list(IMC = imc, Classificao = classif))
+}
+calcula_imc(peso = 80, altura = 1.80)
+
+
+# Argumento com valor default
+calcula_imc <- function(altura, peso = 80) {
+  imc <- peso/(altura^2)
+  limits <- c(0, 18.5, 25, 30, Inf)
+  labels <- c("Magreza", "Adequado", "Pré-obeso", "Obesidade")
+  classif <- labels[findInterval(imc, limits)]
+  return(list(IMC = imc, Classificao = classif))
+}
+calcula_imc(altura = 1.80)
+
+
+## Tratando exceções
+#calcula_imc <- function(altura, peso = 80) {
+#  if(altura < 0) stop("Altura deve ser maior do que zero.")
+#  if(peso < 0) stop("Peso deve ser maior do que zero.")
+#  imc <- peso/(altura^2)
+#  limits <- c(0, 18.5, 25, 30, Inf)
+#  labels <- c("Magreza", "Adequado", "Pré-obeso", "Obesidade")
+#  classif <- labels[findInterval(imc, limits)]
+#  return(list(IMC = imc, Classificao = classif))
+#}
+#calcula_imc(altura = -1)
+
+
+## Funções sem argumentos
+calcula_imc <- function() {
+  if(altura < 0) stop("Altura deve ser maior do que zero.")
+  if(peso < 0) stop("Peso deve ser maior do que zero.")
+  imc <- peso/(altura^2)
+  limits <- c(0, 18.5, 25, 30, Inf)
+  labels <- c("Magreza", "Adequado", "Pré-obeso", "Obesidade")
+  classif <- labels[findInterval(imc, limits)]
+  return(list(IMC = imc, Classificao = classif))
+}
+peso <- 70
+altura <- 1.70
+calcula_imc()
+
+## Lazy evaluation
+calcula_imc <- function(altura, peso = 80, altura2) {
+  if(altura < 0) stop("Altura deve ser maior do que zero.")
+  if(peso < 0) stop("Peso deve ser maior do que zero.")
+  imc <- peso/(altura^2)
+  limits <- c(0, 18.5, 25, 30, Inf)
+  labels <- c("Magreza", "Adequado", "Pré-obeso", "Obesidade")
+  classif <- labels[findInterval(imc, limits)]
+  return(list(IMC = imc, Classificao = classif))
+}
+calcula_imc(altura = 1.90, peso = 90)
+
+## Uso dos ...
+
+calcula_imc_numero <- function(peso, altura) {
+  imc <- peso/(altura^2)
+  return(imc)
+}
+
+calcula_imc <- function(...) {
+  imc <- calcula_imc_numero(...)
+  limits <- c(0, 18.5, 25, 30, Inf)
+  labels <- c("Magreza", "Adequado", "Pré-obeso", "Obesidade")
+  classif <- labels[findInterval(imc, limits)]
+  return(list(IMC = imc, Classificao = classif))
+}
+
+calcula_imc(peso = 90, altura = 1.70)
 ```
 
