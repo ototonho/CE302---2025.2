@@ -417,6 +417,27 @@ Reconsidere o seguinte jogo: lançar 3 dados até que os valores das faces sejam
 3. Encapsule tudo dentro de uma função de forma a generalizar o seu jogo.
 
 ```{r}
+joga_dados <- function(n_dados, n_max, n_simulacao) {
+  output <- c()
+  for(i in 1:n_simulacao) {
+    tentativas <- 1
+    while(tentativas < n_max) {
+      l1 <- sample(1:6, n_dados, replace = TRUE) # joga os dados
+      l1_ordenado <- sort(l1) # ordena
+      seque <- sum(ifelse(diff(l1_ordenado) == 1, TRUE, FALSE))
+      if(seque == c(n_dados - 1)) break
+      tentativas <- tentativas + 1
+    }
+    output[i] <- tentativas
+  }
+  return(output)
+}
+
+
+jogadas <- joga_dados(n_dados = 3, n_max = 100, n_simulacao = 1000)
+mean(jogadas)
+jogadas <- joga_dados(n_dados = 4, n_max = 100, n_simulacao = 1000)
+mean(jogadas)
 
 ```
 
