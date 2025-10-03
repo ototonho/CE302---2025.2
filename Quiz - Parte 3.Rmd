@@ -1,0 +1,167 @@
+---
+title: "Quiz - Parte 3"
+output: html_document
+date: "2025-10-03"
+---
+
+# Quiz - Parte 3
+
+### 1) Considere o código: x <- 0 repeat { x <- x + 1 if (x == 5) break } Qual será o valor final de x?
+
+```{r}
+x <- 0 
+repeat { 
+  x <- x + 1 
+  if (x == 5) break 
+}
+x
+```
+
+### 2) Qual a saída do código abaixo? soma <- 0 for (i in 1:5) { if (i %% 2 == 0) next soma <- soma + i } soma?
+
+```{r}
+soma <- 0 
+for (i in 1:5) { 
+  if (i %% 2 == 0) 
+    next 
+  soma <- soma + i 
+    } 
+soma
+```
+
+### 3) Qual a saída do código: x <- 1 while (x < 3) { x <- x + 0.5 } x?
+
+```{r}
+x <- 1 
+while (x < 3) { 
+  x <- x + 0.5 
+  } 
+x
+```
+
+### 4) Qual a saída? total <- 1 for (i in 1:4) { total <- total * i } total?
+
+```{r}
+total <- 1 
+for (i in 1:4) { 
+  total <- total * i 
+  } 
+total
+```
+
+### 5) Qual a saída? vec <- numeric(0) for (i in 1:3) { vec <- c(vec, i) } vec?
+
+```{r}
+vec <- numeric(0) 
+for (i in 1:3) { 
+  vec <- c(vec, i) 
+  } 
+vec
+```
+
+### 6) Qual a saída? x <- 1 repeat { x <- x * 2 if (x > 10) break } x
+
+```{r}
+x <- 1 
+repeat { 
+  x <- x * 2 
+  if (x > 10) break 
+  } 
+x
+```
+
+### 7) Qual é a principal diferença entre um loop “for” e um loop “while”?
+
+- O loop “for” é usado para um número conhecido de iterações, enquanto o “while” é para um número desconhecido.
+
+### 8) Qual é o propósito da função next dentro de um loop em R?
+
+- 
+Pula a iteração atual e passa para a próxima.
+
+### 9) Qual o comportamento do loop abaixo? x <- 0 while (x < 5) { x <- x + 2 } x
+
+```{r}
+x <- 0 
+while (x < 5) { 
+  x <- x + 2 
+  } 
+x
+```
+
+### 10) Qual será a saída do código? count <- 0 for (i in 1:3) { for (j in 1:2) { count <- count + 1 } } count
+
+```{r}
+count <- 0 
+for (i in 1:3) { 
+  for (j in 1:2) { 
+    count <- count + 1 
+    } 
+  } 
+count
+```
+
+### 11) Qual será a saída do seguinte código? s <- 0 for (i in seq(2, 10, 2)) { s <- s + i } s
+
+```{r}
+s <- 0 
+for (i in seq(2, 10, 2)) { 
+  s <- s + i 
+  } 
+s
+```
+
+### 12) Considere: vec <- c() for (i in 1:3) { vec[i] <- i^2 } vec. Qual será a saída?
+
+```{r}
+vec <- c() 
+for (i in 1:3) { 
+  vec[i] <- i^2 
+  } 
+vec
+```
+
+### 13) Se quisermos iterar sobre os nomes das colunas de um data.frame chamado df, qual construção é mais adequada?
+
+- for (i in names(df))
+
+### 14) Em loops aninhados, o comando break afeta:
+
+- Apenas o loop mais interno
+
+### 15) Em R, qual destas estruturas pode criar loops infinitos se mal utilizados?
+
+- Todas anteriores
+
+### 16) Em termos de desempenho, qual abordagem é geralmente mais eficiente em R para processar grandes vetores?
+
+- Funções vetorizadas (como apply, lapply)
+
+### 17) O que acontece neste código? for (i in 1:5) { if (i == 3) break } i?
+
+```{r}
+for (i in 1:5) { 
+  if (i == 3) break 
+  } 
+i
+```
+
+### 18) O que acontece neste código? x <- 1 while (TRUE) { if (x > 3) break x <- x + 1 } x?
+
+```{r}
+x <- 1 
+while (TRUE) { 
+  if (x > 3) break 
+  x <- x + 1 
+  } 
+x
+```
+
+### 19) O que acontece se o critério de parada de um loop while nunca for atingido?
+
+- O loop entra em loop infinito até que o usuário o interrompa.
+
+### 20) Qual a principal diferença entre repeat e while em R?
+
+- repeat executa pelo menos uma vez; while pode nunca executar.
+
