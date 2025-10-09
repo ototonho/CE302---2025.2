@@ -1,66 +1,63 @@
 # Resolução lista - Parte 3
 
-# Exercício 1
-
-animal <- "gato"
-som <- switch(animal,
-              "cachorro" = {
-                latir()
-                },
-              "vaca" = {
-                mugir()
-                },
-              {
-                silencio()
-                })
-som
-
-# Exercício 5
-
-x <- 1:4 
-ifelse(x > 2, x^2, 0)
-
-# Exercício 14
+# 1)
 
 bhaskara <- function(a, b = 1, c = 0) {
-  delta <- bˆ2 - 4 * a * c
+  delta <- b^2 - 4 * a * c
   x <- (-b + c(-1, 1) * sqrt(delta))/(2 * a)
   return(x)
 }
-args(bhaskara)
-bhaskara(a = 2)
+bhaskara(2, c = 5)
 
-# Exercício 15
+# 7)
+
+i <- 1 
+repeat { 
+  if(i > 3) 
+    break 
+  i <- i + 1 
+  } 
+i
+
+# 9)
+
+x <- 1 
+while(x < 3) { 
+  x <- x + 1 
+  } 
+print(x)
+
+# 12)
 
 x <- 3 
 switch(x, "um", "dois", "três")
 
-# Exercício 21
+# 25)
 
 s <- 0 
-for(i in 1:5) {
+for(i in 1:5) { 
   if(i %% 2 == 0) next 
   s <- s + i 
   } 
 s
 
-# Exercício 24
+# 28)
 
-if (a == 0) 
-  stop("O valor de A não pode ser zero!")
+x <- 1:4 
+ifelse(x > 2, x^2, 0)
 
-# Exercício 25
+# 29)
 
-formals(bhaskara)
+bhaskara <- function(a, b = 1, c = 0) {
+  delta <- b^2 - 4 * a * c
+  x <- (-b + c(-1, 1) * sqrt(delta))/(2 * a)
+  return(x)
+}
 
-# 26)
+bhaskara(a = 2)
 
-for(i in 1:3) 
-{ if(i == 2) 
-    break 
-  print(i) }
 
-# 27)
+#) 32)
 
 x <- 0 
 while(TRUE) { 
@@ -69,3 +66,6 @@ while(TRUE) {
     break 
   } 
 x
+
+
+
