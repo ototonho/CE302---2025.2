@@ -67,5 +67,14 @@ while(TRUE) {
   } 
 x
 
+# 34)
+
+for(i in 1:3) { 
+  if(i == 2) 
+    break 
+  print(i) 
+  }
 
 
+# 26.2)
+sqrt(-1)
