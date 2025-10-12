@@ -129,4 +129,30 @@ print(idioma)
 
 - Imprima o vetor original de notas e o vetor de conceitos.
 
+```{r}
+
+notas <- sample(0:100, 10)
+
+casos <- dplyr::case_when(notas >= 90 ~ "A",
+                          notas >= 80 ~ "B",
+                          notas >= 70 ~ "C",
+                          TRUE ~ "D")
+
+resultado <- data.frame(notas, casos)
+print(resultado)
+
+```
+
+### Estruturas de Repetição (Loops)
+
+#### 4. Simulador de Juros Compostos (FOR):
+
+- Defina um capital_inicial (e.g., 1000), uma taxa_juros (e.g., 0.05) e o numero_meses (e.g., 6).
+
+- Crie um vetor saldo com numero_meses posições e pré-aloque o capital_inicial na primeira posição.
+
+- Use um loop FOR para calcular e armazenar o saldo final para cada mês (mês a mês).
+  - Dica: Saldo Atual = Saldo Anterior * (1 + taxa_juros)
+  
+
 
