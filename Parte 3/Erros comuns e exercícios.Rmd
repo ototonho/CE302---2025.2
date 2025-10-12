@@ -1,6 +1,7 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "Erros comuns e exercícios"
+output: html_document
+date: "2025-10-12"
 ---
 
 # Erros Comuns e Exercícios
@@ -35,22 +36,97 @@ output: html_notebook
 
 ### Estruturas de Controle e Lógica Condicional (IF-ELSE e SWITCH)
 
-1. Calculadora de Descontos Simples (IF-ELSE):
+#### 1. Calculadora de Descontos Simples (IF-ELSE):
 
-Crie uma variável valor_compra.
+- Crie uma variável valor_compra.
 
-Use uma estrutura IF-ELSE IF aninhada para aplicar os seguintes descontos:
+- Use uma estrutura IF-ELSE IF aninhada para aplicar os seguintes descontos:
 
-Se valor_compra for maior ou igual a R$ 300,00, aplique 15% de desconto.
+  - Se valor_compra for maior ou igual a *R$ 300,00*, aplique 15% de desconto.
 
-Se valor_compra estiver entre `R$ 100,00` e `R$ 299,99`, aplique 5% de desconto.
+  - Se valor_compra estiver entre *R$ 100,00* e *R$ 299,99*, aplique 5% de desconto.
 
-Caso contrário (abaixo de R$ 100,00), não aplique desconto (0%).
+  - Caso contrário (abaixo de R$ 100,00), não aplique desconto (0%).
 
-Imprima o valor final a ser pago.
+- Imprima o valor final a ser pago.
+
+**Solução 1**, para apenas um valor
 
 ```{r}
-plot(cars)
+
+valor_compra <- 500
+
+if ((valor_compra > 100) & (valor_compra < 299)) {
+  valor_compra <- valor_compra * 0.95
+  compra <- paste("Seu novo valor é: ", + valor_compra)
+} else if (valor_compra >= 300) {
+  valor_compra <- valor_compra * 0.85
+  compra <- paste("Seu novo valor é: ", + valor_compra)
+} else {
+  compra <- "Você não teve desconto"
+}
+
+compra
+
 ```
+
+**Solução 2**, para uma série de valores
+
+```{r}
+
+valor_compra <- c(300, 400, 150, 50, 75, 1000, 846, 454)
+
+valor_final <- ifelse (((valor_compra > 100) & (valor_compra < 299)), valor_compra * 0.95, ifelse((valor_compra >= 300), valor_compra * 0.85, valor_compra))
+
+resultado <- data.frame(Valor_Original = valor_compra, Valor_Final = valor_final)
+print(resultado)
+
+```
+
+
+#### 2. Mapeamento de Cores (SWITCH)
+
+- Crie uma variável idioma com os valores "pt" (português), "en" (inglês) ou "es" (espanhol).
+
+- Use a estrutura SWITCH para traduzir o nome de uma cor. Por exemplo, se a entrada for "red", o SWITCH deve retornar:
+
+  - "pt": "vermelho"
+
+  - "en": "red"
+
+  - "es": "rojo"
+
+- Defina um caso de escape que retorne "Idioma não suportado" se a entrada for diferente dos três idiomas válidos.
+
+```{r}
+
+cor <- "vermelho"
+
+idioma <- switch (cor,
+  "vermelho" = "Português. Em inglês é red e espanhol rojo",
+  "rojo" = "Espanhol Em inglês é red e português vermelho",
+  "red" = "Inglês. Em português é vermelho e espanhol rojo",
+  "Idioma não suportado"
+)
+
+print(idioma)
+
+```
+
+#### 3. Classificação Vetorial de Notas (ifelse ou case_when):
+
+- Crie um vetor pontuacoes com 10 notas aleatórias entre 0 e 100 (e.g., sample(0:100, 10)).
+
+- Usando a função dplyr::case_when() (ou ifelse() aninhado se não quiser usar o dplyr), crie um novo vetor conceito com base nas seguintes regras (Aplicação Vetorial!):
+
+  - Notas ≥90: "A"
+
+  - Notas ≥80 e <90: "B"
+
+  - Notas ≥70 e <80: "C"
+
+  - Notas <70: "D"
+
+- Imprima o vetor original de notas e o vetor de conceitos.
 
 
