@@ -247,3 +247,22 @@ print(soma_impares)
   - Um vetor numérico válido (e.g., c(10, 20, 30)).
 
   - Um vetor de caracteres (e.g., c("a", "b", "c")) para testar o stop().
+  
+```{r}
+
+calcular_media_vetor <- function(vetor_dados) {
+  if (!is.numeric(vetor_dados)) stop("Erro: O argumento deve ser um vetor numérico.")
+  media <- mean(vetor_dados)
+  cat("Resultado do Cálculo \n")
+  cat("\n")
+  cat("Valores de Entrada:\n")
+  print(vetor_dados)
+  cat("\n")
+  cat("Média: ", round(media, 2))
+}
+
+calcular_media_vetor(vetor_dados = sample(1:100, 10))
+calcular_media_vetor(vetor_dados = c("a", "b", "c", "d"))
+
+```
+
