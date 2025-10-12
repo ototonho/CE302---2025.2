@@ -266,3 +266,43 @@ calcular_media_vetor(vetor_dados = c("a", "b", "c", "d"))
 
 ```
 
+#### 8. Função de Classificação do Triângulo:
+
+- Crie uma Função chamada classificar_triangulo que aceite três argumentos: lado_a, lado_b e lado_c.
+
+- A função deve usar uma estrutura IF-ELSE IF para retornar:
+
+  - "Equilátero": se todos os lados forem iguais.
+
+  - "Isósceles": se apenas dois lados forem iguais.
+
+  - "Escaleno": se todos os lados forem diferentes.
+
+-Tratamento de Exceção: Antes da classificação, inclua uma regra simples para verificar se os lados formam um triângulo válido: A soma de dois lados deve ser maior que o terceiro. Se for inválido, use warning() com a mensagem "Aviso: Os lados não formam um triângulo válido." e retorne NA.
+
+```{r}
+
+classificar_triangulo <- function(lado_a, lado_b, lado_c) {
+  if ( ((lado_a + lado_b) < lado_c) | 
+       ((lado_a + lado_c) < lado_b) | 
+       ((lado_c + lado_b) < lado_a)) {
+    warning("Aviso: Os lados não formam um triângulo válido.")
+    return(NA)
+    }
+  if ((lado_a == lado_b) & (lado_b == lado_c)) {
+    print((paste("Equilátero"))) # todos iguais
+  } else if (lado_a == lado_b | lado_a == lado_c | lado_b == lado_c) {
+    print(paste("Isósceles")) # pelo menos dois iguais
+  } else print(paste("Escaleno")) # todos diferentes
+}
+
+#---TESTES---
+classificar_triangulo(lado_a = 3, lado_b = 4, lado_c = 5) # Escaleno
+classificar_triangulo(lado_a = 1, lado_b = 2, lado_c = 10) # NA
+classificar_triangulo(lado_a = 7, lado_b = 7, lado_c = 7) # Equilátero
+classificar_triangulo(lado_a = 7, lado_b = 5, lado_c = 7) # Isóceles
+classificar_triangulo(lado_a = sample(10:50, 1), lado_b = sample(10:50, 1), lado_c = sample(10:50, 1))
+
+
+```
+
