@@ -154,5 +154,36 @@ print(resultado)
 - Use um loop FOR para calcular e armazenar o saldo final para cada mês (mês a mês).
   - Dica: Saldo Atual = Saldo Anterior * (1 + taxa_juros)
   
+```{r}
+
+capital_inicial <- sample(500:2000, 1)
+opcoes_juros <- c(0.01, 0.02, 0.03, 0.04, 0.05) # sample só cria sequências de números inteiros
+taxa_juros <- sample(opcoes_juros, 1)
+numero_meses <- sample(5:24, 1)
+
+saldo <- numeric(numero_meses)
+saldo[1] <- capital_inicial
+
+
+for (i in 2:numero_meses) {
+  saldo[i] <- saldo[i - 1] * (1 + taxa_juros)
+}
+
+resultado <- data.frame(Mês = 1:numero_meses, Capital_Inicial = capital_inicial, Taxa = taxa_juros, Saldo = saldo)
+print(resultado)
+
+```
+
+#### 5. Adivinhe o Número (WHILE/REPEAT com break):
+
+- Crie uma variável numero_secreto (e.g., 42).
+
+- Use a função sample(1:100, 1) para gerar um palpite aleatório a cada tentativa.
+
+- Use um loop WHILE (ou REPEAT) para continuar gerando palpites até que o palpite seja igual ao numero_secreto.
+
+- Dentro do loop, use um contador de tentativas.
+
+- Quando o número for adivinhado, use break para sair do loop e imprima o número total de tentativas necessárias.
 
 
