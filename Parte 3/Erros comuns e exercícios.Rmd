@@ -186,4 +186,64 @@ print(resultado)
 
 - Quando o número for adivinhado, use break para sair do loop e imprima o número total de tentativas necessárias.
 
+```{r}
 
+numero_secreto <- sample(1:100, 1)
+palpite <- sample(1:100, 1)
+tentativas <- 1
+
+while (palpite != numero_secreto) {
+  tentativas <- tentativas + 1
+  palpite <- sample(1:100, 1)
+}
+
+print(paste("O número secreto era: ", numero_secreto))
+print(paste("O número foi descoberto em ", tentativas, "tentativas."))
+```
+
+#### 6. Soma de Ímpares (FOR com next):
+
+- Crie um vetor numeros de 1 a 100.
+
+- Crie uma variável soma_impares inicializada em 0.
+
+- Use um loop FOR para iterar sobre o vetor.
+
+- Dentro do loop, use uma estrutura IF para verificar se o número atual é par (numero %% 2 == 0).
+
+- Se for par, use a instrução next para pular a adição.
+
+- Se for ímpar, adicione o número à soma_impares.
+
+- Imprima a soma_impares final.
+
+```{r}
+
+numeros <- 1:100
+soma_impares <- 0
+
+for (i in numeros) {
+  if (i %% 2 == 0) next
+  soma_impares <- soma_impares + i
+}
+
+print(soma_impares)
+
+```
+
+
+### Funções e Tratamento de Exceções 
+
+#### 7. Função de Cálculo de Média Aritmética:
+
+- Crie uma Função chamada calcular_media_vetor que aceite um argumento: vetor_dados.
+
+- Tratamento de Exceção: Dentro da função, use stop() para verificar se o vetor_dados não é numérico (!is.numeric(vetor_dados)). Se não for, emita a mensagem de erro: "Erro: O argumento deve ser um vetor numérico.".
+
+- A função deve retornar a média dos valores do vetor.
+
+- Teste a função passando:
+
+  - Um vetor numérico válido (e.g., c(10, 20, 30)).
+
+  - Um vetor de caracteres (e.g., c("a", "b", "c")) para testar o stop().
