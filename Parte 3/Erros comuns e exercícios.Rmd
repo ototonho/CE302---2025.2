@@ -1,7 +1,10 @@
 ---
 title: "Erros comuns e exercícios"
-output: html_document
 date: "2025-10-12"
+output:
+  pdf_document: 
+    latex_engine: xelatex
+  html_document: default
 ---
 
 # Erros Comuns e Exercícios
@@ -262,7 +265,7 @@ calcular_media_vetor <- function(vetor_dados) {
 }
 
 calcular_media_vetor(vetor_dados = sample(1:100, 10))
-calcular_media_vetor(vetor_dados = c("a", "b", "c", "d"))
+# calcular_media_vetor(vetor_dados = c("a", "b", "c", "d"))
 
 ```
 
