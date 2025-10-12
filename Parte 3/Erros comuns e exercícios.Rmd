@@ -54,19 +54,19 @@ date: "2025-10-12"
 
 ```{r}
 
-valor_compra <- 500
+valor_compra_i <- sample(10:1000, 1)
 
-if ((valor_compra > 100) & (valor_compra < 299)) {
-  valor_compra <- valor_compra * 0.95
-  compra <- paste("Seu novo valor é: ", + valor_compra)
-} else if (valor_compra >= 300) {
-  valor_compra <- valor_compra * 0.85
-  compra <- paste("Seu novo valor é: ", + valor_compra)
+if ((valor_compra_i > 100) & (valor_compra_i < 299)) {
+  valor_compra_f <- valor_compra_i * 0.95
+  compra <- paste("Seu desconto foi de 5%, o valor original era: ", valor_compra_i, "seu novo valor é: ", valor_compra_f)
+} else if (valor_compra_i >= 300) {
+  valor_compra_f <- valor_compra_i * 0.85
+  compra <- paste("Seu desconto foi de 15%, o valor original era: ", valor_compra_i, "seu novo valor é: ", valor_compra_f)
 } else {
-  compra <- "Você não teve desconto"
+  compra <- paste("Você não teve desconto. Seu valor é: ", valor_compra_i)
 }
 
-compra
+print(compra)
 
 ```
 
@@ -74,7 +74,7 @@ compra
 
 ```{r}
 
-valor_compra <- c(300, 400, 150, 50, 75, 1000, 846, 454)
+valor_compra <- sample(10:1000, 6)
 
 valor_final <- ifelse (((valor_compra > 100) & (valor_compra < 299)), valor_compra * 0.95, ifelse((valor_compra >= 300), valor_compra * 0.85, valor_compra))
 
