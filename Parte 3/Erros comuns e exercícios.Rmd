@@ -1,0 +1,56 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Erros Comuns e Exercícios
+
+## Erros comuns
+
+### Estruturas de Controle (IF-ELSE, SWITCH)
+
+1. Não Usar a Versão Vetorial: O erro mais clássico em R é tentar aplicar a estrutura if-else padrão (não vetorizada) a um vetor com mais de um elemento. O R testará apenas o primeiro elemento do vetor, emitirá um warning, e o resultado será inesperado para os demais elementos.
+
+2. Lógica Incompleta no IF-ELSE IF: Em cadeias de IF-ELSE IF, esquecer que o R só avalia a próxima condição se a anterior for FALSA. Isso pode levar a erros lógicos, especialmente em intervalos numéricos, se não forem definidos corretamente (ex: usar > 10 e depois > 5 sem considerar a ordem).
+
+3. Confundir o SWITCH do R: Em R, a função switch() avalia uma expressão e a compara com valores literais, retornando o valor da expressão correspondente. Em outras linguagens, é um bloco de controle de fluxo.
+
+### Estruturas de Repetição (FOR, WHILE, REPEAT)
+
+1. Loops Infinitos no WHILE/REPEAT: Esquecer de incluir uma instrução dentro do bloco do loop que modifique a variável de controle, garantindo que a condição de parada será atingida.
+
+2. Ineficiência por Falta de Vetorização: Usar loops FOR para realizar operações que o R pode fazer de forma muito mais rápida usando funções vetorizadas (como sum(), mean(), ou a família apply). Vetorização é quase sempre mais rápida em R.
+
+3. Não Pré-alocar Espaço (Em Loops FOR): Quando se constrói um vetor ou lista dentro de um FOR, não inicializar o objeto com o tamanho final (e.g., rend <- numeric(n_meses) no seu exemplo). O R tem que realocar o objeto na memória a cada iteração, tornando o código muito mais lento para grandes quantidades de dados.
+
+### Funções
+
+1. Falta de Tratamento de Exceções: Não incluir verificações de validade para os argumentos de entrada (e.g., o peso ou altura não podem ser negativos na função imc). O uso de stop() para entradas inválidas é fundamental para que sua função seja robusta.
+
+2. Efeitos Colaterais (Side Effects): Modificar variáveis que estão fora do escopo da função (variáveis globais) de forma desnecessária. Isso torna o código difícil de rastrear e depurar.
+
+3. Nomes Não Descritivos: Usar nomes de funções e argumentos que não comunicam claramente o propósito (e.g., f() em vez de calcular_media()).
+
+## Exercícios
+
+### Estruturas de Controle e Lógica Condicional (IF-ELSE e SWITCH)
+
+1. Calculadora de Descontos Simples (IF-ELSE):
+
+Crie uma variável valor_compra.
+
+Use uma estrutura IF-ELSE IF aninhada para aplicar os seguintes descontos:
+
+Se valor_compra for maior ou igual a R$ 300,00, aplique 15% de desconto.
+
+Se valor_compra estiver entre `R$ 100,00` e `R$ 299,99`, aplique 5% de desconto.
+
+Caso contrário (abaixo de R$ 100,00), não aplique desconto (0%).
+
+Imprima o valor final a ser pago.
+
+```{r}
+plot(cars)
+```
+
+
