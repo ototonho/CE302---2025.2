@@ -79,7 +79,8 @@ print(compra)
 
 valor_compra <- sample(10:1000, 6)
 
-valor_final <- ifelse (((valor_compra > 100) & (valor_compra < 299)), valor_compra * 0.95, ifelse((valor_compra >= 300), valor_compra * 0.85, valor_compra))
+valor_final <- ifelse (((valor_compra > 100) & (valor_compra < 299)), valor_compra * 0.95, 
+                       ifelse((valor_compra >= 300), valor_compra * 0.85, valor_compra))
 
 resultado <- data.frame(Valor_Original = valor_compra, Valor_Final = valor_final)
 print(resultado)

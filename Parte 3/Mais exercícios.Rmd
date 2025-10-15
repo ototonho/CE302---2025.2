@@ -17,12 +17,12 @@ O objetivo deste exercício é demonstrar a diferença de abordagem entre loops 
 
 ```{r}
 v_original <- sample(1:1000, 10000, replace = TRUE)
+n_elementos <- length(v_original)
 
-v_loop <- 0
-v_loop[1] <- v_original[1] * 5
+v_loop <- numeric(n_elementos)
 
-for (i in 2:v_original) {
-  v_loop[i] <- i * 5
+for (i in 1:n_elementos) {
+  v_loop[i] <- v_original[i] * 5
 }
 
 v_loop
@@ -43,5 +43,199 @@ v_5
 
 ```{r}
 
+identical(v_loop, v_5)
+
+```
+
+## 2. Classificação Múltipla Usando cut() ou ifelse() Aninhado
+
+Você já usou o ifelse() aninhado, agora pratique a classificação em faixas, que é um uso muito comum em análise de dados.
+
+- Crie um vetor idade com 20 idades aleatórias entre 1 e 80.
+
+- Use a função cut() (ou a cadeia ifelse() se preferir) para classificar cada idade em uma das seguintes categorias, armazenando o resultado em um novo vetor categoria_etaria:
+
+  - "Criança": 1 a 12 anos
+
+  - "Adolescente": 13 a 17 anos
+
+  - "Adulto": 18 a 64 anos
+
+  - "Idoso": 65 anos ou mais
+
+Crie um data.frame para exibir as idades e suas respectivas categorias.
+
+```{r}
+idade <- sample(1:80, 20)
+
+categoria_etaria <- ifelse((idade >= 1) & (idade < 13), "Criança", 
+                           ifelse((idade >= 13) & (idade < 18), "Adolescente",
+                           ifelse((idade >= 18) & (idade < 65), "Adulto",
+                                  "Idoso")))
+
+df_categoria_etaria <- data.frame(Idade = idade, Categoria = categoria_etaria)
+
+print(df_categoria_etaria)
+
+```
+
+### Solução alternativa com cut()
+
+```{r}
+idade <- sample(1:80, 20)
+bins <- c(0, 12, 17, 64, Inf) # Define os limites das faixas (0, 12], (12, 17], (17, 64], (64, Inf)
+labels <- c("Criança", "Adolescente", "Adulto", "Idoso")
+
+categoria_etaria_cut <- cut(
+  idade,
+  breaks = bins,
+  labels = labels,
+  right = TRUE # Se a idade 12 deve cair em (1, 12]
+)
+
+df_categoria_etaria_cut <- data.frame(Idade = idade, Categoria = categoria_etaria_cut)
+
+print(df_categoria_etaria_cut)
+```
+
+## 3. Aplicação de Funções em Listas (lapply ou sapply)
+
+O próximo passo na vetorização é usar a família apply para evitar loops em estruturas de dados mais complexas como listas.
+
+- Crie uma lista chamada dados_vendas que contenha três vetores numéricos: Filial_A, Filial_B e Filial_C, cada um com 5 a 10 valores de vendas aleatórios.
+
+- Use a função lapply() para aplicar a função sum() a cada um dos vetores de vendas dentro da lista. O resultado deve ser uma lista contendo a soma total de vendas de cada filial.
+
+- Desafio Extra: Repita a operação usando sapply() para ver a diferença no formato do resultado.
+
+```{r}
+# Crie uma lista de dados de vendas
+dados_vendas <- list(
+  Filial_A = sample(1000:5000, 7), # 7 valores aleatórios
+  Filial_B = sample(1000:5000, 5), # 5 valores aleatórios
+  Filial_C = sample(1000:5000, 10) # 10 valores aleatórios
+)
+
+# --- A) Usando lapply() ---
+# lapply aplica a função SUM() a cada elemento da lista.
+# O resultado é sempre uma LISTA.
+soma_lapply <- lapply(dados_vendas, sum)
+
+cat("A) Resultado com lapply (Lista):\n")
+print(soma_lapply)
+# Exemplo de Saída: $Filial_A [1] 21500
+
+# --- B) Usando sapply() ---
+# sapply aplica a função SUM() a cada elemento da lista e tenta SIMPLIFICAR o resultado.
+# O resultado é um VETOR nomeado (mais fácil de usar).
+soma_sapply <- sapply(dados_vendas, sum)
+
+cat("\nB) Resultado com sapply (Vetor/Array):\n")
+print(soma_sapply)
+# Exemplo de Saída: Filial_A Filial_B Filial_C 
+#                      21500    15000    32000
+```
+
+
+## 4. Criação de Função para Estatísticas Descritivas
+
+Combine a criação de funções com o retorno de estruturas de dados.
+
+- Crie uma Função chamada resumo_estatistico que aceite um vetor numérico dados como argumento.
+
+- A função deve retornar uma lista contendo as seguintes estatísticas:
+
+  - Media: Média dos dados.
+
+  - Mediana: Mediana dos dados.
+
+  - Desvio_Padrao: Desvio Padrão dos dados (sd()).
+
+  - Contagem_NA: O número de valores ausentes (NA) no vetor.
+
+- Teste sua função com um vetor que contenha alguns valores ausentes (e.g., c(1, 5, NA, 8, 3, NA)). Lembre-se de tratar os NA's no cálculo da média, mediana e desvio padrão.
+
+```{r}
+resumo_estatistico <- function(dados) {
+  
+  # A. Tratamento de NA para cálculos (na.rm = TRUE)
+  # O parâmetro na.rm = TRUE remove os NAs antes de calcular
+  
+  media_calc <- mean(dados, na.rm = TRUE)
+  mediana_calc <- median(dados, na.rm = TRUE)
+  dp_calc <- sd(dados, na.rm = TRUE)
+  
+  # B. Contagem de NAs
+  # is.na(dados) cria um vetor TRUE/FALSE. sum() trata TRUE como 1 e FALSE como 0.
+  contagem_na <- sum(is.na(dados))
+  
+  # C. Retorna uma lista nomeada
+  return(list(
+    Media = media_calc,
+    Mediana = mediana_calc,
+    Desvio_Padrao = dp_calc,
+    Contagem_NA = contagem_na
+  ))
+}
+
+# --- Teste da Função ---
+dados_teste <- c(10, 15, 20, 25, 30, NA, 40, NA, 50)
+resultado_resumo <- resumo_estatistico(dados_teste)
+
+cat("Resultado do Resumo Estatístico:\n")
+print(resultado_resumo)
+```
+
+
+## 5. Validação de Argumentos com Múltiplos Critérios
+
+Revisite o tratamento de exceções, mas com validação mais estrita.
+
+- Modifique a função resumo_estatistico do Exercício 4 para incluir as seguintes regras de validação (usando stop()):
+
+  - Regra 1 (Tipo): Se o argumento dados não for numérico, interrompa com "Erro: O argumento deve ser numérico.".
+
+  - Regra 2 (Tamanho): Se o vetor dados tiver menos de 3 elementos (length(dados) < 3), interrompa com "Erro: Mínimo de 3 observações necessárias para o resumo."
+  
+```{r}
+resumo_estatistico_validado <- function(dados) {
+  
+  # 1. Regra 1 (Tipo): Deve ser numérico
+  if (!is.numeric(dados)) {
+    stop("Erro: O argumento deve ser numérico.")
+  }
+  
+  # 2. Regra 2 (Tamanho): Mínimo de 3 observações
+  if (length(dados) < 3) {
+    stop("Erro: Mínimo de 3 observações necessárias para o resumo.")
+  }
+  
+  # --- Se passou nas validações, o cálculo é feito ---
+  
+  media_calc <- mean(dados, na.rm = TRUE)
+  mediana_calc <- median(dados, na.rm = TRUE)
+  dp_calc <- sd(dados, na.rm = TRUE)
+  contagem_na <- sum(is.na(dados))
+  
+  # Retorna uma lista nomeada
+  return(list(
+    Media = media_calc,
+    Mediana = mediana_calc,
+    Desvio_Padrao = dp_calc,
+    Contagem_NA = contagem_na
+  ))
+}
+
+# --- Testes da Função Validada ---
+cat("Teste 1: Dados Válidos\n")
+print(resumo_estatistico_validado(c(10, 20, 30, 40)))
+
+cat("\nTeste 2: Erro de Tamanho (Execução Interrompida)\n")
+# O R vai parar neste ponto e emitir o erro
+# print(resumo_estatistico_validado(c(1, 2))) 
+
+cat("\nTeste 3: Erro de Tipo (Execução Interrompida)\n")
+# O R vai parar neste ponto e emitir o erro
+# print(resumo_estatistico_validado(c("a", "b", "c", "d")))
 ```
 
