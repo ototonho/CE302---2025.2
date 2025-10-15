@@ -1,0 +1,47 @@
+---
+title: "Mais exercícios"
+output: html_document
+date: "2025-10-15"
+---
+
+# Mais exercícios
+
+## 1. Vetorização vs. Loop para Multiplicação
+
+O objetivo deste exercício é demonstrar a diferença de abordagem entre loops e vetorização.
+
+- Crie um vetor v_original com 10.000 números aleatórios inteiros entre 1 e 1000 (v_original <- sample(1:1000, 10000, replace = TRUE)).
+
+- A) Solução com Loop: Use um loop FOR para iterar sobre v_original e multiplicar cada elemento por 5, armazenando o resultado em um novo vetor v_loop. (Lembre-se de pré-alocar v_loop!)
+
+
+```{r}
+v_original <- sample(1:1000, 10000, replace = TRUE)
+
+v_loop <- 0
+v_loop[1] <- v_original[1] * 5
+
+for (i in 2:v_original) {
+  v_loop[i] <- i * 5
+}
+
+v_loop
+
+```
+
+- B) Solução Vetorizada: Use uma operação vetorizada simples (sem loop) para multiplicar v_original por 5, armazenando o resultado em v_vetorizado.
+
+```{r}
+v_original <- sample(1:1000, 10000, replace = TRUE)
+
+v_5 <- v_original * 5
+
+v_5
+```
+
+- C) Verificação: Verifique se os dois vetores (v_loop e v_vetorizado) são idênticos usando a função identical().
+
+```{r}
+
+```
+
