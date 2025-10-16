@@ -1,0 +1,1071 @@
+---
+title: "Provas - 2024"
+format: html
+editor: visual
+---
+
+---
+title: "Provas 1 e 2"
+format: pdf
+editor: visual
+theme: "lux"
+fontcolor: "#212121"
+---
+
+# Prova 1
+
+```{r}
+library(tidyverse)
+```
+
+### 1) A partir do data frame dado, responda às questões pedidas:
+
+-   
+
+    a)  Raiz quadrada da média de eficiência;
+
+-   
+
+    b)  Mediana dos que passaram no teste;
+
+-   
+
+    c)  maior eficiência;
+
+-   
+
+    d)  quais passaram no teste;
+
+-   
+
+    e)  desvio padrão.
+
+**Data frame**
+
+```{r}
+#1) 
+DF1 <-data.frame(
+  Eficiência = c(36.53, 82.66, 97.48, 43.86, 54.63, 32.54, 7.47, 51.09, 58.78, 97.65),
+  Testes_Qualidade = c(FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+)
+View(DF1)
+
+```
+
+**Resultados**
+
+```{r}
+# Cria o data frame
+DF1 <- data.frame(
+  Eficiência = c(36.53, 82.66, 97.48, 43.86, 54.63, 32.54, 7.47, 51.09, 58.78, 97.65),
+  Testes_Qualidade = c(FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+)
+
+# a) Raiz quadrada da média de eficiência
+raiz_quadrada_media <- sqrt(mean(DF1$Eficiência))
+
+# b) Mediana dos que passaram no teste (Testes_Qualidade == TRUE)
+eficiencia_passou <- DF1$Eficiência[DF1$Testes_Qualidade == TRUE]
+mediana_passou <- median(eficiencia_passou)
+
+# c) Maior eficiência
+maior_eficiencia <- max(DF1$Eficiência)
+
+# d) Quais (valores de eficiência) passaram no teste
+quais_passaram <- eficiencia_passou
+
+# e) Desvio padrão da eficiência
+desvio_padrao <- sd(DF1$Eficiência)
+
+# Exibe os resultados
+cat("--- Resultados ---\n")
+cat("a) Raiz quadrada da média de eficiência:", round(raiz_quadrada_media, 4), "\n")
+cat("b) Mediana dos que passaram no teste:", mediana_passou, "\n")
+cat("c) Maior eficiência:", maior_eficiencia, "\n")
+cat("d) Eficiências que passaram no teste:", paste(quais_passaram, collapse = ", "), "\n")
+cat("e) Desvio padrão da eficiência:", round(desvio_padrao, 4), "\n")
+```
+
+
+### 2) Dadas as matrizes, responda o que se pede:
+
+```{r}
+Indivíduo_1 <- c(14.4, 7.3, 11.0, 8.3, 12.5, 8.1, 12.7, 11.9, 11.3, 10.5)
+Indivíduo_2 <- c(13.6, 8.9, 5.4, 14.0, 8.6, 12.0, 8.8, 7.5, 12.8, 10.7)
+Indivíduo_3 <- c(8.9, 10.4, 11.9, 13.0, 14.0, 13.8, 9.1, 5.0, 6.7, 14.6)
+Indivíduo_4 <- c(13.0, 9.7, 13.5, 11.5, 12.0, 6.7, 6.2, 14.0, 6.2, 14.5)
+Indivíduo_5 <- c(8.7, 6.2, 13.1, 8.1, 9.1, 12.3, 7.6, 6.7, 6.3, 10.5)
+
+Matrix_X_linhas <- rbind(Indivíduo_1,
+                         Indivíduo_2,
+                         Indivíduo_3,
+                         Indivíduo_4,
+                         Indivíduo_5) #Pré-tratamento
+colnames(Matrix_X_linhas) <- c("gene1", "gene2", "gene3", "gene4", "gene5", "gene6", "gene7", "gene8", "gene9", "gene10")
+
+Yndivíduo_1 <- c(9.2, 7.8, 13.5, 13.9, 8.1, 5.2, 8.8, 10.0, 8.7, 5.5)
+Yndivíduo_2 <- c(9.1, 9.6, 5.5, 8.0, 5.7, 6.3, 6.1, 7.1, 9.1, 7.1)
+Yndivíduo_3 <- c(10.6, 10.7, 8.7, 14.4, 8.9, 10.0, 9.3, 10.5, 13.2, 10.8)
+Yndivíduo_4 <- c(12.9, 6.7, 5.9, 11.3, 13.5, 6.7, 9.9, 8.9, 9.4, 6.6)
+Yndivíduo_5 <- c(10.9, 11.4, 14.4, 5.8, 12.9, 6.6, 5.6, 7.1, 14.3, 14.2)
+
+Matrix_Y_linhas <- rbind(Yndivíduo_1,
+                         Yndivíduo_2,
+                         Yndivíduo_3,
+                         Yndivíduo_4,
+                         Yndivíduo_5) #Pós-tratamento
+colnames(Matrix_Y_linhas) <- c("gene1", "gene2", "gene3", "gene4", "gene5", "gene6", "gene7", "gene8", "gene9", "gene10")
+
+```
+
+```{r}
+# a) Qual é o NOME do gene com a MAIOR média de expressão na Matrix_X_linhas?
+Médias_Colunas_X <- colMeans(Matrix_X_linhas)
+# Acha o valor máximo
+Gen_maior_valor <- max(Médias_Colunas_X)
+# Acha o NOME do gene (índice) que corresponde a esse valor
+Nome_Gen_maior <- names(Médias_Colunas_X)[which.max(Médias_Colunas_X)]
+
+cat("a) Gene com a maior média na Matrix_X_linhas:\n")
+cat("   Valor da maior média:", round(Gen_maior_valor, 4), "\n")
+cat("   Nome do gene:", Nome_Gen_maior, "\n\n")
+
+
+# b) Multiplicação Matricial Transposta: Matrix_X_linhas * t(Matrix_X_linhas)
+# O seu cálculo com 'tcrossprod(Matrix_X_linhas)' está correto, pois ele
+# calcula X %*% t(X), que é o que geralmente se deseja em análise de variância.
+mult_X_T <- tcrossprod(Matrix_X_linhas)
+
+cat("b) Resultado da multiplicação Matrix_X_linhas * t(Matrix_X_linhas):\n")
+print(mult_X_T)
+cat("\n")
+
+
+# c) Qual é o NOME do gene com a MENOR alteração de expressão (Média_X - Média_Y)?
+Médias_Colunas_Y <- colMeans(Matrix_Y_linhas)
+Alterações <- Médias_Colunas_X - Médias_Colunas_Y
+# Acha o valor mínimo (menor alteração)
+Menor_alt_valor <- min(Alterações)
+# Acha o NOME do gene que corresponde a esse valor
+Nome_Menor_alt <- names(Alterações)[which.min(Alterações)]
+
+cat("c) Gene com a menor alteração de expressão (Média X - Média Y):\n")
+cat("   Valor da menor alteração:", round(Menor_alt_valor, 4), "\n")
+cat("   Nome do gene:", Nome_Menor_alt, "\n\n")
+
+
+# e) Determine o determinante da submatriz quadrada 5x5 da Matrix_X_linhas
+#    formada pelos 5 indivíduos e os 5 genes com as MAIORES médias.
+# 1. Encontrar os 5 genes com as MAIORES médias
+Médias_Colunas_X <- colMeans(Matrix_X_linhas)
+Maiores_5_genes <- tail(sort(Médias_Colunas_X), 5) # Obtém os 5 maiores valores
+Nomes_Maiores_5 <- names(Maiores_5_genes) # Obtém os nomes dos 5 genes
+
+# 2. Criar a submatriz 5x5 (todas as 5 linhas/indivíduos e as 5 colunas/genes selecionadas)
+Cinco_M_X_square <- Matrix_X_linhas[, Nomes_Maiores_5]
+
+# 3. Calcular o determinante
+Det_cinco <- det(Cinco_M_X_square)
+
+cat("e) Determinante da submatriz 5x5 (5 indivíduos e 5 maiores genes):\n")
+cat("   Genes selecionados:", paste(Nomes_Maiores_5, collapse = ", "), "\n")
+cat("   Determinante:", round(Det_cinco, 4), "\n")
+```
+
+
+### 3) A partir do DF oferecido, dê o que se pede:
+
+```{r}
+#DF_FastFood <- read.csv("C:/Users/anton/Downloads/archive/Datafiniti_Fast_Food_Restaurants.csv")
+# --- a) Contagem total de restaurantes nas províncias CA, OH e IA ---
+
+# 1. Agrupa e Conta: Cria a tabela de resumo de contagem por província
+#Rest_Prov <- DF_FastFood %>%
+#  group_by(province) %>%
+#  summarise(contagem = n()) %>%
+#  arrange(desc(contagem))
+
+# 2. Filtrar e Extrair as contagens necessárias (CA, OH, IA)
+#CA_count <- Rest_Prov %>% filter(province == "CA") %>% pull(contagem)
+#OH_count <- Rest_Prov %>% filter(province == "OH") %>% pull(contagem)
+#IA_count <- Rest_Prov %>% filter(province == "IA") %>% pull(contagem)
+
+# 3. Calcular a soma total das contagens
+#T_CA_OH_IA_Rest <- sum(CA_count, OH_count, IA_count)
+
+# Exibe os resultados
+#cat("a) Contagem de restaurantes por província:\n")
+#cat("   CA:", CA_count, "\n")
+#cat("   OH:", OH_count, "\n")
+#cat("   IA:", IA_count, "\n")
+#cat("   Soma Total (CA + OH + IA):", T_CA_OH_IA_Rest, "\n\n")
+
+
+# --- b) Qual província tem a contagem de 1201 (Se for essa a intenção) ---
+
+# Se a intenção era descobrir QUAL província tem exatamente 1201 restaurantes:
+#P1201_Rest <- Rest_Prov %>%
+#  filter(contagem == 1201) %>%
+#  pull(province) # Puxa o nome da província
+
+#cat("b) Província(s) com exatamente 1201 restaurantes:\n")
+#print(P1201_Rest)
+#cat("\n")
+
+
+# --- c) Filtrar por Categoria (Exemplo: "Pitas Republic") ---
+
+# Filtra o data frame original para mostrar apenas restaurantes dessa categoria
+#MaisC_Pits <- DF_FastFood %>%
+#  filter(categories == "Pitas Republic")
+
+#cat("c) Detalhes dos restaurantes com categoria 'Pitas Republic':\n")
+#View(MaisC_Pits)
+```
+
+# Prova 2
+
+### 1)
+
+A variância amostral (S2), o desvio médio absoluto (DMA) e o segundo coeficiente de assimetria de Pearson (AS_2) são medidas definidas, respectivamente, por:
+
+$$
+S2=1/n−1 ∑i=1n (xi−x¯)²
+$$
+
+$$
+DMA=1 n−1∑i=1n |xi−x¯|
+$$
+
+$$
+AS2=3⋅x¯−MdS
+$$
+
+em que x¯ é a média amostral, Md é a mediana e |a| corresponde ao módulo de a.
+
+Implemente uma função em R que retorne uma lista com o S2, o DMA e o AS2 de uma variável quantitativa qualquer. Considere o banco de dados airquality disponível no R, e responda o que se pede.
+
+- a) e b) S² e DMA de Temp
+
+- c) Nivel 7 de Month - Wind
+
+- d) Para todas as variáveis do banco airquality a variância amostral é maior do que o desvio médio absoluto. (TRUE = 1/FALSE = 0)?
+
+*Resolução*:
+
+
+```{r}
+# Carrega o data frame airquality (já embutido no R)
+dados <- airquality
+
+# 1. Implementação da Função Solicitada
+# Função que retorna a Variância Amostral (S²), o Desvio Médio Absoluto (DMA)
+# e o Segundo Coeficiente de Assimetria de Pearson (AS_2).
+calcula_medidas <- function(x) {
+  # Remove valores NA, conforme prática padrão para estatísticas
+  x <- na.omit(x)
+  n <- length(x)
+  
+  # Estatísticas Básicas
+  x_bar <- mean(x) # Média
+  Md <- median(x)  # Mediana
+  
+  # 1. Variância Amostral (S²)
+  # Embora o R tenha sd(), vamos usar a fórmula explícita para S²
+  S2 <- sum((x - x_bar)^2) / (n - 1)
+  
+  # 2. Desvio Médio Absoluto (DMA)
+  # Usando a fórmula modificada fornecida (com n-1 no denominador, embora não seja a padrão)
+  DMA <- sum(abs(x - x_bar)) / (n - 1)
+  
+  # 3. Segundo Coeficiente de Assimetria de Pearson (AS_2)
+  # O R não tem a função sd() embutida para ser usada sem argumentos;
+  # Usaremos a raiz quadrada da nossa S2 para obter S (Desvio Padrão Amostral)
+  S <- sqrt(S2)
+  AS2 <- 3 * (x_bar - Md) / S
+  
+  # Retorna uma lista com os resultados
+  return(list(
+    S2 = S2,
+    DMA = DMA,
+    AS2 = AS2
+  ))
+}
+
+
+# --- RESOLUÇÃO DOS ITENS ---
+
+# a) e b) S² e DMA de Temp
+resultados_temp <- calcula_medidas(dados$Temp)
+
+cat("## a) e b) S² e DMA de Temp\n")
+cat("   S² (Variância Amostral) de Temp:", round(resultados_temp$S2, 4), "\n")
+cat("   DMA (Desvio Médio Absoluto) de Temp:", round(resultados_temp$DMA, 4), "\n\n")
+
+
+# c) Nível 7 de Month - Wind
+# Filtra os dados onde Month (Mês) é igual a 7
+dados_mes_7 <- subset(dados, Month == 7)
+resultados_wind_mes_7 <- calcula_medidas(dados_mes_7$Wind)
+
+cat("## c) Nivel 7 de Month - Wind\n")
+cat("   S² de Wind (Mês 7):", round(resultados_wind_mes_7$S2, 4), "\n")
+cat("   DMA de Wind (Mês 7):", round(resultados_wind_mes_7$DMA, 4), "\n")
+cat("   AS2 de Wind (Mês 7):", round(resultados_wind_mes_7$AS2, 4), "\n\n")
+
+
+# d) Para todas as variáveis do banco airquality a variância amostral é maior
+#    do que o desvio médio absoluto. (TRUE = 1/FALSE = 0)?
+
+# Variáveis quantitativas a serem testadas: Ozone, Solar.R, Wind, Temp
+colunas_quantitativas <- c("Ozone", "Solar.R", "Wind", "Temp")
+resultado_d <- 1 # Assume TRUE (1) inicialmente
+
+cat("## d) Comparação S² > DMA para todas as variáveis\n")
+
+for (coluna in colunas_quantitativas) {
+  medidas <- calcula_medidas(dados[[coluna]])
+  
+  # A variância amostral (S²) deve ser maior que o Desvio Médio Absoluto (DMA)
+  condicao <- medidas$S2 > medidas$DMA
+  
+  cat(sprintf("   %s: S² (%.4f) > DMA (%.4f) -> %s\n", 
+              coluna, medidas$S2, medidas$DMA, condicao))
+              
+  # Se a condição for falsa para qualquer coluna, o resultado final é FALSE (0)
+  if (!condicao) {
+    resultado_d <- 0
+    # Não há break, para exibir o resultado de todas as colunas
+  }
+}
+
+cat("\nResultado final (TRUE=1/FALSE=0):", resultado_d, "\n")
+```
+
+
+### 2)
+
+Considere uma matriz m×m, em que m é um inteiro positivo. Implemente uma função em R que realize a varredura de uma matriz e execute uma operação específica que depende do valor encontrado na matriz, conforme as seguintes regras:
+
+-   Se o valor for um número primo, multiplique-o por 6.
+
+-   Se o valor for um quadrado perfeito, subtraia 15. Caso o resultado obtido for negativo, eleve a 5a potência.
+
+-   Se o valor for negativo na matriz original, calcule a raiz 2ª de seu módulo.
+
+-   Para todos os outros valores, não faça nada.
+
+A função a ser criada deve retornar a matriz transformada.
+
+-   Dica: Crie funções auxiliares para verificar se um número é primo e se é um quadrado perfeito, e então implemente a função varrer_matriz que realiza a varredura da matriz conforme as regras estabelecidas.
+
+Considere: Matriz A: matrix( c(-5, -8, 4, -4, 9, -2, 6, 5, -3, -1, 3, -9, 10, 7, -6, 1) , nrow = 4, byrow = FALSE)
+
+Matriz B: matrix( c(9, -4, -18, 11, -14, 7, 2, 3, 17, 14, 0, 16, -6, -19, -8, -1, -20, 20, 5, 6) , nrow = 4, byrow = FALSE)
+
+Matriz C: matrix( c(-29, -23, -24, 21, -12, 25, 17, 16, 8, 29, 0, -5, -17, -4, -7, 14) , nrow = 4, byrow = FALSE)
+
+*Resolução*:
+
+```{r}
+# --- FUNÇÕES AUXILIARES (Corretas) ---
+
+# Função para verificar se um número é primo
+primo <- function(x) {
+  # Primos são definidos apenas para números inteiros > 1
+  if (is.na(x) || !is.numeric(x) || x <= 1 || x %% 1 != 0) return(FALSE)
+  
+  # O seu loop original (2:floor(sqrt(x))) é o mais eficiente para R base
+  for (i in 2:floor(sqrt(x))) {
+    if (x %% i == 0) return(FALSE)
+  }
+  return(TRUE)
+}
+
+# Função para verificar se é um quadrado perfeito
+quadrado_perfeito <- function(x) {
+  # Quadrados perfeitos são definidos para inteiros não negativos
+  if (is.na(x) || !is.numeric(x) || x < 0 || x %% 1 != 0) { 
+    return(FALSE)
+  }
+  raiz <- sqrt(x)
+  # Verifica se a raiz quadrada é um número inteiro
+  return(raiz == floor(raiz))
+}
+
+
+# --- FUNÇÃO PRINCIPAL ---
+
+# Função principal para aplicar as regras
+transforma_matriz <- function(mat) {
+  apply(mat, c(1, 2), function(x) {
+    if (x < 0) {
+      # REGRA 3: Se o valor for negativo na matriz original, calcule a raiz 2ª de seu módulo.
+      return(abs(x)^(1/2))
+    } else if (primo(x)) {
+      # REGRA 1: Se o valor for um número primo, multiplique-o por 6.
+      return(x * 6)
+    } else if (quadrado_perfeito(x)) {
+      # REGRA 2: Se o valor for um quadrado perfeito, subtraia 15.
+      resultado <- x - 15
+      if (resultado < 0) {
+        # Caso o resultado obtido for negativo, eleve a 5a potência.
+        return(resultado^5)
+      }
+      return(resultado)
+    } else {
+      # REGRA 4: Para todos os outros valores, não faça nada.
+      return(x)
+    }
+  })
+}
+
+
+# --- EXECUÇÃO E TRANSFORMAÇÃO DAS MATRIZES ---
+
+Matriz_A <- matrix( c(-5, -8, 4, -4, 9, -2, 6, 5, -3, -1, 3, -9, 10, 7, -6, 1) , nrow = 4, byrow = FALSE)
+Matriz_B <- matrix( c(9, -4, -18, 11, -14, 7, 2, 3, 17, 14, 0, 16, -6, -19, -8, -1, -20, 20, 5, 6) , nrow = 4, byrow = FALSE)
+Matriz_C <- matrix( c(-29, -23, -24, 21, -12, 25, 17, 16, 8, 29, 0, -5, -17, -4, -7, 14) , nrow = 4, byrow = FALSE)
+
+M_A_transformada <- transforma_matriz(Matriz_A)
+M_B_transformada <- transforma_matriz(Matriz_B)
+M_C_transformada <- transforma_matriz(Matriz_C)
+
+cat("Matriz A Transformada:\n")
+print(M_A_transformada)
+cat("\nMatriz B Transformada:\n")
+print(M_B_transformada)
+cat("\nMatriz C Transformada:\n")
+print(M_C_transformada)
+cat("\n")
+
+# --- RESOLUÇÃO DOS ITENS ---
+
+# a) Soma dos elementos da diagonal principal da Matriz A transformada
+soma_MA <- M_A_transformada[1,1] + M_A_transformada[2,2] + M_A_transformada[3,3] + M_A_transformada[4,4]
+cat("a) Soma dos elementos da diagonal principal da Matriz A transformada:\n")
+cat("   Resultado:", round(soma_MA, 4), "\n\n")
+
+# b) Matriz C transformada (já impressa acima, mas a solicitação pede apenas a visualização)
+cat("b) Matriz C transformada (visualização):\n")
+print(M_C_transformada)
+cat("\n")
+
+# c) Soma dos elementos da segunda coluna da Matriz C transformada
+soma_coluna_2_MC <- sum(M_C_transformada[, 2])
+cat("c) Soma dos elementos da segunda coluna da Matriz C transformada:\n")
+cat("   Resultado:", round(soma_coluna_2_MC, 4), "\n\n")
+
+# d) Contagem total de números primos nas matrizes transformadas A, B e C
+# REUSAR A FUNÇÃO PRIMO ORIGINAL, A QUE FOI INSERIDA NO ITEM D ERA INVÁLIDA
+contar_primos <- function(matriz) {
+  conta_primos <- 0
+  # varrer todos os elementos da matriz
+  for (n in matriz) {
+    if (primo(n)) {
+      conta_primos <- conta_primos + 1
+    }
+  }
+  return(conta_primos)
+}
+
+iA <- contar_primos(M_A_transformada)
+iB <- contar_primos(M_B_transformada)
+iC <- contar_primos(M_C_transformada)
+
+total_primos <- iA + iB + iC
+
+cat("d) Contagem de números primos nas matrizes transformadas:\n")
+cat("   Primos em A:", iA, "\n")
+cat("   Primos em B:", iB, "\n")
+cat("   Primos em C:", iC, "\n")
+cat("   Contagem Total (A + B + C):", total_primos, "\n")
+```
+
+### 3)
+
+O *Lago Baikal*, na Rússia, é famoso por sua abundância de nutrientes e por sua beleza natural, sendo lar da espécie de peixe Omul do Baikal (Coregonus migratorius). O lago pode suportar uma capacidade máxima de 5 × 105 peixes e apresenta uma taxa de reprodução basal de 6% ao dia.
+
+Essa taxa de reprodução varia de acordo com a temperatura média da estação do ano, conforme a Tabela 1. Além disso, o pH da água afeta o comportamento dos pescadores, que pescam diferentes porcentagens de peixes por dia, conforme a Tabela 2.
+
+| Estacao | Temperatura | FatorReproducao |
+|---------|-------------|-----------------|
+| Pri     | 0           | 0.00            |
+| Ver     | 20          | 0.03            |
+| Out     | 10          | -0.03           |
+| Inv     | 0           | -0.02           |
+
+| FaixaPH | PercentualPescado |
+|---------|-------------------|
+| 6.0–6.5 | 0.12              |
+| 6.6–7.0 | 0.20              |
+| 7.1–7.5 | 0.05              |
+| 7.6–8.0 | 0.16              |
+
+No entanto, a pesca excessiva e a poluição têm afetado a população de peixes no lago. Hoje, têm-se 80 peixes no lago, e um programa de monitoramento foi implementado para avaliar o impacto dessas variáveis na população de peixes.
+
+#### Sua Tarefa
+
+1.  Crie uma função chamada simular_lago que receba como entrada os seguintes parâmetros:
+
+-   dias: Número de dias do experimento.
+
+-   peixes_iniciais: Número inicial de peixes no lago.
+
+-   estacao: Estação do ano (Primavera, Verão, Outono ou Inverno).
+
+-   ph: pH médio da água durante o experimento.
+
+2.  A função deve calcular:
+
+-   O número de peixes no lago a cada dia.
+
+-   O número de dias até o lago atingir sua capacidade máxima ou o número final de peixes ao fim do período definido por dias.
+
+3.  Saída esperada:
+
+-   Um data frame com duas colunas: dias e peixes, onde dias é o número do dia e peixes é o número de peixes no lago naquele dia.
+
+#### Fórmula
+
+A cada dia, o número de peixes é calculado como:
+
+Peixes no próximo dia=Peixes atuais×(1+taxa de reprodução ajustada)−peixes pescados
+
+Onde:
+
+Taxa de reprodução ajustada:
+
+Taxa basal+fator de ajuste da Tabela 1.
+
+Peixes pescados:
+
+Peixes atuais×porcentagem de peixes pescados (Tabela 2).
+
+Observação: O número de peixes nunca pode exceder a capacidade máxima do lago, e o número máximo de dias que os pesquisadores irão quantificar os peixes é 1000 dias. Além disso, contagem de peixes é sempre um número inteiro, considere sempre arredondar para cima.
+
+a)  Durante a estação Verão e com pH médio da água de 6.6–7.0, após 16 dias, quantos peixes haverá no lago?
+
+b)  Durante a estação Verão e com pH médio da água de 6.6–7.0, quantos dias são necessários para o lago atingir sua capacidade máxima?
+
+c)  Durante a estação Outono e com pH médio da água de 6.0–6.5, após 87 dias, quantos peixes haverá no lago?
+
+d)  Durante a estação Outono e com pH médio da água de 6.0–6.5, quantos dias são necessários para o lago atingir sua capacidade máxima?
+
+-   **Resolução**:
+
+**Preparação dos dados**
+
+```{r}
+# --- CONSTANTES ---
+CAPACIDADE_MAXIMA <- 500000
+TAXA_REPRODUCAO_BASAL <- 0.06
+DIAS_MAXIMOS_SIMULACAO <- 1000
+
+# Tabela 1: Fatores de Reprodução por Estação
+df_reproducao <- data.frame(
+  Estacao = c("Pri", "Ver", "Out", "Inv"),
+  FatorReproducao = c(0.00, 0.03, -0.03, -0.02)
+)
+
+# Tabela 2: Percentual Pescado por Faixa de pH
+df_pesca <- data.frame(
+  FaixaPH = c("6.0–6.5", "6.6–7.0", "7.1–7.5", "7.6–8.0"),
+  PercentualPescado = c(0.12, 0.20, 0.05, 0.16)
+)
+
+# Função auxiliar para buscar o Fator de Reprodução
+get_fator_reproducao <- function(estacao) {
+  fator <- df_reproducao$FatorReproducao[df_reproducao$Estacao == estacao]
+  if (length(fator) == 0) stop("Estação inválida.")
+  return(fator)
+}
+
+# Função auxiliar para buscar o Percentual Pescado
+get_percentual_pescado <- function(ph_faixa) {
+  percentual <- df_pesca$PercentualPescado[df_pesca$FaixaPH == ph_faixa]
+  if (length(percentual) == 0) stop("Faixa de pH inválida.")
+  return(percentual)
+}
+```
+
+**Função simular_lago**
+
+```{r}
+simular_lago <- function(dias, peixes_iniciais, estacao, ph) {
+  
+  # 1. Configurações e Lookups
+  dias_simulacao <- min(dias, DIAS_MAXIMOS_SIMULACAO)
+  
+  # Taxa de reprodução ajustada
+  fator_repro_ajuste <- get_fator_reproducao(estacao)
+  taxa_repro_ajustada <- TAXA_REPRODUCAO_BASAL + fator_repro_ajuste
+  
+  # Percentual de pesca
+  percentual_pescado <- get_percentual_pescado(ph)
+  
+  # Inicialização do rastreamento
+  populacao <- peixes_iniciais
+  historico <- data.frame(dias = 0, peixes = peixes_iniciais)
+  dias_para_capacidade <- NA
+  
+  # 2. Simulação Dia a Dia
+  for (dia in 1:dias_simulacao) {
+    
+    # Peixes pescados (sempre baseados nos peixes atuais)
+    peixes_pescados <- populacao * percentual_pescado
+    
+    # Fórmula: Peixes * (1 + Taxa) - Pescados
+    proxima_populacao <- populacao * (1 + taxa_repro_ajustada) - peixes_pescados
+    
+    # Regra: Contagem de peixes é sempre um número inteiro, arredonda para cima
+    proxima_populacao <- ceiling(proxima_populacao)
+    
+    # Regra: População nunca pode exceder a capacidade máxima
+    populacao <- min(proxima_populacao, CAPACIDADE_MAXIMA)
+    
+    # Rastreamento
+    historico <- rbind(historico, data.frame(dias = dia, peixes = populacao))
+    
+    # Verifica se atingiu a capacidade máxima PELA PRIMEIRA VEZ
+    if (is.na(dias_para_capacidade) && populacao == CAPACIDADE_MAXIMA) {
+      dias_para_capacidade <- dia
+    }
+    
+    # Se atingiu a capacidade, para a simulação (otimização)
+    if (populacao == CAPACIDADE_MAXIMA && dia < dias) break
+    
+    # Se a população atingiu zero (ou negativo, embora o ceiling minimize isso)
+    if (populacao <= 0) {
+        populacao <- 0
+        historico[nrow(historico), "peixes"] <- 0 # Garante que o último registro seja 0
+        break
+    }
+  }
+  
+  # 3. Retorno da Função
+  return(list(
+    historico = historico,
+    dias_para_capacidade = dias_para_capacidade,
+    peixes_finais = populacao
+  ))
+}
+```
+
+- a) e b) Estação Verão e pH 6.6–7.0 (Iniciais: 80 peixes)
+
+```{r}
+peixes_iniciais <- 80
+estacao_verao <- "Ver"
+ph_faixa_6_6_7_0 <- "6.6–7.0"
+dias_a <- 16
+dias_b <- 1000 # Usamos o máximo de 1000 dias para buscar a capacidade
+
+# Resolução a)
+res_a <- simular_lago(dias = dias_a, peixes_iniciais = peixes_iniciais, estacao = estacao_verao, ph = ph_faixa_6_6_7_0)
+peixes_apos_16_dias <- res_a$historico$peixes[res_a$historico$dias == dias_a]
+
+# Resolução b)
+res_b <- simular_lago(dias = dias_b, peixes_iniciais = peixes_iniciais, estacao = estacao_verao, ph = ph_faixa_6_6_7_0)
+
+cat("a) Peixes após 16 dias (Verão, pH 6.6–7.0):", peixes_apos_16_dias, "\n")
+cat("b) Dias para atingir a capacidade máxima (Verão, pH 6.6–7.0):", 
+    ifelse(is.na(res_b$dias_para_capacidade), 
+           "Não atingiu em 1000 dias", res_b$dias_para_capacidade), "\n\n")
+```
+
+c) e d) Estação Outono e pH 6.0–6.5 (Iniciais: 80 peixes)
+
+```{r}
+peixes_iniciais <- 80
+estacao_outono <- "Out"
+ph_faixa_6_0_6_5 <- "6.0–6.5"
+dias_c <- 87
+dias_d <- 1000
+
+# Resolução c)
+res_c <- simular_lago(dias = dias_c, peixes_iniciais = peixes_iniciais, estacao = estacao_outono, ph = ph_faixa_6_0_6_5)
+peixes_apos_87_dias <- res_c$historico$peixes[res_c$historico$dias == dias_c]
+
+# Resolução d)
+res_d <- simular_lago(dias = dias_d, peixes_iniciais = peixes_iniciais, estacao = estacao_outono, ph = ph_faixa_6_0_6_5)
+
+cat("c) Peixes após 87 dias (Outono, pH 6.0–6.5):", peixes_apos_87_dias, "\n")
+cat("d) Dias para atingir a capacidade máxima (Outono, pH 6.0–6.5):", 
+    ifelse(is.na(res_d$dias_para_capacidade), 
+           "Não atingiu em 1000 dias", res_d$dias_para_capacidade), "\n")
+```
+
+
+# Prova Final
+
+## Questão 1 
+
+Considere as notas dos instrumentos de uma orquestra descritas no vetor numérico nomeado em Notas e os instrumentos que atingiram o limite de volume descritos no vetor lógico nomeado em LimiteVolume:
+
+#### Notas
+
+```{r}
+Notas <- data.frame(Instrumento = c("Violino", "Viola", "Violoncelo", "Contrabaixo", "Flauta", "Clarinete", "Oboé", "Trompete", "Trombone", "Percussão"),
+                    Notas = c(56, 59, 76, 38, 50, 37, 62, 93, 62, 52),
+                    Limite_Volume = c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE))
+```
+
+a)  A raiz quadrada da média das notas dos instrumentos é:
+
+```{r}
+raiz_quadrada_media <- sqrt(mean(Notas$Notas))
+raiz_quadrada_media
+```
+
+
+b)  A mediana das notas dos instrumentos que atingiram o limite de volume é:
+
+```{r}
+notas_limite_true <- Notas[Notas$Limite_Volume == TRUE, "Notas"]
+mediana_limite_true <- median(notas_limite_true)
+mediana_limite_true
+```
+
+c)  A maior nota entre os instrumentos que não atingiram o limite de volume é:
+
+```{r}
+notas_limite_false <- Notas[Notas$Limite_Volume == FALSE, "Notas"]
+maior_nota_limite_false <- max(notas_limite_false)
+maior_nota_limite_false
+```
+
+
+d)  Considerando que instrumentos com nota entre 40 e 69 precisam de ajustes, o número de instrumentos que precisam de ajustes e atingiram o limite de volume é:
+
+```{r}
+ajuste_e_limite <- Notas[Notas$Notas >= 40 & Notas$Notas <= 69 & Notas$Limite_Volume == TRUE, ]
+numero_ajuste_e_limite <- nrow(ajuste_e_limite)
+numero_ajuste_e_limite
+```
+
+e)  O desvio-padrão das notas dos instrumentos que atingiram o limite de volume é:
+
+```{r}
+dp_limite_true <- sd(notas_limite_true)
+dp_limite_true
+```
+
+**Respostas**
+
+```{r}
+cat("a) Raiz quadrada da média das notas:", round(raiz_quadrada_media, 4), "\n")
+cat("b) Mediana das notas com limite de volume TRUE:", mediana_limite_true, "\n")
+cat("c) Maior nota sem limite de volume:", maior_nota_limite_false, "\n")
+cat("d) Número de instrumentos com ajuste E limite de volume TRUE:", numero_ajuste_e_limite, "\n")
+cat("e) Desvio-padrão das notas com limite de volume TRUE:", round(dp_limite_true, 4), "\n")
+```
+
+
+## Questão 2
+
+Um entusiasta gastronômico está em uma jornada para explorar restaurantes listados no guia Michelin. O viajante começou sua aventura no Restaurante Per Se em New York, USA. Após saborear as delícias do restaurante, ele segue para a cidade mais próxima que abriga um restaurante reconhecido no guia Michelin.
+
+Para calcular a distância entre os restaurantes, utilizaremos a equação de Haversine, uma fórmula eficaz para medir distâncias entre pontos de latitude e longitude na superfície esférica da Terra.
+
+A equação de Haversine para calcular a distância (d) entre dois pontos na superfície de uma esfera (como a Terra) a partir das coordenadas de latitude, em radianos, (φ1, φ1) e longitude (λ1, λ2) é dada por
+
+$$
+d=2⋅rarcsin((sin2(φ2−φ12)+cosφ1⋅cosφ2⋅sin2(λ2−λ12)^(1/2))
+$$
+
+em que r é o raio da Terra (aproximadamente 6,371 km). Neste contexto, responda as questões a seguir.
+
+
+Dica: Implemente a função haversine_distance para calcular a distância entre dois pontos na superfície da Terra. Verifique a necessidade de converter as coordenadas de latitude e longitude para radianos.
+
+Utilize o banco de dados michelin.csv para obter as informações necessárias.
+
+Quantos quilômetros o entusiasta precisa viajar para visitar o próximo restaurante com 1 Star ?
+
+```{r}
+# Carrega as bibliotecas necessárias
+# install.packages("dplyr") # Descomente para instalar se necessário
+library(dplyr)
+
+# 1. Definição da constante do raio da Terra (em km)
+R <- 6371
+
+# 2. Implementação da função Haversine
+# Coordenadas devem ser passadas em graus
+haversine_distance <- function(lat1, lon1, lat2, lon2) {
+  # Converte graus para radianos
+  rad <- function(deg) { deg * pi / 180 }
+  
+  phi1 <- rad(lat1)
+  phi2 <- rad(lat2)
+  lambda1 <- rad(lon1)
+  lambda2 <- rad(lon2)
+  
+  # Diferenças
+  d_phi <- phi2 - phi1
+  d_lambda <- lambda2 - lambda1
+  
+  # Fórmula de Haversine
+  a <- sin(d_phi / 2)^2 + cos(phi1) * cos(phi2) * sin(d_lambda / 2)^2
+  d <- 2 * R * asin(sqrt(a))
+  
+  return(d)
+}
+
+# 3. Carregamento dos dados (Assumindo que michelin.csv está no diretório de trabalho)
+# df_michelin <- read.csv("michelin.csv")
+
+# 4. Localiza o restaurante de partida ('Per Se')
+# per_se <- df_michelin %>% filter(name == "Per Se", city == "New York", country == "USA")
+# lat_per_se <- per_se$latitude[1]
+# lon_per_se <- per_se$longitude[1]
+
+# 5. Filtra restaurantes com exatamente '1 Star'
+# df_one_star <- df_michelin %>% filter(stars == "1 Star")
+
+# 6. Calcula a distância de 'Per Se' para todos os restaurantes '1 Star'
+# distancias <- df_one_star %>%
+#   rowwise() %>%
+#   mutate(
+#     dist_km = haversine_distance(lat_per_se, lon_per_se, latitude, longitude)
+#   ) %>%
+#   ungroup()
+
+# 7. Encontra a distância mínima (e remove a distância de Per Se para ele mesmo, se estiver na lista)
+# min_distance <- distancias %>%
+#   filter(dist_km > 0.1) %>% # Filtra distâncias muito pequenas (para não considerar o próprio restaurante)
+#   summarise(min_dist = min(dist_km)) %>%
+#   pull(min_dist)
+
+# cat("Distância mínima para o próximo restaurante 1 Star:", round(min_distance, 2), "km\n")
+```
+
+
+## Questão 3
+
+Considere os bancos de dados BoardGames1 e BoardGames2 para responder as questões que seguem. Os bancos apresentam uma série de informações sobre jogos de tabuleiro.
+
+**Preparação dos dados**
+
+```{r}
+#library(dplyr)
+# install.packages("stringr")
+#library(stringr)
+
+# 1. Carregar e Combinar os Dados (ASSUME ARQUIVOS .csv)
+# Mude para o caminho correto se necessário
+#tryCatch({
+#    df1 <- read.csv("BoardGames1.csv")
+#    df2 <- read.csv("BoardGames2.csv")
+#    df_boardgames <- bind_rows(df1, df2)
+    
+    # Garantir que as colunas numéricas estão corretas
+#    df_boardgames$average <- as.numeric(df_boardgames$average)
+#    df_boardgames$yearpublished <- as.integer(df_boardgames$yearpublished)
+#    df_boardgames$maxplayers <- as.integer(df_boardgames$maxplayers)
+#    df_boardgames$minplaytime <- as.integer(df_boardgames$minplaytime)
+#    df_boardgames$users_rated <- as.integer(df_boardgames$users_rated)
+#    df_boardgames$maxplaytime <- as.integer(df_boardgames$maxplaytime)
+#    df_boardgames$minage <- as.integer(df_boardgames$minage)
+```
+
+
+Importante: Ao incluir respostas do tipo string, certifique-se de que a mesma corresponde exatamente ao que está contido nos bancos de dados. Caso contrário, o sistema vai considerar que sua resposta está incorreta.
+
+a)  Dentre os jogos cujo nome (name) contém exatamente 2 palavras, quantos possuem nota média (average) maior que 7.5?
+
+```{r}
+#q3_a <- df_boardgames %>%
+#        mutate(num_palavras = str_count(name, "\\S+")) %>%
+#        filter(num_palavras == 2, average > 7.5) %>%
+#        nrow()
+```
+
+
+b)  Quantos jogos possuem o sinal de exclamação na descrição (description)? Considere apenas os jogos lançados após 2010 (yearpublished).
+
+```{r}
+#q3_b <- df_boardgames %>%
+#        filter(yearpublished > 2010, str_detect(description, "\\!")) %>%
+#        nrow()
+```
+
+c)  Considere os jogos que admitem no máximo 12 jogadores(as) (maxplayers) e que possuem tempo mínimo de jogo (minplaytime) superior a 70. Dentre estes, quantos não contém a letra K no nome (name)?
+
+```{r}
+#q3_c <- df_boardgames %>%
+#        filter(maxplayers <= 12, 
+#               minplaytime > 70,
+#               !str_detect(name, "[Kk]")) %>% # Busca por 'K' ou 'k'
+#        nrow()
+```
+
+d)  Dentre os jogos lançados em 1996 (yearpublished), qual possui a maior quantidade de avaliações (users_rated)? Considere apenas os jogos cujo tempo máximo de jogo (maxplaytime) é 120 minutos.
+
+```{r}
+#q3_d <- df_boardgames %>%
+#        filter(yearpublished == 1996, maxplaytime == 120) %>%
+#        arrange(desc(users_rated)) %>%
+#        slice(1) %>%
+#        pull(name)
+```
+
+e)  Dentre os jogos lançados em 1995 (yearpublished), qual possui a maior quantidade de caracteres na descrição (description)? Considere apenas os jogos cuja idade mínima para jogar (minage) é dada por um número par.
+
+```{r}
+#q3_e <- df_boardgames %>%
+#        filter(yearpublished == 1995, minage %% 2 == 0) %>%
+#        mutate(char_count = nchar(description)) %>%
+#        arrange(desc(char_count)) %>%
+#        slice(1) %>%
+#        pull(name)
+```
+
+**Resultados**
+
+```{r}
+#cat("--- Respostas Questão 3 ---\n")
+#    cat("a) Contagem (2 palavras e average > 7.5):", q3_a, "\n")
+#    cat("b) Contagem (Após 2010 e com !):", q3_b, "\n")
+#    cat("c) Contagem (maxplayers <= 12, minplaytime > 70 e sem K):", q3_c, "\n")
+#    cat("d) Jogo de 1996 com mais avaliações (users_rated):", q3_d, "\n")
+#    cat("e) Jogo de 1995 (minage par) com descrição mais longa:", q3_e, "\n")
+#
+#}, error = function(e) {
+#    cat("\nERRO: Não foi possível carregar ou combinar os arquivos BoardGames1.csv e BoardGames2.csv.\n")
+#    cat("Certifique-se de que os arquivos estão no diretório de trabalho.\n")
+#})
+```
+
+
+## Questão 4
+
+Feriados são épocas importantes tanto para confraternizações, descansos e para viagens. Diversos países celebram diferentes feriados e com isso, muitas pessoas aproveitam para viajar.
+
+Os dados contidos em tuesdata <- tidytuesdayR::tt_load('2024-12-24') contêm duas tabelas, uma com informações sobre feriados globais e outra sobre a quantidade de passageiros mensais em aeroportos.
+
+Nota: Caso não consiga abrir o pacote, busque no Google alternativas para fazer a leitura da base de dados, por exemplo, direto de uma url.
+
+Instruções: Não manipule o nome dos feriados, nem dos países. Considere apenas informações completas.
+
+Acerca dos dados fornecidos, responda as seguintes questões:
+
+No ano de 2012 houveram quantos feriados no(a) país Hungary?
+
+a)  Em qual mês do ano de 2014 houve mais feriados no(a) país Hungary?
+
+b)  Quantos passageiros (Total) foram registrados no aeroporto do(a) país Uk no mês com maior número de feriados do ano de 2013?
+
+c)  Qual ano teve a maior média de passageiros do tipo International nos aeroportos do(a) país Switzerland?
+
+d)  Qual país teve a maior quantidade de feriados públicos no ano de 2017?
+
+e)  Qual ano teve a maior quantidade de passageiros nos aeroportos do(a) país Lithuania?
+
+**Preparação do ambiente**
+
+```{r}
+# Instalar e carregar pacotes (se ainda não o fez)
+# install.packages("tidytuesdayR")
+# install.packages("dplyr")
+library(tidytuesdayR)
+library(dplyr)
+
+```
+
+
+```{r}
+
+# Tenta carregar os dados (pode levar um momento e requer conexão com a internet)
+#tryCatch({
+#    tuesdata <- tidytuesdayR::tt_load('2024-12-24')
+#    
+    # Extrai as tabelas
+#    df_holidays <- tuesdata$global_holidays
+#    df_passengers <- tuesdata$airport_passengers
+    
+    # Garante informações completas (Nota: A filtragem completa pode ser ajustada
+    # dependendo de quais colunas você considera essenciais)
+#    df_holidays_clean <- df_holidays %>% filter(complete.cases(.))
+#    df_passengers_clean <- df_passengers %>% filter(complete.cases(.))
+
+    # --- Resposta Principal: Feriados em Hungary em 2012 ---
+#    total_holidays_2012_hungary <- df_holidays_clean %>%
+#        filter(country == "Hungary", lubridate::year(date) == 2012) %>%
+#        nrow()
+#    cat("\nTotal de feriados em Hungary em 2012:", total_holidays_2012_hungary, "\n")
+    
+    # -----------------------------------------------------
+
+    # a) Mês com mais feriados em Hungary em 2014
+#    q4_a <- df_holidays_clean %>%
+#        filter(country == "Hungary", lubridate::year(date) == 2014) %>%
+#        mutate(month_name = format(date, "%B")) %>%
+#        group_by(month_name) %>%
+#        summarise(count = n()) %>%
+#        arrange(desc(count)) %>%
+#        slice(1) %>%
+#        pull(month_name)
+
+    # b) Passageiros (Total) no aeroporto do país Uk no mês com maior número de feriados em 2013
+    
+    # 1. Encontra o mês com mais feriados no UK em 2013
+#    uk_most_holiday_month_2013 <- df_holidays_clean %>%
+#        filter(country == "Uk", lubridate::year(date) == 2013) %>%
+#        mutate(month_num = lubridate::month(date)) %>%
+#        group_by(month_num) %>%
+#        summarise(count = n()) %>%
+#        arrange(desc(count)) %>%
+#        slice(1) %>%
+#        pull(month_num)
+        
+    # 2. Encontra o total de passageiros nesse mês
+#    q4_b <- df_passengers_clean %>%
+#        filter(country == "Uk", lubridate::year(date) == 2013, lubridate::month(date) == uk_most_holiday_month_2013) %>%
+#        summarise(total_passengers = sum(Total)) %>%
+#        pull(total_passengers)
+        
+
+    # c) Ano com maior média de passageiros International em Switzerland
+#    q4_c <- df_passengers_clean %>%
+#        filter(country == "Switzerland") %>%
+#        group_by(Year = lubridate::year(date)) %>%
+#        summarise(avg_international = mean(International, na.rm = TRUE)) %>%
+#        arrange(desc(avg_international)) %>%
+#        slice(1) %>%
+#        pull(Year)
+
+    # d) País com maior quantidade de feriados públicos em 2017
+#    q4_d <- df_holidays_clean %>%
+#        filter(lubridate::year(date) == 2017, holiday_type == "Public") %>%
+#        group_by(country) %>%
+#        summarise(count = n()) %>%
+#        arrange(desc(count)) %>%
+#        slice(1) %>%
+#        pull(country)
+
+    # e) Ano com a maior quantidade de passageiros (Total) em Lithuania
+#    q4_e <- df_passengers_clean %>%
+#        filter(country == "Lithuania") %>%
+#        group_by(Year = lubridate::year(date)) %>%
+#        summarise(total_passengers = sum(Total, na.rm = TRUE)) %>%
+#        arrange(desc(total_passengers)) %>%
+#        slice(1) %>%
+#        pull(Year)
+
+    # Exibe os resultados
+#    cat("\n--- Respostas Questão 4 ---\n")
+#    cat("a) Mês com mais feriados em Hungary em 2014:", q4_a, "\n")
+#    cat("b) Passageiros (Total) no UK (mês de pico em 2013):", q4_b, "\n")
+#    cat("c) Ano com maior média International em Switzerland:", q4_c, "\n")
+#    cat("d) País com mais feriados Public em 2017:", q4_d, "\n")
+#    cat("e) Ano com mais passageiros em Lithuania:", q4_e, "\n")
+
+#}, error = function(e) {
+#    cat("\nERRO: Não foi possível carregar os dados do TidyTuesday (2024-12-24).\n")
+#    cat("Verifique sua conexão com a internet e se o pacote 'tidytuesdayR' está instalado e a URL está acessível.\n")
+#    cat("Erro reportado:", conditionMessage(e), "\n")
+#})
+```
+

@@ -1,0 +1,403 @@
+---
+title: "prova 3"
+output: html_document
+date: "2025-10-15"
+---
+
+# PROVA 3
+
+
+## EXERCÍCIO 1 
+
+SEQUÊNCIA DE TRIBONACCI
+
+**RESPOSTA 1**
+
+```{r}
+# Inicialização dos 3 primeiros termos
+tribonacci <- c(0, 1, 1) 
+
+# Gerar a sequência até a posição 15 e além
+posicao_maxima <- 30 # Usaremos 30 posições para garantir a precisão nas razões
+
+# Loop para gerar os termos
+for (i in 4:posicao_maxima) {
+  # O novo termo é a soma dos três termos anteriores
+  proximo_termo <- tribonacci[i-1] + tribonacci[i-2] + tribonacci[i-3]
+  tribonacci[i] <- proximo_termo
+}
+
+
+# A sequência de Tribonacci gerada é:
+# tribonacci
+# [1]   0   1   1   2   4   7  13  24  44  81 149 274 504 927 1705 ...
+```
+
+**RESPOSTA 2**
+
+```{r}
+# Inicializar vetores para as razões u_i e a razão de razões
+ui <- numeric(length(tribonacci))
+razao_ui_ui_menos_1 <- numeric(length(tribonacci))
+erro_limite <- 0.00001000
+
+# Loop para calcular as razões u_i = x_i / x_{i-2}
+# O cálculo de u_i começa na posição i=3, pois exige x_1=x_{i-2}
+for (i in 3:length(tribonacci)) {
+  # O termo x_i-2 deve ser diferente de zero para a divisão
+  if (tribonacci[i-2] != 0) {
+    ui[i] <- tribonacci[i] / tribonacci[i-2]
+  } else {
+    ui[i] <- NA # Não definido (ocorre em i=3)
+  }
+}
+
+# Loop para calcular a razão de razões: u_i / u_{i-1}
+# O cálculo da razão de razões começa na posição i=4, pois exige u_3 e u_4
+i_minimo <- NA
+for (i in 4:length(ui)) {
+  # Ambos u_i e u_i-1 devem ser números válidos (não-NA e diferentes de zero)
+  if (!is.na(ui[i]) && !is.na(ui[i-1]) && ui[i-1] != 0) {
+    razao_de_razoes <- ui[i] / ui[i-1]
+    razao_ui_ui_menos_1[i] <- razao_de_razoes
+    
+    # Verifica a condição de parada
+    if (abs(razao_de_razoes) < erro_limite) {
+      i_minimo <- i
+      break 
+    }
+  } else {
+    razao_ui_ui_menos_1[i] <- NA
+  }
+}
+
+# O valor de u_i na posição i_minimo será a nossa aproximação de convergência
+valor_convergencia <- ui[i_minimo]
+print(valor_convergencia)
+```
+
+
+
+## EXERCÍCIO 2
+
+
+## EXERCÍCIO 3
+
+```{r}
+# Constante Pi (do sistema) para calcular o erro
+pi_verdadeiro <- pi 
+
+# Condição de erro para a parada
+erro_limite <- 0.00100
+
+# Variáveis iniciais
+ultimo_impar <- 1  # Denominador, começando em 1, 3, 5, ...
+ultimo_sinal <- 1  # Sinal da operação (1 ou -1)
+i <- 1             # Contador de termos da série
+
+# Aproximação inicial (apenas o primeiro termo)
+pi_approx <- ultimo_sinal * 4/ultimo_impar
+
+# Diferença inicial (erro)
+erro <- abs(pi_approx - pi_verdadeiro)
+
+# Loop 'while' para adicionar termos até atingir a precisão
+while (erro >= erro_limite) {
+  
+  # 1. Atualiza as variáveis para o PRÓXIMO termo
+  
+  # Alterna o sinal: de 1 para -1, e de -1 para 1
+  ultimo_sinal <- -ultimo_sinal
+  
+  # Incrementa o denominador ímpar: de 1 para 3, 3 para 5, etc.
+  ultimo_impar <- ultimo_impar + 2
+  
+  # Aumenta o contador de termos
+  i <- i + 1
+  
+  # 2. Adiciona o NOVO termo à aproximação
+  termo_novo <- ultimo_sinal * 4/ultimo_impar
+  pi_approx <- pi_approx + termo_novo
+  
+  # 3. Recalcula o erro (condição de parada)
+  erro <- abs(pi_approx - pi_verdadeiro)
+  
+  # Opcional: Para acompanhar o progresso
+  # cat(sprintf("Termos: %d | Aprox: %.8f | Erro: %.8f\n", i, pi_approx, erro))
+}
+
+# Resultados finais
+print(paste("Aproximação final de pi:", pi_approx))
+print(paste("Erro final:", erro))
+print(paste("Número mínimo de termos (i):", i))
+
+# Variáveis importantes para a resposta
+num_termos_minimo <- i
+erro_final <- erro
+```
+
+
+## EXERCÍCIO 4
+
+```{r}
+# Constante Pi (do sistema) para calcular o erro
+pi_verdadeiro <- pi 
+
+# Condição de erro para a parada
+erro_limite <- 0.00010
+
+# Variáveis iniciais (conforme o prompt)
+# Note que ultimo_num é o último número no produto do denominador (ex: 4, 6, 8, ...)
+ultimo_num <- 4   
+ultimo_sinal <- 1 # Sinal da parcela (1 ou -1)
+i <- 1            # Contador de termos APÓS o 3
+
+# Aproximação inicial (3 + 1º termo)
+# O 1º termo é: +4 / (2*3*4)
+pi_approx <- 3 + ultimo_sinal * 4/(prod((ultimo_num - 2):ultimo_num))
+
+# Diferença inicial (erro)
+erro <- abs(pi_approx - pi_verdadeiro)
+
+# Loop 'while' para adicionar termos até atingir a precisão
+while (erro >= erro_limite) {
+  
+  # 1. Atualiza as variáveis para o PRÓXIMO termo
+  
+  # Alterna o sinal (de 1 para -1, e de -1 para 1)
+  ultimo_sinal <- -ultimo_sinal
+  
+  # Incrementa o último número do produto em 2 (de 4 para 6, 6 para 8, etc.)
+  ultimo_num <- ultimo_num + 2
+  
+  # Aumenta o contador de termos
+  i <- i + 1
+  
+  # 2. Calcula o NOVO termo
+  # O denominador é o produto de (ultimo_num - 2) * (ultimo_num - 1) * ultimo_num
+  denominador <- ultimo_num * (ultimo_num - 1) * (ultimo_num - 2)
+  termo_novo <- ultimo_sinal * 4 / denominador
+  
+  # 3. Adiciona o novo termo à aproximação
+  pi_approx <- pi_approx + termo_novo
+  
+  # 4. Recalcula o erro (condição de parada)
+  erro <- abs(pi_approx - pi_verdadeiro)
+}
+
+# Resultados finais para a resposta
+num_termos_minimo <- i
+erro_final <- erro
+pi_approx_final <- pi_approx
+
+cat(sprintf("Número mínimo de termos (i): %d\n", num_termos_minimo))
+cat(sprintf("Aproximação final de pi: %.10f\n", pi_approx_final))
+cat(sprintf("Erro final: %.10f\n", erro_final))
+```
+
+
+## EXERCÍCIO 5
+
+```{r}
+# Data de início do treino em 2023
+data_atual <- as.Date("2023-01-06")
+
+# Variáveis de controle
+contador_treino <- 0
+programas <- c("A", "B", "C")
+indice_programa <- 1
+historico_treinos <- data.frame(
+  treino_num = integer(),
+  data = as.Date(character()),
+  programa = character(),
+  dia_semana = character()
+)
+
+# Constante
+TREINO_ALVO <- 121
+
+# Mapeamento de números de dia da semana para nomes (seg=1 ... dom=7)
+dias_semana_nomes <- c("seg", "ter", "qua", "qui", "sex", "sáb", "dom")
+
+# Loop para simular os treinos até o treino número 121 e um pouco mais para ter certeza
+while (contador_treino <= TREINO_ALVO) {
+  
+  # 1. Checa o dia da semana atual
+  dia_semana_num <- as.integer(strftime(data_atual, "%u"))
+  dia_semana_nome <- dias_semana_nomes[dia_semana_num]
+  
+  # 2. Checa o dia do mês
+  dia_do_mes <- as.integer(strftime(data_atual, "%d"))
+  
+  # 3. Determina se é um dia de treino (antes das regras de transferência)
+  # O padrão normal é Seg(1), Qua(3), Sex(5)
+  e_dia_normal_de_treino <- dia_semana_num %in% c(1, 3, 5)
+  
+  # 4. Aplica as regras de transferência e execução
+  
+  if (e_dia_normal_de_treino) {
+    # Regra do Múltiplo de 10: Se for múltiplo de 10, ele NÃO treina hoje, transfere para amanhã.
+    if (dia_do_mes %% 10 == 0) {
+      # Dia de folga forçada devido à regra do múltiplo de 10.
+      data_atual <- data_atual + 1
+      next # Pula para a próxima iteração
+    }
+    
+    # Se não for múltiplo de 10, o treino ACONTECE neste dia.
+    
+    contador_treino <- contador_treino + 1
+    programa_atual <- programas[indice_programa]
+    
+    # Registra o treino
+    historico_treinos[contador_treino, ] <- list(
+      contador_treino, 
+      data_atual, 
+      programa_atual, 
+      dia_semana_nome
+    )
+    
+    # Atualiza o programa (A -> B -> C -> A)
+    indice_programa <- (indice_programa %% 3) + 1
+    
+    # Avança para o dia seguinte
+    data_atual <- data_atual + 1
+    
+  } else if (dia_semana_num %in% c(2, 4)) {
+    # Terça e Quinta: Folgas normais.
+    data_atual <- data_atual + 1
+    
+  } else if (dia_semana_num %in% c(6, 7)) {
+    # Sábado (6) e Domingo (7): Fim de semana. NUNCA há treino nestes dias.
+    # Regra de Fim de Semana: Transfere o treino para a próxima Segunda.
+    # Devemos pular para Segunda (dia da semana 1).
+    dias_para_segunda <- (1 - dia_semana_num + 7) %% 7
+    # Se for Sáb (6), dias_para_segunda = 2 (domingo, segunda).
+    # Se for Dom (7), dias_para_segunda = 1 (segunda).
+    if (dias_para_segunda == 0) dias_para_segunda <- 7 # Caso especial, mas a lógica acima lida.
+    
+    data_atual <- data_atual + dias_para_segunda
+    
+    # O comando 'next' abaixo evita que o código pule para o dia seguinte (data_atual + 1)
+    # no final do loop, o que causaria um pulo a mais indesejado.
+    next 
+  }
+  
+  # Avança para o próximo dia (isso é pulado se usamos 'next' ou 'dias_para_segunda')
+  data_atual <- data_atual + 1
+}
+
+# Extrai os resultados para o treino número 121
+treino_121 <- historico_treinos[historico_treinos$treino_num == TREINO_ALVO, ]
+
+# Contagem do treino C
+contagem_C <- sum(historico_treinos$programa == "C")
+
+print(treino_121)
+print(contagem_C)
+
+```
+
+
+## EXERCÍCIO 6
+
+```{r}
+# Constantes do Lago Baikal
+CAPACIDADE_MAXIMA <- 8 * 10^5  # 800.000 peixes
+TAXA_REPRODUCAO_BASAL <- 0.23  # 23% ao dia
+DIAS_MAXIMO_SIMULACAO <- 1000  # Limite máximo de dias para o experimento
+
+# Tabela 1: Fator de Ajuste da Taxa de Reprodução por Estação
+tabela_reproducao <- data.frame(
+  Estacao = c("Primavera", "Verão", "Outono", "Inverno"),
+  FatorAjuste = c(0.14, 0.00, 0.17, 0.02)
+)
+
+# Tabela 2: Porcentagem de Peixes Pescados por pH
+tabela_pesca <- data.frame(
+  PH_Min = c(6.0, 6.6, 7.1, 7.6),
+  PH_Max = c(6.5, 7.0, 7.5, 8.0),
+  PercentualPescado = c(0.12, 0.11, 0.18, 0.01)
+)
+
+# Função para obter o Fator de Ajuste da Reprodução
+obter_fator_reproducao <- function(estacao) {
+  fator <- tabela_reproducao$FatorAjuste[tabela_reproducao$Estacao == estacao]
+  if (length(fator) == 0) stop("Estação inválida.")
+  return(fator)
+}
+
+# Função para obter o Percentual Pescado
+obter_percentual_pescado <- function(ph) {
+  for (i in 1:nrow(tabela_pesca)) {
+    if (ph >= tabela_pesca$PH_Min[i] && ph <= tabela_pesca$PH_Max[i]) {
+      return(tabela_pesca$PercentualPescado[i])
+    }
+  }
+  stop("PH fora das faixas válidas (6.0-8.0).")
+}
+
+# FUNÇÃO PRINCIPAL
+simular_lago <- function(dias, peixes_iniciais, estacao, ph) {
+  
+  # Limitar o número de dias para o máximo de quantificação (1000)
+  dias_simulacao <- min(dias, DIAS_MAXIMO_SIMULACAO)
+  
+  # Parâmetros ajustados
+  fator_ajuste <- obter_fator_reproducao(estacao)
+  percentual_pesca <- obter_percentual_pescado(ph)
+  
+  taxa_reproducao_ajustada <- TAXA_REPRODUCAO_BASAL + fator_ajuste
+  
+  # Inicialização
+  peixes_atuais <- peixes_iniciais
+  historico <- data.frame(dias = 0, peixes = peixes_iniciais)
+  
+  # Loop de simulação
+  for (dia in 1:dias_simulacao) {
+    
+    # 1. Calcular o número de peixes pescados (sempre arredondado para cima)
+    peixes_pescados <- ceiling(peixes_atuais * percentual_pesca)
+    
+    # 2. Aplicar a fórmula
+    # Peixes no próximo dia = Peixes atuais * (1 + taxa de reprodução ajustada) - peixes pescados
+    peixes_proximo_dia <- peixes_atuais * (1 + taxa_reproducao_ajustada) - peixes_pescados
+    
+    # 3. Limite de Capacidade (Peixes nunca pode exceder a capacidade máxima)
+    peixes_proximo_dia <- min(ceiling(peixes_proximo_dia), CAPACIDADE_MAXIMA)
+    
+    # 4. Atualizar o estado e registrar o dia
+    peixes_atuais <- peixes_proximo_dia
+    historico[nrow(historico) + 1, ] <- c(dia, peixes_atuais)
+    
+    # 5. Condição de Parada (Atingiu a capacidade máxima)
+    if (peixes_atuais >= CAPACIDADE_MAXIMA) {
+      # Se atingir, o loop deve parar.
+      return(list(
+        historico = historico,
+        dias_para_maximo = dia
+      ))
+    }
+  }
+  
+  # Se o loop terminar sem atingir a capacidade máxima
+  return(list(
+    historico = historico,
+    dias_para_maximo = NA # Não atingiu
+  ))
+}
+```
+
+**Resposta 1**
+
+```{r}
+resultado_outono <- simular_lago(dias = 1000, peixes_iniciais = 60, estacao = "Outono", ph = 7.8)
+print(resultado_outono)
+```
+
+**Resposta 2**
+
+```{r}
+resultado_verao <- simular_lago(dias = 1000, peixes_iniciais = 60, estacao = "Verão", ph = 6.8)
+print(resultado_verao)
+```
+
