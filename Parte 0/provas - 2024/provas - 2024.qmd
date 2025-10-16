@@ -2,12 +2,6 @@
 title: "Provas - 2024"
 format: html
 editor: visual
----
-
----
-title: "Provas 1 e 2"
-format: pdf
-editor: visual
 theme: "lux"
 fontcolor: "#212121"
 ---
@@ -85,7 +79,6 @@ cat("c) Maior eficiência:", maior_eficiencia, "\n")
 cat("d) Eficiências que passaram no teste:", paste(quais_passaram, collapse = ", "), "\n")
 cat("e) Desvio padrão da eficiência:", round(desvio_padrao, 4), "\n")
 ```
-
 
 ### 2) Dadas as matrizes, responda o que se pede:
 
@@ -172,7 +165,6 @@ cat("   Genes selecionados:", paste(Nomes_Maiores_5, collapse = ", "), "\n")
 cat("   Determinante:", round(Det_cinco, 4), "\n")
 ```
 
-
 ### 3) A partir do DF oferecido, dê o que se pede:
 
 ```{r}
@@ -241,18 +233,23 @@ $$
 AS2=3⋅x¯−MdS
 $$
 
-em que x¯ é a média amostral, Md é a mediana e |a| corresponde ao módulo de a.
+em que x¯ é a média amostral, Md é a mediana e \|a\| corresponde ao módulo de a.
 
 Implemente uma função em R que retorne uma lista com o S2, o DMA e o AS2 de uma variável quantitativa qualquer. Considere o banco de dados airquality disponível no R, e responda o que se pede.
 
-- a) e b) S² e DMA de Temp
+-   
 
-- c) Nivel 7 de Month - Wind
+    a)  e b) S² e DMA de Temp
 
-- d) Para todas as variáveis do banco airquality a variância amostral é maior do que o desvio médio absoluto. (TRUE = 1/FALSE = 0)?
+-   
+
+    c)  Nivel 7 de Month - Wind
+
+-   
+
+    d)  Para todas as variáveis do banco airquality a variância amostral é maior do que o desvio médio absoluto. (TRUE = 1/FALSE = 0)?
 
 *Resolução*:
-
 
 ```{r}
 # Carrega o data frame airquality (já embutido no R)
@@ -341,7 +338,6 @@ for (coluna in colunas_quantitativas) {
 
 cat("\nResultado final (TRUE=1/FALSE=0):", resultado_d, "\n")
 ```
-
 
 ### 2)
 
@@ -652,7 +648,9 @@ simular_lago <- function(dias, peixes_iniciais, estacao, ph) {
 }
 ```
 
-- a) e b) Estação Verão e pH 6.6–7.0 (Iniciais: 80 peixes)
+-   
+
+    a)  e b) Estação Verão e pH 6.6–7.0 (Iniciais: 80 peixes)
 
 ```{r}
 peixes_iniciais <- 80
@@ -674,7 +672,7 @@ cat("b) Dias para atingir a capacidade máxima (Verão, pH 6.6–7.0):",
            "Não atingiu em 1000 dias", res_b$dias_para_capacidade), "\n\n")
 ```
 
-c) e d) Estação Outono e pH 6.0–6.5 (Iniciais: 80 peixes)
+c)  e d) Estação Outono e pH 6.0–6.5 (Iniciais: 80 peixes)
 
 ```{r}
 peixes_iniciais <- 80
@@ -696,10 +694,9 @@ cat("d) Dias para atingir a capacidade máxima (Outono, pH 6.0–6.5):",
            "Não atingiu em 1000 dias", res_d$dias_para_capacidade), "\n")
 ```
 
-
 # Prova Final
 
-## Questão 1 
+## Questão 1
 
 Considere as notas dos instrumentos de uma orquestra descritas no vetor numérico nomeado em Notas e os instrumentos que atingiram o limite de volume descritos no vetor lógico nomeado em LimiteVolume:
 
@@ -718,7 +715,6 @@ raiz_quadrada_media <- sqrt(mean(Notas$Notas))
 raiz_quadrada_media
 ```
 
-
 b)  A mediana das notas dos instrumentos que atingiram o limite de volume é:
 
 ```{r}
@@ -734,7 +730,6 @@ notas_limite_false <- Notas[Notas$Limite_Volume == FALSE, "Notas"]
 maior_nota_limite_false <- max(notas_limite_false)
 maior_nota_limite_false
 ```
-
 
 d)  Considerando que instrumentos com nota entre 40 e 69 precisam de ajustes, o número de instrumentos que precisam de ajustes e atingiram o limite de volume é:
 
@@ -761,7 +756,6 @@ cat("d) Número de instrumentos com ajuste E limite de volume TRUE:", numero_aju
 cat("e) Desvio-padrão das notas com limite de volume TRUE:", round(dp_limite_true, 4), "\n")
 ```
 
-
 ## Questão 2
 
 Um entusiasta gastronômico está em uma jornada para explorar restaurantes listados no guia Michelin. O viajante começou sua aventura no Restaurante Per Se em New York, USA. Após saborear as delícias do restaurante, ele segue para a cidade mais próxima que abriga um restaurante reconhecido no guia Michelin.
@@ -775,7 +769,6 @@ d=2⋅rarcsin((sin2(φ2−φ12)+cosφ1⋅cosφ2⋅sin2(λ2−λ12)^(1/2))
 $$
 
 em que r é o raio da Terra (aproximadamente 6,371 km). Neste contexto, responda as questões a seguir.
-
 
 Dica: Implemente a função haversine_distance para calcular a distância entre dois pontos na superfície da Terra. Verifique a necessidade de converter as coordenadas de latitude e longitude para radianos.
 
@@ -841,7 +834,6 @@ haversine_distance <- function(lat1, lon1, lat2, lon2) {
 # cat("Distância mínima para o próximo restaurante 1 Star:", round(min_distance, 2), "km\n")
 ```
 
-
 ## Questão 3
 
 Considere os bancos de dados BoardGames1 e BoardGames2 para responder as questões que seguem. Os bancos apresentam uma série de informações sobre jogos de tabuleiro.
@@ -870,7 +862,6 @@ Considere os bancos de dados BoardGames1 e BoardGames2 para responder as questõ
 #    df_boardgames$minage <- as.integer(df_boardgames$minage)
 ```
 
-
 Importante: Ao incluir respostas do tipo string, certifique-se de que a mesma corresponde exatamente ao que está contido nos bancos de dados. Caso contrário, o sistema vai considerar que sua resposta está incorreta.
 
 a)  Dentre os jogos cujo nome (name) contém exatamente 2 palavras, quantos possuem nota média (average) maior que 7.5?
@@ -881,7 +872,6 @@ a)  Dentre os jogos cujo nome (name) contém exatamente 2 palavras, quantos poss
 #        filter(num_palavras == 2, average > 7.5) %>%
 #        nrow()
 ```
-
 
 b)  Quantos jogos possuem o sinal de exclamação na descrição (description)? Considere apenas os jogos lançados após 2010 (yearpublished).
 
@@ -938,12 +928,11 @@ e)  Dentre os jogos lançados em 1995 (yearpublished), qual possui a maior quant
 #})
 ```
 
-
 ## Questão 4
 
 Feriados são épocas importantes tanto para confraternizações, descansos e para viagens. Diversos países celebram diferentes feriados e com isso, muitas pessoas aproveitam para viajar.
 
-Os dados contidos em tuesdata <- tidytuesdayR::tt_load('2024-12-24') contêm duas tabelas, uma com informações sobre feriados globais e outra sobre a quantidade de passageiros mensais em aeroportos.
+Os dados contidos em tuesdata \<- tidytuesdayR::tt_load('2024-12-24') contêm duas tabelas, uma com informações sobre feriados globais e outra sobre a quantidade de passageiros mensais em aeroportos.
 
 Nota: Caso não consiga abrir o pacote, busque no Google alternativas para fazer a leitura da base de dados, por exemplo, direto de uma url.
 
@@ -973,7 +962,6 @@ library(tidytuesdayR)
 library(dplyr)
 
 ```
-
 
 ```{r}
 
@@ -1068,4 +1056,3 @@ library(dplyr)
 #    cat("Erro reportado:", conditionMessage(e), "\n")
 #})
 ```
-
