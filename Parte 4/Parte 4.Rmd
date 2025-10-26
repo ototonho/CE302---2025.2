@@ -26,9 +26,9 @@ date: "2025-10-26"
 
 [Workflow do Tidyverse](https://oliviergimenez.github.io/intro_tidyverse/#7)
 
-## O framework {tidyverse}
+## O framework tidyverse
 
-### O {tidyverse}
+### O tidyverse
 
 - Oferece uma reimplementação e extensão das funcionalidades do R para manipulação e visualização de dados.
 - É uma coleção de 8 pacotes que operam em harmonia.
@@ -36,9 +36,9 @@ date: "2025-10-26"
 - Possuem gramática, organização, losoa e estruturas de dados mais claras.
 - Maior facilidade de desenvolvimento de código e portabilidade.
 - Outros pacotes acoplam muito bem com o {tidyverse}.
-- Pacotes: https://www.tidyverse.org/packages/.
-- R4DS: https://r4ds.had.co.nz/.
-- Cookbook: https://rstudio-education.github.io/tidyversecookbook/program.html.
+- [Pacotes:](https://www.tidyverse.org/packages/).
+- [R4DS:](https://r4ds.had.co.nz/).
+- [Cookbook:](https://rstudio-education.github.io/tidyversecookbook/program.html).
 
 ```{r}
 library(tidyverse)
@@ -74,7 +74,7 @@ tidyverse_packages()
   - Etc.
 
 - O **readr** tem recursos para importação de dados retangulares na forma de texto pleno.
-- Documentação:
+- **Documentação**:
   - [readr](https://readr.tidyverse.org/).
   - [data import](https://r4ds.had.co.nz/data-import.html).
   - [cran-r](https://cran.r-project.org/package=readr).
@@ -115,5 +115,34 @@ tb <- read_excel(tf, sheet = "mtcars")
 head(tb[,1:4])
 ```
 
+### Conexão com bancos de dados relacionais 
+
+#### Conectando e importando tabelas de banco srelacionais - MySQL.
+
+```{r}
+library(DBI) 
+library(RMySQL) 
+# Criando a conexão. 
+db <- dbConnect( 
+  RMySQL::MySQL(), 
+  user = "rfamro",   password = "", 
+  port = 4497, dbname = "Rfam", 
+  host = "mysql-rfam-public.ebi.ac.uk") 
+
+# Lista as tabelas do BD. 
+dbListTables(db) 
+
+# Listas as colunas em uma tabela. 
+dbListFields(db, "keywords") 
+
+# Importanto a tabela. 
+tb <- RMySQL::dbFetch( 
+  RMySQL::dbSendQuery( 
+    db, "SELECT * FROM keywords")) 
+str(tb) 
+
+# Desconecta 
+dbDisconnect(db) 
+```
 
 
