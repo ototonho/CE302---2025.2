@@ -1,0 +1,119 @@
+---
+title: "Parte 4"
+output: html_document
+date: "2025-10-26"
+---
+
+# Introdução ao Tidyverse
+
+## Lidando com dados
+
+### Manipulação e visualização de dados
+
+- Manipular e visualizar dados (MVD) são atividades obrigatórias em qualquer atividade cientíca.
+- A MVD determina o sucesso de uma série de etapas.
+  - Entendimento dos dados.
+  - Limpeza e conciliação de dados.
+  - Engenharia de características.
+  - Especicação de modelos.
+  - Comunicação de resultados, etc.
+- Fazer MVD de forma eciente requer:
+  - Conhecer o processo e suas etapas.
+  - Dominar a tecnologia para execução.
+- Linguagens de programação oferecem uma série de vantagens: reproduzível, extensível, escalonável, integrável, portável, etc.
+
+### Principal Referência - R for Data Science
+
+[Workflow do Tidyverse](https://oliviergimenez.github.io/intro_tidyverse/#7)
+
+## O framework {tidyverse}
+
+### O {tidyverse}
+
+- Oferece uma reimplementação e extensão das funcionalidades do R para manipulação e visualização de dados.
+- É uma coleção de 8 pacotes que operam em harmonia.
+- Foram planejados e construídos para trabalhar em conjunto.
+- Possuem gramática, organização, losoa e estruturas de dados mais claras.
+- Maior facilidade de desenvolvimento de código e portabilidade.
+- Outros pacotes acoplam muito bem com o {tidyverse}.
+- Pacotes: https://www.tidyverse.org/packages/.
+- R4DS: https://r4ds.had.co.nz/.
+- Cookbook: https://rstudio-education.github.io/tidyversecookbook/program.html.
+
+```{r}
+library(tidyverse)
+tidyverse_packages()
+```
+
+### Os pacotes do {tidyverse}
+
+## Princípios dos dados organizados
+
+- Cada variável está em uma coluna.
+- Cada observação está em uma linha.
+- Cada tipo de unidade observacional está em uma célula.
+
+#### Tarefas comuns ao lidar com dados
+
+- Importação.
+- Arrumação.
+- Manipulação.
+- Combinação.
+- Exportação.
+
+
+## Importação de dados
+
+### O pacote {readr}
+
+- O processo de análise de dados começa com a importação dos dados para o ambiente de manipulação.
+- Existem vários meios para armazenar dados.
+  - Arquivos de texto pleno (tsv, txt, csv, etc).
+  - Planilhas eletrônicas.
+  - Bancos de dados relacionais.
+  - Etc.
+
+- O **readr** tem recursos para importação de dados retangulares na forma de texto pleno.
+- Documentação:
+  - [readr](https://readr.tidyverse.org/).
+  - [data import](https://r4ds.had.co.nz/data-import.html).
+  - [cran-r](https://cran.r-project.org/package=readr).
+
+### Importando arquivos de texto pleno
+
+#### Importando dados do tipo .txt.
+
+```{r}
+library(readr)
+url <- "http://leg.ufpr.br/~wagner/scientificR/anovareg.txt"
+dados <- read_tsv(url, col_names = TRUE)
+
+head(dados)
+
+```
+
+#### Importando dados do tipo .csv. 
+
+```{r}
+library(readr) 
+url <- "http://leg.ufpr.br/~wagner/scientificR/reglinear.csv"
+dados<-read_table(url,col_names=TRUE)
+
+head(dados)
+
+```
+
+#### Importando uma planilha eletrônica
+
+```{r}
+library(readxl)
+library(httr)
+url <- "http://leg.ufpr.br/~wagner/scientificR/meus_dados.xlsx"
+GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+
+tb <- read_excel(tf, sheet = "mtcars")
+head(tb[,1:4])
+```
+
+
+
