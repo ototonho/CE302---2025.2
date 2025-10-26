@@ -109,7 +109,7 @@ head(dados)
 library(readxl)
 library(httr)
 url <- "http://leg.ufpr.br/~wagner/scientificR/meus_dados.xlsx"
-GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+GET(url, write_disk(tf <- tempfile(fileext = ".xlsx"))) # primeiro faz um download temporário
 
 tb <- read_excel(tf, sheet = "mtcars")
 head(tb[,1:4])
@@ -144,5 +144,115 @@ str(tb)
 # Desconecta 
 dbDisconnect(db) 
 ```
+
+## Consumindo dados de APIs
+
+- API (Application Programming Interface) é um conjunto de rotinas que permitem diferentes softwares interagirem.
+- Pense como uma espécie de ponte ou garçom entre sistemas/softwares.
+- Por meio de uma API você pode usar modelos pré-prontos de diversos fornecedores.
+- Acessar dados de fornecedores especializados.
+- Uma API é o que vai permitir criar novas soluções usando dados/modelos existentes.
+
+### Como funciona?
+
+- **Requisição**: Você envia um 'pedido' para a API.
+- **Processamento**: O serviço (dados/modelos, etc) processa o pedido e gera uma resposta.
+- **Resposta**: A API devolve a resposta para você.
+
+[Fluxo de chamada de API.](https://www.postman.com/what-is-an-api/)
+
+### A importância de APIs para Cientistas de Dados
+
+- APIs são portas de entrada para dados e serviços.
+- Permitem: automação, integração e acesso em tempo real a informações externas.
+- Entender como acessar e construir APIs vai permitir ir além do uso de planilhas e banco de dados.
+
+#### Casos práticos em Ciência de Dados
+
+- Coleta de dados em larga escala (ex: dados climáticos, financeiros, sociais).
+- Integração com modelos de IA, como o ChatGPT ou modelos de predição customizados. 
+- Dashboards dinâmicos com dados atualizados via APIs REST.
+- Automatização de processos de negócio: envio de relatórios, alertas, atualizações.
+
+### Pacote httr
+
+- httr é um pacote para facilitar o consumo de APIs.
+- Ele abstrai os detalhes do protocolo HTTP, permitindo chamadas simples e legíveis.
+- Ideal para requisições GET, POST, PUT, DELETE, com suporte a autenticação e manipulação de headers.
+- Instação direto do CRAN
+
+```{r}
+## Instalação do pacote
+install.packages("httr")
+
+```
+
+#### Principais funções
+
+| Função | Descrição |
+|--------|-----------|
+| GET() | Realiza uma requisição HTTP GET |
+| POST() | Envia dados para a API via HTTP POST |
+| PUT() | Atualiza recursos |
+| DELETE() | Remove recursos |
+| add_headers() | Adiciona cabeçalhos HTTP, como tokens |
+| content() | Extrai e interpreta o conteúdo da resposta |
+|--------|-----------|
+
+##### Procurar por documentação oficial
+
+#### Exemplo de requisição httr
+
+Vamos acessar a API do github.
+
+```{r}
+library(httr) ## Carregando o pacote
+res <- GET("https://api.github.com/users/hadley") ## Requisição
+user_info <- content(res, as = "parsed") ## Capturando o conteúdo
+user_info$login ## Verificando a informação recebida
+```
+### Acessando APIs; Pacote httr
+
+#### Exemplos
+
+Exemplo de requisição do tipo GET
+
+
+GET("https://api.exemplo.com/dados")
+
+
+É comum precisar mandarmos dados para a API.
+Exemplo de requisição do tipo POST
+
+
+POST("https://api.exemplo.com/envio",
+body = list(nome = "Ana", idade = 30))
+
+
+Para capturar o retorno da API usamos a função content()
+
+
+res <- GET("https://api.exemplo.com/dados")
+status_code(res) 
+dados <- content(res, as = "parsed")
+
+
+Importante saber lidar com erros da API.
+
+
+if (status_code(res) == 200) {
+content(res, as = "parsed")
+} else {
+message("Erro: ", status_code(res))
+}
+
+### Dicas e boas práticas
+
+- Sempre leia a documentação da API
+- Use tryCatch() para capturar falhas inesperadas
+- Armazene chaves em arquivos .env (nunca no código!)
+- Script de exemplos práticos: acesso_apis.R.
+
+[imagem sobre APIs](https://www.geeksforgeeks.org/what-is-an-api/)
 
 
