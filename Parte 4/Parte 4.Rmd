@@ -282,9 +282,9 @@ Documentação oficial:
 ```{r}
 require(tidyverse)
 
-# dados <- readr::read_csv("data/Mental Health Dataset.csv")
+dados <- readr::read_csv("C:/Users/anton/OneDrive/Área de Trabalho/CE302---2025.2/Parte 4/Mental Health Dataset.csv")
 ## Para vermos os dados, podemos utilizar a função head()
-# head(dados, 2)
+head(dados, 2)
 
 ```
 
@@ -354,4 +354,144 @@ x %<>% log()
 x
 ```
 
+## Mutate
+
+- Criando Variáveis com mutate()
+
+- Para criar novas variáveis, podemos utilizar a função mutate() .
+
+- Utilizando o banco de dados dados , vamos criar uma nova variável chamada mercosul que indica se o país é membro do Mercosul ou não.
+
+```{r}
+## Criar Colunas com Mutate
+dados <- dados %>% 
+  mutate(mercosul = ifelse(Country %in%
+                             c("Argentina", "Brazil", "Paraguay", "Uruguay"),
+                           "Mercosul", "Não Mercosul"))
+glimpse(dados)
+```
+
+## Selecionando e Removendo Variáveis
+
+### Selecionando Variáveis com select()
+
+- Para selecionar variáveis, podemos utilizar a função select() .
+- Seleção por nomes: Vamos selecionar as variáveis Country, Timestamp, Days_Indoors e mercosul.
+
+```{r}
+## Selecionar colunas com select()
+dados2 <- dados %>% 
+  select(Country, Timestamp, Days_Indoors, mercosul) # selecionando variáveis nominalmente
+glimpse(dados2)
+```
+### Incrementando o select()
+
+#### Seleção por índices
+
+- Podemos utilizar o índice das variáveis para selecioná-las.
+
+```{r}
+dados3 <- dados %>% 
+  select(3:5) # variáveis 3, 4 e 5
+glimpse(dados3)
+```
+
+#### Seleção Intervalar
+
+- Podemos utilizar o operador: para selecionar um intervalo de variáveis.
+- Vamos selecionar as variáveis treatment até Changes_Habits.
+
+```{r}
+dados4 <- dados %>% 
+  select(treatment:Changes_Habits) 
+glimpse(dados4)
+```
+#### Selecionando várias colunas por padrão
+
+- Podemos utilizar a função starts_with(), ends_with(), contains() e matches() para selecionar variáveis que atendam a um padrão.
+
+- Vamos selecionar as variáveis que começam com a letra t.
+
+```{r}
+dados6 <- dados %>% 
+  select(starts_with("t"))
+glimpse(dados6)
+```
+
+- Vamos selecionar as variáveis que terminam com a letra s.
+
+```{r}
+dados7 <- dados %>% 
+  select(ends_with("s"))
+glimpse(dados7)
+```
+
+- Vamos selecionar as variáveis que contém as letra ing.
+
+```{r}
+dados8 <- dados %>% 
+  select(contains("ing"))
+glimpse(dados8)
+```
+
+- Vamos selecionar as variáveis que contém a letra t ou T.
+
+```{r}
+dados9 <- dados %>% 
+  select(matches("[tT]"))
+glimpse(dados9)
+```
+
+### Removendo Variáveis com select()
+
+- Para remover variáveis, podemos utilizar a função select() com o operador - .
+- Vamos remover as variáveis Country, Timestamp, Days_Indoors e mercosul.
+
+```{r}
+dados10 <- dados %>% 
+  select(-Country, -Timestamp, -Days_Indoors, -mercosul)
+glimpse(dados10)
+```
+
+```{r}
+dados11 <- dados %>% 
+  select(-c(Country, Timestamp, Days_Indoors, mercosul))
+glimpse(dados11)
+```
+
+
+### Seleção de variáveis por Tipos específicos de dados
+
+- Podemos utilizar a função select_if() para selecionar variáveis que atendam a um critério específico.
+- Vamos selecionar as variáveis que são do tipo character.
+
+```{r}
+dados12 <- dados %>% 
+  select_if(is.character)
+glimpse(dados12)
+```
+
+### Seleção por critérios
+
+- Podemos definir externamente um critério para selecionar variáveis. Por exemplo, temos o nome de algumas variáveis que queremos selecionar.
+- all_of() é utilizado para selecionar variáveis que atendam a um critério externo.
+- any_of() é utilizado para selecionar variáveis que atendam a pelo menos um critério externo.
+
+```{r}
+dados %>% 
+  select_if(is.logical) #nenhuma
+
+dados %>% 
+  select_if(is.numeric) #nenhuma
+
+variaveis <- c("Country", "Timestamp", "Days_Indoors", "mercosul")
+dados13 <- dados %>% 
+  select(all_of(variaveis))
+glimpse(dados13)
+
+variaveis <- c("Country", "Timestamp", "Days_Indoors", "mercosul", "Loss_of_Smell")
+dados14 <- dados %>% 
+  select(any_of(variaveis))
+glimpse(dados14)
+```
 
