@@ -255,4 +255,52 @@ message("Erro: ", status_code(res))
 
 [imagem sobre APIs](https://www.geeksforgeeks.org/what-is-an-api/)
 
+## Introdução ao dplyr
+
+O dplyr é a gramática para manipulação de dados.
+- Apresenta um conjunto consistente de verbos para atuar sobre tabelas.
+
+- Verbos principais: arrange(), select(), mutate(), slice, rename(), filter(), summarise(), etc.
+
+- Sufixos: _at() , _if() , _all() , etc.
+- Agrupamento: group_by() e ungroup() .
+- Junções: inner_join(), full_join(), left_join(), right_join().
+- Funções resumo: n(), n_distinct(), first(), last(), nth(), etc.
+
+### Referências úteis
+
+[Cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+Documentação oficial:
+[manual](https://dplyr.tidyverse.org/)
+[Capítulo do livro](https://r4ds.had.co.nz/relational-data.html)
+[help do Cran](https://cran.r-project.org/package=dplyr)
+
+## Setup pipe
+
+### Carregamento dos pacotes necessários
+
+```{r}
+require(tidyverse)
+
+# dados <- readr::read_csv("data/Mental Health Dataset.csv")
+## Para vermos os dados, podemos utilizar a função head()
+# head(dados, 2)
+
+```
+
+### Operador Pipe
+
+- O operador %>% é chamado de *pipe* e é utilizado para encadear funções.
+
+- Utilizado para facilitar a leitura e escrita de códigos.
+  - x %>% f é equivalente à f(x)
+  - x %>% f(y) é equivalente à f(x, y)
+  - x %>% f %>% g %>% h é equivalente à h(g(f(x)))
+
+- O %>% significa que o elemento à esquerda será avaliado pela função à direita.
+
+- Podemos também utilizar o . como espaço reservado para o elemento à esquerda, isto é:
+  - x %>% f(y, .) é equivalente à f(y, x)
+  - x %>% f(., y) é equivalente à f(x, y)
+  - x %>% f(y, z = .) é equivalente à f(y, z = x) .
 
