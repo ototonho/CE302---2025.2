@@ -304,3 +304,54 @@ require(tidyverse)
   - x %>% f(., y) é equivalente à f(x, y)
   - x %>% f(y, z = .) é equivalente à f(y, z = x) .
 
+#### Exemplo do uso do operador %>%
+
+Suponha que queremos calcular o cosseno dos valores únicos de um vetor x , ordená-los em ordem decrescente.
+
+1) Sem o uso do operador %>% : Sem identação
+
+```{r}
+x <- c(-2:2)
+x
+
+# Opção 1 - Sem identação
+sort(cos(unique(x)), decreasing = TRUE)
+```
+2) Sem o uso do operador %>% : Com identação
+
+```{r}
+# Opção 2 - Com identação
+sort(
+  cos(
+    unique(
+      x
+      )
+    ),
+  decreasing = TRUE)
+```
+3) Exemplo do uso do operador %>%
+
+```{r}
+# Opção 3 - Utilizando o operador %>%
+require(magrittr)
+
+x %>% 
+  unique() %>% 
+  cos() %>%
+  sort(decreasing = TRUE)
+```
+
+### Pipe de Atribuição %<>%
+
+- O operador %<>% é utilizado para atribuir o resultado de uma operação ao objeto original.
+- Isto é, x %<>% f() é equivalente à x <- f(x) .
+
+```{r}
+x <- 1:10
+x
+
+x %<>% log()
+x
+```
+
+
