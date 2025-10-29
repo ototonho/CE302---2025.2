@@ -508,7 +508,7 @@ Para filtrar observações, podemos utilizar a função filter()
 
 Vamos filtrar as observações pertencentes ao mercosul.
 
-Para aprendermos filtros, vamos usar o banco de dados car_crash .
+Para aprendermos filtros, vamos usar o banco de dados *car_crash*.
 
 ```{r}
 library(data.table)
@@ -602,5 +602,87 @@ car_crash9 =  car_crash %>%
 glimpse(car_crash9)
 ```
 
+## Ordenando e Fatiando Observações
+
+### Ordenando Observações com arrange()
+
+- Para ordenar observações, podemos utilizar a função *arrange()*.
+- Vamos ordenar as observações do banco de dados *car_crash* pela variável *automovel* em ordem decrescente.
+
+```{r}
+## Ordenando linhas com arrange()
+car_crash10 = car_crash %>% 
+  arrange(desc(automovel))
+glimpse(car_crash10)
+```
+
+- Podemos ordenar por mais de uma variável. Vamos ordenar as observações do banco de dados *car_crash* pela variável *automovel* em ordem decrescente e pelo número de *mortos* em ordem crescente.
+
+```{r}
+car_crash11 = car_crash %>% 
+  arrange(desc(automovel), mortos) %>%
+  select(automovel, mortos) %>% 
+  na.exclude()
+head(car_crash11)
+```
+
+### Fatiando Linhas com slice()
+
+- Para fatiar linhas, podemos utilizar a função slice() .
+
+```{r}
+car_crash_slice1 = car_crash %>% 
+  select(1:5) %>%
+  slice(3:5)
+car_crash_slice1
+```
+
+```{r}
+car_crash_slice2 = car_crash %>% 
+  select(1:5) %>%
+  slice_head(n = 3)
+car_crash_slice2
+```
+
+```{r}
+car_crash_slice3 = car_crash %>% 
+  select(1:5) %>%
+  slice_tail(n = 3)
+car_crash_slice3
+```
+
+## Exercícios
+
+1 - Utilizando o banco de dados *storms* , faça o que se pede:
+
+
+```{r}
+View(storms)
+```
+
+- Filtre as observações cujo tipo de evento é *Tropical Depression*. Quantas observações existem?
+
+```{r}
+storms %>%
+  filter(status == "tropical depression") %>%
+  nrow()
+```
+
+- Filtre as observações cujo tipo de evento é Tropical Depression e a velocidade do vento é maior ou igual a 40. Quantas observações existem?
+
+```{r}
+help("storms")
+storms %>%
+  filter(status == "tropical depression" & wind >= 40) %>%
+  nrow()
+```
+
+- Selecione as variáveis numéricas e ordene as observações pela variável pressure em ordem crescente.
+
+```{r}
+storms %>%
+  select_if(is.numeric) %>%
+  arrange(pressure)
+```
 
 
