@@ -763,4 +763,126 @@ table( car_crash_cut$automovel,
        car_crash_cut$automovel_cat)
 ```
 
+## Sumarizando e Agrupando Dados
+
+### Sumarizando Dados com summarise()
+
+- Para sumarizar dados, podemos utilizar a função *summarise()*.
+- Vamos sumarizar o número total de automóveis envolvidos em acidentes no banco de dados *car_crash*.
+
+```{r}
+## Summarise
+car_crash13 = car_crash %>% 
+  summarise(total_automoveis = sum(automovel, na.rm = TRUE))
+car_crash13
+sum(car_crash$automovel, na.rm = T)
+```
+
+### Sumarizando Múltiplas Variáveis com summarise()
+
+- Podemos sumarizar mais de uma variável. Vamos sumarizar o número total de automóveis envolvidos em acidentes e o número total de mortos.
+
+```{r}
+car_crash14 = car_crash %>% 
+  summarise(total_automoveis = sum(automovel, na.rm = TRUE),
+            total_mortos = sum(mortos, na.rm = TRUE), 
+            n = n(), 
+            media_mortos = mean(mortos, na.rm = TRUE))
+car_crash14
+sum(car_crash$mortos, na.rm = T)
+nrow(car_crash)
+mean(car_crash$mortos, na.rm = T)
+```
+
+### Agrupando Dados com group_by()
+
+- Para agrupar dados, podemos utilizar a função *group_by()*.
+- Vamos agrupar o banco de dados *car_crash* pela variável *ano*.
+- Primeiro, vamos criar a variável *ano* a partir da variável *data*.
+- Para trabalharmos com datas, precisamos utilizar o pacote **lubridate**.
+- A função *dmy()* é utilizada para transformar strings no formato dia-mês-ano em objetos do tipo *date*.
+- A função *year()* é utilizada para extrair o ano de um objeto do tipo *date*.
+
+```{r}
+require(lubridate)
+## Agrupamento com group_by()
+car_crash15 = car_crash %>% 
+  mutate(ano = year(dmy(data))) %>%
+  group_by(ano)
+glimpse(car_crash15)
+```
+
+### Sumarizando Dados com summarise()
+
+- Agora vamos sumarizar o número total de automóveis envolvidos em acidentes e o número total de mortos por ano.
+
+```{r}
+car_crash16 = car_crash %>% 
+  mutate(ano = year(dmy(data))) %>%
+  group_by(ano) %>%
+  summarise(total_automoveis = sum(automovel, na.rm = TRUE),
+            total_mortos = sum(mortos, na.rm = TRUE))
+head(car_crash16)
+```
+
+### Encadeando Funções
+
+- Podemos encadear funções utilizando o operador %>%.
+- Vamos filtrar as observações cujo tipo de ocorrência é com vítima e sumarizar o número total de automóveis envolvidos em acidentes e o número total de mortos.
+
+```{r}
+car_crash17 = car_crash %>% 
+  filter(tipo_de_ocorrencia == "com vítima") %>%
+  summarise(total_automoveis = sum(automovel, na.rm = TRUE),
+            total_mortos = sum(mortos, na.rm = TRUE))
+car_crash17
+```
+
+## Exercícios
+
+Utilizando o banco de dados starwars faça o que se pede:
+
+```{r}
+View(starwars)
+
+```
+
+
+- Qual é o número total de espécies únicas presentes? Qual a frequência de indivíduos por espécie?
+```{r}
+starwars %>%
+  summarise(n_especies = n_distinct(species))
+
+starwars %>%
+  group_by(species) %>%
+  summarise(freq_especies = n()) %>%
+  arrange(desc(freq_especies))
+```
+
+- Calcule a altura média de personagens masculinos e femininos.
+
+```{r}
+starwars %>% 
+  filter(sex %in% c("female", "male")) %>% 
+  group_by(sex) %>%
+  summarise(media_altura = mean(height, na.rm = TRUE))
+```
+
+- Qual é o peso médio dos personagens de cada espécie para personagens masculinos?
+
+```{r}
+starwars %>% 
+  filter(sex == "male") %>%
+  group_by(species) %>%
+  summarise(media_peso = mean(mass, na.rm = TRUE))
+```
+
+- Para cada espécie presente na base de dados, identifique o personagem mais pesado e seu peso correspondente.
+
+```{r}
+starwars %>% 
+  group_by(species) %>%
+  filter(mass == max(mass, na.rm = TRUE)) %>%
+  select(species, name, mass)
+```
 
