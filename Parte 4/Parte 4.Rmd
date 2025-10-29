@@ -886,3 +886,119 @@ starwars %>%
   select(species, name, mass)
 ```
 
+## Trabalhando com Datas - lubridate
+
+### Manipulação de datas 
+
+- Quando importamos datas em R (dentro de um data frame), elas são importadas como strings.
+- Precisamos, portanto, transformar essas strings em objetos do tipo date para podermos manipulá-las, como por exemplo, extrair o ano, o mês, o dia, etc.
+- Podemos extrair o ano, o mês e o dia de uma data utilizando as funções year() , month() e day() .
+
+```{r}
+## Trabalhando com datas - lubridate
+car_crash %>% 
+  mutate(data = dmy(data)) %>%
+  select(data) %>%
+  glimpse()
+```
+
+```{r}
+car_crash %>% 
+  mutate(data = dmy(data)) %>%
+  mutate(ano = year(data),
+         mes = month(data),
+         dia = day(data)) %>%
+  select(data, ano, mes, dia) %>%
+  glimpse()
+```
+
+- Podemos calcular a diferença entre duas datas utilizando a função difftime() .
+
+```{r}
+car_crash %>% 
+  mutate(data = dmy(data)) %>%
+  mutate(dias_desde_acidente = difftime(Sys.Date(), data, units = "days")) %>%
+  select(data, dias_desde_acidente) %>%
+  head()
+```
+
+- Podemos somar ou subtrair dias de uma data utilizando a função lubridate::days() .
+
+```{r}
+car_crash %>% 
+  mutate(data = dmy(data)) %>%
+  mutate(data_mais_10_dias = data + lubridate::days(10)) %>%
+  select(data, data_mais_10_dias) %>%
+  head()
+```
+
+### Manipulação de datas - Hora, minutos e segundos
+
+- Podemos extrair a hora, os minutos e os segundos de uma data utilizando as funções hour() , minute() e second() .
+
+```{r}
+## Extraindo componentes de data e hora
+data <- ymd_hms("2023-08-21 15:30:45")
+ano <- year(data)
+mes <- month(data)
+dia <- day(data)
+hora <- hour(data)
+minuto <- minute(data)
+segundo <- second(data)
+
+print(ano)
+print(mes)
+print(dia)
+print(hora)
+print(minuto)
+print(segundo)
+```
+
+### Conversão de fuso horário
+
+- Podemos converter o fuso horário de uma data utilizando a função with_tz() .
+
+```{r}
+# Data original no fuso horário de Nova Iorque
+data_ny <- ymd_hms("2025-10-21 12:00:00", tz = "America/New_York")
+
+# Converter para o fuso horário de Londres
+data_london <- with_tz(data_ny, tz = "Europe/London")
+
+print(data_ny)
+print(data_london)
+```
+
+## Exercícios - Datas
+
+Utilizando o banco de dados car_crash faça o que se pede:
+
+- Quais os meses do ano com maior número de acidentes fatais?
+
+```{r}
+## Exercícios com datas
+car_crash %>% 
+  mutate(data = dmy(data)) %>%
+  mutate(ano = year(data),
+         mes = month(data)) %>%
+  select(data, ano, mes, mortos) %>%
+  filter(mortos > 0) %>% 
+  group_by(mes) %>%
+  summarise(total_mortos = sum(mortos)) %>% 
+  arrange(desc(total_mortos))
+```
+
+- Quais os dias da semana com maior número de acidentes fatais?
+  Dica: Busque por uma função que retorne o dia da semana a partir de uma data.
+
+```{r}
+car_crash %>% 
+  mutate(data = dmy(data)) %>%
+  mutate(dia_semana = lubridate::wday(data, label = T, abbr = F)) %>%
+  select(dia_semana, mortos) %>%
+  filter(mortos > 0) %>% 
+  group_by(dia_semana) %>%
+  summarise(total_mortos_dia = sum(mortos)) %>% 
+  arrange(desc(total_mortos_dia))
+```
+
