@@ -685,4 +685,37 @@ storms %>%
   arrange(pressure)
 ```
 
+## Renomeando, Realocando e Transmutando Colunas
+
+### Renomeando Colunas com rename()
+
+- Para renomear variáveis, podemos utilizar a função *rename()*.
+- Vamos renomear a variável automovel para numero_automoveis no banco de dados *car_crash*.
+
+```{r}
+# Rename
+car_carsh12 = car_crash %>% 
+  rename(numero_automoveis = automovel)
+glimpse(car_carsh12)
+```
+
+### Realocando Colunas com relocate
+
+- Para realocar variáveis, podemos utilizar a função *relocate()*.
+- Vamos realocar a variável automovel para a primeira posição no banco de dados car_crash .
+
+```{r}
+# Relocate
+car_crash_relocate = car_crash %>% 
+  relocate(automovel, .before = 1)
+glimpse(car_crash_relocate)
+```
+
+- Vamos realocar a variável mortos para a última posição no banco de dados car_crash .
+
+```{r}
+car_crash_relocate2 = car_crash %>% 
+  relocate(mortos, .after = last_col())
+glimpse(car_crash_relocate2)
+```
 
