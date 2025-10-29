@@ -719,3 +719,48 @@ car_crash_relocate2 = car_crash %>%
 glimpse(car_crash_relocate2)
 ```
 
+### Transformando Dados com transmute()
+
+- Para transformar dados, podemos utilizar a função *transmute()*.
+- Vamos criar uma nova variável chamada *automovel_10* que é o número de automóveis envolvidos em acidentes dividido por 10 no banco de dados *car_crash*.
+- Quando utilizamos o transmute() , apenas as variáveis criadas são mantidas no novo data frame.
+
+```{r}
+# Transmute
+car_crash_transmute <- car_crash %>% 
+  transmute(automovel_10 = automovel / 10)
+glimpse(car_crash_transmute)
+```
+
+### Alterando NA s com replace_na()
+
+- Para alterar valores *NA* , podemos utilizar a função *replace_na()*.
+- Vamos substituir os valores *NA* da variável mortos por 0 no banco de dados *car_crash*.
+
+```{r}
+# NA Replace
+car_crash_replace_na <- car_crash %>%
+  mutate(mortos = replace_na(mortos, 0))
+glimpse(car_crash_replace_na)
+```
+
+### Classificando Dados com cut()
+
+- Para classificar dados, podemos utilizar a *função cut()*.
+- Vamos classificar a variável *automovel* em 3 categorias: *sem automóveis*, *entre 1 e 3 automóveis*, *mais do que três* no banco de dados *car_crash*.
+
+```{r}
+# Cut
+car_crash_cut <- car_crash %>%
+  mutate(automovel = replace_na(automovel, 0)) %>%
+  mutate(automovel_cat = cut(automovel,
+                             breaks = c(-Inf, 0, 3, Inf),
+                             labels = c("sem automóveis",
+                                        "entre 1 e 3 automóveis",
+                                        "mais do que três")))
+glimpse(car_crash_cut)
+table( car_crash_cut$automovel, 
+       car_crash_cut$automovel_cat)
+```
+
+
