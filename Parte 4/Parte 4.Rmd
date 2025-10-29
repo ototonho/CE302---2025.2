@@ -509,3 +509,98 @@ Para filtrar observações, podemos utilizar a função filter()
 Vamos filtrar as observações pertencentes ao mercosul.
 
 Para aprendermos filtros, vamos usar o banco de dados car_crash .
+
+```{r}
+library(data.table)
+car_crash <- fread("C:/Users/anton/OneDrive/Área de Trabalho/CE302---2025.2/Parte 4/Brazil Total highway crashes 2010 - 2023.csv")
+
+library(magrittr)
+library(tidyverse)
+
+glimpse(car_crash)
+
+```
+
+### Filtro Simples
+
+Vamos filtrar as observações cujo tipo de ocorrência é *sem vítima*
+
+```{r}
+# Filtrando linhas com filter()
+car_crash2 <- car_crash %>% 
+  filter(tipo_de_ocorrencia == "sem vítima")
+glimpse(car_crash2)
+```
+
+### Filtros Combinados
+
+- Podemos combinar filtros utilizando os operadores lógicos & (E) e | (OU).
+- Vamos filtrar as observações cujo tipo de ocorrência é sem vítima envolvendo pelo menos 3 automóveis.
+
+```{r}
+## Filtros com múltiplas condições
+car_crash3 <- car_crash %>% 
+  filter(tipo_de_ocorrencia == "sem vítima" & automovel >= 3)
+glimpse(car_crash3)
+```
+
+
+### Filtrando valores em um intervalo
+
+- Podemos filtrar **valores** em um intervalo numérico utilizando a função *between*.
+- Vamos filtrar as observações cujo número de automóveis envolvidos está entre 3 e 5
+
+```{r}
+car_crash4 <- car_crash %>% 
+  filter(between(automovel, 3, 5))
+```
+
+- Podemos filtrar strings utilizando o operator *%in%*.
+- Vamos filtrar as observações cujo tipo de ocorrência é *sem vítima* ou com *vítima*.
+
+```{r}
+tipos <- c("sem vítima", "com vítima")
+tipos
+car_crash5 <- car_crash %>% 
+  filter(tipo_de_ocorrencia %in% tipos)
+car_crash5
+```
+
+- Para filtrarmos o contrário, podemos utilizar o operador *!*, ou definirmos um operador not in como *%ni% <- Negate(%in%)*.
+
+```{r}
+car_crash6 <- car_crash %>% 
+  filter(!tipo_de_ocorrencia %in% c("sem vítima", "com vítima"))
+glimpse(car_crash6)
+
+## Usando o operador %ni%
+`%ni%` <- Negate(`%in%`)
+car_crash7 <- car_crash %>%
+  filter(tipo_de_ocorrencia %ni% c("sem vítima", "com vítima"))
+glimpse(car_crash7)
+```
+
+### Buscando padrões com filter()
+
+- Podemos buscar padrões em strings utilizando o operador *%like%*.
+- Vamos filtrar as observações cujo tipo de ocorrência contém a palavra *vítima*.
+
+```{r}
+## Operador like %like%
+car_crash8 <- car_crash %>% 
+  filter(tipo_de_ocorrencia %like% "vítima")
+
+glimpse(car_crash8)
+```
+
+- Podemos filtrar por textos específicos, por exemplo, *ilesa* ou *fatal*. Para isso utilizamos o *grepl*.
+
+```{r}
+car_crash9 =  car_crash %>% 
+  filter(grepl("ilesa|fatal", tipo_de_ocorrencia))
+
+glimpse(car_crash9)
+```
+
+
+
