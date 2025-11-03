@@ -1169,4 +1169,99 @@ flights %>%
               values_fill = 0)
 ```
 
+## Strings
+
+### Manipulando Strings em R
+
+- Strings são sequências de caracteres que representam texto.
+- Em R, strings são representadas por aspas simples (’ ’) ou aspas duplas (” “).
+- O pacote stringr , parte do tidyverse, oferece diversas funções para manipulação de strings.
+
+### Funções Básicas do stringr
+
+- str_length(): Retorna o comprimento de uma string.
+- str_to_lower(): Converte uma string para minúsculas.
+- str_to_upper(): Converte uma string para maiúsculas.
+- str_sub(): Extrai uma substring de uma string.
+- str_replace(): Substitui uma parte de uma string por outra.
+- str_detect(): Verifica se uma string contém um padrão específico.
+
+### Exemplos de Manipulação de Strings
+
+```{r}
+library(stringr)
+texto <- "Olá, Mundo!"
+
+# Comprimento da string
+str_length(texto)
+
+# Converter para minúsculas
+str_to_lower(texto)
+
+# Converter para maiúsculas
+str_to_upper(texto)
+
+str_to_title(texto)
+
+str_to_sentence(texto)
+
+# Extrair substring
+str_sub(texto, 1, 3)
+
+# Substituir parte da string
+str_replace(texto, "Mundo", "R")
+
+# Verificar se a string contém um padrão
+str_detect(texto, "Mundo")
+str_detect(texto, "R!")
+```
+
+### Regex Básico
+
+- Regex (expressões regulares) são padrões utilizados para buscar e manipular strings.
+- Alguns metacaracteres comuns:
+- . : Corresponde a qualquer caractere.
+- ^ : Início da string.
+- $ : Fim da string.
+- * : Zero ou mais ocorrências do caractere anterior.
+- + : Uma ou mais ocorrências do caractere anterior.
+- ? : Zero ou uma ocorrência do caractere anterior.
+- [] : Conjunto de caracteres.
+- | : Operador “ou”.
+
+#### Exemplos de Regex
+
+```{r}
+# Expressões Regulares (Regex)
+
+# Corresponder qualquer caractere
+str_detect("abc", "a.c") # TRUE
+
+# Início da string
+str_detect("abc", "^a")   # TRUE
+
+# Fim da string
+str_detect("abc", "c$")   # TRUE
+
+# Zero ou mais ocorrências
+str_detect("aaab", "a*b") # TRUE
+
+# Uma ou mais ocorrências
+str_detect("aaab", "a+b") # TRUE
+
+# Conjunto de caracteres: corresponde a 'a', 'b' ou 'c'
+str_detect("abc", "[abc]") # TRUE
+
+# Operador "ou": corresponde a 'cat' ou 'dog'
+str_detect("I have a cat", "cat|dog") # TRUE
+```
+
+## Para saber mais
+
+[Cheatsheet de expressões regulares](https://github.com/rstudio/cheatsheets/blob/main/regex.pdf)
+[Cheatsheet do pacote stringr](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf)
+[Testar o Regex online](https://regexr.com/)
+[Palavra cruzada](https://regexcrossword.com/)
+
+
 
