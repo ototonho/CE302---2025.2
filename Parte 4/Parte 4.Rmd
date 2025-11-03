@@ -1002,3 +1002,171 @@ car_crash %>%
   arrange(desc(total_mortos_dia))
 ```
 
+## Pivotagem de Dados
+
+### O que é tidy data?
+
+Hadley Wickham, em seu artigo “Tidy Data” (2014), define que um conjunto de dados é tidy se:
+
+1. Cada variável forma uma coluna.
+2. Cada observação forma uma linha.
+3. Cada tipo de unidade observacional forma uma tabela.
+
+Existem dois formatos de dados que podem ser tidy:
+
+- Dados em formato wide.
+- Dados em formato long.
+
+### Dados no formato wide
+
+- Cada variável é representada por uma coluna separada e cada observação (ou instância) ocupa uma única linha.
+- Adequado para conjuntos de dados com poucas variáveis, onde as informações são bem condensadas.
+
+### Dados no formato long
+
+Exemplos
+
+#### Considere o seguinte conjunto de dados em formato wide:
+
+|-----------------------------------|
+| id | nome | idade | sexo | altura |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | Ana | 25 | F | 1.65 |
+| 2 | João | 30 | M | 1.80 |
+| 3 | Maria | 22 | F | 1.70 |
+| 4 | Pedro | 28 | M | 1.75 |
+|---------------------------|
+
+#### Para passar para o formato long, basta empilhar as variáveis:
+
+|-----------------|
+| id | variável | valor |
+| :--- | :--- | :--- | 
+| 1  | nome | Ana |
+| 1  | idade | 25 |
+| 1 | sexo | F |
+| 1 | altura | 1.65 |
+| 2 | nome | João |
+| 2 | idade | 30 |
+| 2 | sexo | M |
+| 2 | altura | 1.80 |
+|-----------------|
+
+#### Considere o seguinte conjunto de dados com informações sobre tratamento de indivíduos com pedra nos rins:
+
+| Tamanho da pedra | Tratamento A (Recuperados) | Tratamento A (Falhas) | Tratamento B (Recuperados) | Tratamento B (Falhas) |
+| :--- | :--- | :--- | :--- | :--- |
+| Pequena | 10 | 5 | 15 | 3 |
+| Média | 5 | 3 | 10 | 2 |
+| Grande | 2 | 1 | 5 | 1 |
+
+#### Para passar para o formato **long**, basta empilhar as variáveis:
+
+| Tamanho da pedra | Tratamento | Recuperados | Falhas |
+| :--- | :--- | :--- | :--- |
+| Pequena | A | 10 | 5 |
+| Pequena | B | 15 | 3 |
+| Média | A | 5 | 3 |
+| Média | B | 10 | 2 |
+| Grande | A | 2 | 1 |
+| Grande | B | 5 | 1 |
+
+### Pivotando dados em R
+
+- Vamos utilizar o banco de dados table1 .
+- Dados de casos reportados de Tuberculose e o tamanho da população em dois anos para três países.
+- Esses dados são provenientes dos dados WHO.
+
+```{r}
+table1
+```
+
+- A função pivot_wider() é utilizada para transformar dados de formato long para wide.
+
+- A função pivot_wider() requer os seguintes argumentos:
+  - names_from : coluna que contém os nomes das variáveis que serão transformadas em colunas.
+  - values_from : coluna que contém os valores das variáveis que serão transformadas em colunas.
+
+- Vamos transformar os dados de table1 para o formato wide. Suponha que queremos que os dados sejam organizados por país e ano, e as observações sejam os casos de tuberculose.
+
+```{r}
+table1 %>%
+  select(-population) %>%
+  pivot_wider(names_from = year,
+              values_from = cases)
+
+```
+
+### Pivotando com mais de uma variável
+
+- Suponha que queremos que os dados sejam organizados por país, e as observações sejam os casos de tuberculose, separados por ano e tamanho da população.
+
+```{r}
+table1 %>%
+  pivot_wider(names_from = year,
+              values_from = c(cases, population))
+
+```
+
+- A função pivot_longer() é utilizada para transformar dados de formato wide para long.
+- A função pivot_longer() requer os seguintes argumentos:
+  - cols : colunas que serão empilhadas.
+  - names_to : coluna que conterá os nomes das variáveis empilhadas.
+  - values_to : coluna que conterá os valores das variáveis empilhadas.
+  - values_fill : valor que preencherá as células vazias.
+  - values_fn : função que será aplicada aos valores empilhados.
+
+- Vamos transformar os dados de table1 para o formato long. Suponha que queremos que os dados sejam organizados por país, e as observações sejam os casos de tuberculose e a população.
+
+```{r}
+table1 %>%
+  pivot_longer(cols = c(cases, population),
+               names_to = "variable",
+               values_to = "total")
+
+```
+
+### Separando observações
+
+- Algumas vezes, as observações estão agrupadas em uma única coluna e precisamos separar elas.
+- A função separate() é utilizada para separar observações em diferentes colunas.
+- Observe os dados em table3.
+
+```{r}
+table3
+```
+
+- Suponha que queremos separar a coluna rate em duas colunas: cases e population .
+
+```{r}
+table3 %>%
+  separate(rate, into = c("cases",
+                          "population"))
+
+```
+
+### Juntando observações
+
+-  função unite() é utilizada para juntar observações de diferentes colunas em uma única coluna.
+- Suponha que queremos juntar as colunas cases e population em uma única coluna chamada rate .
+
+```{r}
+table1 %>%
+  unite(rate, cases, population, sep = "/")
+```
+
+### Exercícios
+
+Utilizando os dados de flights , do pacote *nycflights13* , crie uma matriz que mostra o número de voos entre cada par de aeroportos.
+
+```{r}
+# Utilizando os dados do pacote nycflights13
+require(nycflights13)
+flights %>% 
+  count(origin, dest) %>% 
+  pivot_wider(names_from = origin, 
+              values_from = n, 
+              values_fill = 0)
+```
+
+
