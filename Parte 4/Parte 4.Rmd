@@ -1,6 +1,8 @@
 ---
 title: "Parte 4"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-10-26"
 ---
 
@@ -1162,6 +1164,7 @@ Utilizando os dados de flights , do pacote *nycflights13* , crie uma matriz que 
 ```{r}
 # Utilizando os dados do pacote nycflights13
 require(nycflights13)
+library(nycflights13)
 flights %>% 
   count(origin, dest) %>% 
   pivot_wider(names_from = origin, 
@@ -1384,24 +1387,24 @@ by = c("mat" = "mat",
 #### Exportando arquivos em texto pleno
 
 ```{r}
-write_csv(df1,
-          file = "Nome_do_arquivo.csv")
+#write_csv(df1,
+          #file = "Nome_do_arquivo.csv")
 ```
 
 #### Arquivo binário do R
 
 ```{r}
-save(df1,
-     file = "Nome_do_arquivo.RData")
+#save(df1,
+     #file = "Nome_do_arquivo.RData")
 ## Carregando arquivo .RData
-load("Nome_do_arquivo.RData")
+#load("Nome_do_arquivo.RData")
 ```
 
 #### Criando planilha eletronica
 
 ```{r}
-library(writexl)
-write_xlsx(df1, "Nome_do_arquivo.xlsx")
+#library(writexl)
+#write_xlsx(df1, "Nome_do_arquivo.xlsx")
 ```
 
 
