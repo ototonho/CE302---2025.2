@@ -1,0 +1,41 @@
+---
+title: "Trabalho Final - Elementos de Prog"
+output: html_document
+date: "2025-11-12"
+bibliography: 
+csl: 
+---
+
+# Trabalho Final - Elementos de Prog
+
+**Alunos:**
+
+Antonio Paulo Steffen Neto
+Ingrid
+Jhullya da Rosa Shalders
+Pedro
+
+## Introdução {#sec-01}
+
+Dados os conjuntos de dados disponibilizados para a confecção do trabalho final, o grupo optou pela escolha do conjunto da dados chamado *Allrecipes*
+
+### Descrição do conjunto de dados {#sec-02}
+
+
+
+## Materiais e Métodos {#sec-03}
+
+
+
+## Resultados e discussão {#sec-04}
+
+
+
+## Conclusão {#sec-05}
+
+
+
+## Referências Bibliográficas {#sec-06}
+
+
+

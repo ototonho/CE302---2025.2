@@ -1,0 +1,262 @@
+---
+title: "Trabalho Final"
+output: html_document
+date: "2025-11-12"
+---
+
+# Trabalho Final
+
+### Acesso aos dados
+
+```{r}
+# Using R
+# Option 1: tidytuesdayR R package 
+install.packages("tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2025-09-16')
+## OR
+tuesdata <- tidytuesdayR::tt_load(2025, week = 37)
+
+all_recipes <- tuesdata$all_recipes
+cuisines <- tuesdata$cuisines
+```
+
+
+## Análise Exploratória
+
+#### Ocorrência de cada país
+
+```{r}
+require(tidyverse)
+require(tidytuesdayR)
+
+str(cuisines)
+
+summary(cuisines)
+
+freq_paises = cuisines %>%
+  group_by(country) %>%
+  summarise(frequencia = n()) %>%
+  arrange(desc(frequencia))
+
+```
+
+#### Relacionando *country* com *avg_ratings*
+
+```{r}
+
+raintg_per_country = cuisines %>%
+  group_by(country) %>%
+  summarise(
+    media_ratings = mean(avg_rating, na.rm = TRUE),
+    frequencia = n()
+  ) %>% 
+  arrange(desc(media_ratings))
+
+summary(raintg_per_country)
+
+```
+
+#### Relacionando *country* com *servings*
+
+```{r}
+servings_per_country = cuisines %>%
+  group_by(country) %>%
+  summarise(
+    media_servings = mean(servings, na.rm = TRUE),
+    frequencia = n()
+  ) %>% 
+  arrange(desc(media_servings))
+
+summary(servings_per_country)
+
+```
+
+#### Relacionando *prep_time*, *cook_time*, *total_time* e *servings*
+
+```{r}
+
+dados_numericos <- cuisines %>%
+  select(prep_time, cook_time, total_time, servings) %>%
+  drop_na()
+
+summary(dados_numericos)
+matriz_cor_tempos <- cor(round(dados_numericos, 2))
+
+```
+
+#### Relacionando *ingredientes* com *ratings*
+
+```{r}
+
+dados_nutricionais_ratings <- cuisines %>%
+  select(calories, fat, carbs, protein, avg_rating, total_ratings) %>%
+  drop_na()
+
+nrow(dados_nutricionais_ratings)
+summary(dados_nutricionais_ratings)
+
+matriz_cor_nutri <- cor(round(dados_nutricionais_ratings, 2))
+
+modelo_regressao <- lm(avg_rating ~ calories + fat + carbs + protein, 
+                       data = dados_nutricionais_ratings)
+
+summary(modelo_regressao)
+
+```
+
+#### Plotando essa brincadeira
+
+```{r}
+library(corrplot)
+
+corrplot(matriz_cor_nutri, method = "circle")
+```
+
+#### Lidando com a variável *Ingredients*
+
+```{r}
+library(dplyr)
+library(stringr)  # Para manipulação de strings
+library(tidytext) # Essencial para tokenizar texto
+
+ingredientes_frequentes <- cuisines %>%
+  # Adiciona um ID único para cada receita, se ainda não tiver
+  mutate(recipe_id = row_number()) %>%
+  
+  # A. Tokeniza o texto (divide a string em palavras)
+  unnest_tokens(
+    input = ingredients, 
+    output = palavra, 
+    token = "words" # Tokeniza por palavras (remove pontuação e converte para minúsculas)
+  ) %>%
+  
+  # B. Limpa o texto: Remove números, unidades de medida e palavras irrelevantes
+  filter(
+    # Remove palavras que são majoritariamente números ou frações
+    !str_detect(palavra, "^[0-9/]+$")
+  ) %>%
+  
+  # C. Remove "Stop Words" (palavras comuns, mas sem significado de ingrediente)
+  # O tidytext tem uma lista pré-definida de palavras comuns em inglês.
+  # Para um dataset em inglês, é crucial rodar:
+  anti_join(stop_words, by = c("palavra" = "word")) %>%
+  
+  # D. Filtro manual: Remova palavras comuns que não são ingredientes (ex: "cup", "teaspoon", "tablespoon", "dried", "ground", "minced", etc.)
+  filter(!palavra %in% c(
+    "cup", "cups",             # Adicionado 'cups'
+    "teaspoon", "teaspoons",   # Adicionado 'teaspoons'
+    "tablespoon", "tablespoons", # Adicionado 'tablespoons'
+    "chopped",                # Adicionado 'chopped'
+    "sliced",                 # Adicionado 'sliced'
+    "gallon",                 # Adicionado 'gallon'
+    "cut",                    # Adicionado 'cut'
+    "taste",                  # Adicionado 'taste'
+    "dried", "ground", "minced", "fresh", "smoked", "slices", "thighs", "frying", "style", "chunks", "heavy",
+    "ounce", "lb", "package", "can", "whole", "red", "white", "black", 
+    "salt", "pepper", "oil", "sugar", "butter", "milk", "water", "juice",
+    "all-purpose", "to" # Você pode querer remover 'salt', 'pepper', etc., se não for um ingrediente chave
+  )) %>%
+  
+  # 3. Contagem e Ordenação
+  count(palavra, sort = TRUE) %>%
+  rename(frequencia = n)
+
+# 4. Exibe os 10 ingredientes mais frequentes
+print(head(ingredientes_frequentes, 10))
+```
+
+#### Relacionando ingredientes com nutrientes 
+
+```{r}
+dados_base <- cuisines %>%
+  # CRIANDO A COLUNA recipe_id AQUI:
+  mutate(recipe_id = row_number()) %>% 
+  select(recipe_id, ingredients, calories, fat, carbs, protein) %>%
+  drop_na(calories, fat, carbs, protein)
+
+stop_list <- c(
+  "cup", "cups",             # Adicionado 'cups'
+    "teaspoon", "teaspoons",   # Adicionado 'teaspoons'
+    "tablespoon", "tablespoons", # Adicionado 'tablespoons'
+    "chopped",                # Adicionado 'chopped'
+    "sliced",                 # Adicionado 'sliced'
+    "gallon",                 # Adicionado 'gallon'
+    "cut",                    # Adicionado 'cut'
+    "taste",                  # Adicionado 'taste'
+    "dried", "ground", "minced", "fresh", "smoked", "slices", "thighs", "frying", "style", "chunks", "heavy", 
+    "ounce", "lb", "package", "can", "whole", "red", "white", "black", 
+    "salt", "pepper", "oil", "sugar", "butter", "milk", "water", "juice",
+    "all-purpose", "to" # Adicione mais conforme necessário
+)
+
+# Tokeniza, remove stop words e filtra para obter a lista de ingredientes por receita
+ingredientes_limpos <- dados_base %>%
+  mutate(recipe_id = row_number()) %>%
+  tidytext::unnest_tokens(
+    input = ingredients, 
+    output = palavra, 
+    token = "words"
+  ) %>%
+  filter(!str_detect(palavra, "^[0-9/]+$")) %>%
+  anti_join(tidytext::stop_words, by = c("palavra" = "word")) %>%
+  filter(!palavra %in% stop_list) %>%
+  
+  # Filtra ingredientes raros (aparecendo menos que N vezes) para reduzir o tamanho da tabela
+  count(palavra, sort = TRUE) %>%
+  filter(n >= 50) %>% # Filtra ingredientes que aparecem em pelo menos 50 receitas
+  select(palavra) %>%
+  inner_join(
+    dados_base %>% mutate(recipe_id = row_number()) %>% 
+      tidytext::unnest_tokens(input = ingredients, output = palavra, token = "words")
+    , by = "palavra"
+  ) %>%
+  distinct(recipe_id, palavra) # Garante que cada ingrediente seja contado apenas uma vez por receita
+
+# --- 3. JUNÇÃO E CÁLCULO DAS MÉDIAS ---
+
+# Junta os dados nutricionais com a lista de presença de ingredientes
+dados_juntos <- dados_base %>%
+  mutate(recipe_id = row_number()) %>%
+  inner_join(ingredientes_limpos, by = "recipe_id")
+
+# Calcula as médias nutricionais POR ingrediente
+media_nutricional_por_ingrediente <- dados_juntos %>%
+  group_by(palavra) %>%
+  summarise(
+    receitas_com_ingrediente = n(),
+    media_calories = mean(calories),
+    media_fat = mean(fat),
+    media_carbs = mean(carbs),
+    media_protein = mean(protein)
+  ) %>%
+  arrange(desc(media_calories)) # Ordena para ver quais ingredientes estão associados a mais calorias
+
+print(head(media_nutricional_por_ingrediente, 10))
+```
+
+#### Relacionando países e calorias
+
+```{r}
+tabela_pais_calorias <- cuisines %>%
+  group_by(country) %>%
+    summarise(
+    frequencia_receitas = n(),
+    
+    media_calories = mean(calories, na.rm = TRUE),
+    observacoes_calories = sum(!is.na(calories)),
+    
+    media_fat = mean(fat, na.rm = TRUE),
+    observacoes_fat = sum(!is.na(fat)),
+    
+    media_carbs = mean(carbs, na.rm = TRUE),
+    observacoes_carbs = sum(!is.na(carbs)),
+    
+    media_protein = mean(protein, na.rm = TRUE),
+    observacoes_protein = sum(!is.na(protein))
+  ) %>%
+  arrange(desc(media_calories))
+```
+
+
+
