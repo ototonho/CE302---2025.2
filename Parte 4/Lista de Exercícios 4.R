@@ -32,17 +32,17 @@ haversine_distance <- function(lat1, lon1, lat2, lon2) {
 
 
 # 2. Localizar Ponto Inicial ("Citrin", Santa Monica, USA)
-sirmione_start <- michelin_df %>% 
-  filter(Name == "La Speranzina Restaurant & Relais", Location == "Sirmione, Italy")
+start <- michelin_df %>% 
+  filter(Name == "Pollen", Location == "Avignon, France")
 
 # Verificação do ponto inicial
-if (nrow(sirmione_start) == 0) {
-  stop("Erro: Restaurante 'La Speranzina Restaurant & Relais, Sirmione, Italy' não encontrado no banco de dados.")
+if (nrow(start) == 0) {
+  stop("Erro: Restaurante 'Pollen, Avignon, France' não encontrado no banco de dados.")
 }
 
-lat_start <- sirmione_start$Latitude[1]
-lon_start <- sirmione_start$Longitude[1]
-city_start <- sirmione_start$Location[1] 
+lat_start <- start$Latitude[1]
+lon_start <- start$Longitude[1]
+city_start <- start$Location[1] 
 
 # 3. Calcular Distâncias para Todos os Restaurantes
 df_with_distances <- michelin_df %>%
@@ -54,38 +54,35 @@ df_with_distances <- michelin_df %>%
   # Exclui o próprio restaurante
   filter(dist_km > 0.1)
 
-df_with_distances <- calculate_all_distances(michelin_df, lat_the_kitchen, lon_the_kitchen)
-View(df_with_distances)
-
 # a)
 
-proximo_1_star <- df_with_distances %>%
-  filter(grepl("1 Star", Award)) %>% 
+proximo_2_stars <- df_with_distances %>%
+  filter(grepl("2 Stars", Award)) %>% 
   summarise(min_dist = min(dist_km)) %>%
   pull(min_dist)
 
 # Resultado:
-cat("Resposta 1 Questão 1:", round(proximo_1_star, 2), "km\n")
+cat("Resposta 1 Questão 1:", round(proximo_2_stars, 2), "km\n")
 
 # b)
 
-restaurantes_1000km <- df_with_distances %>%
+restaurantes_500km <- df_with_distances %>%
   filter(
     grepl("1 Star|2 Stars|3 Stars", Award), 
-    dist_km <= 1000
+    dist_km <= 500
   ) %>%
   nrow()
 
 # Resultado:
-cat("Resposta 2 Questão 1:", restaurantes_1000km, "\n")
+cat("Resposta 2 Questão 1:", restaurantes_500km, "\n")
 
 # c)
 
 restaurantes_aniversario <- df_with_distances %>%
   filter(
     grepl("1 Star|2 Stars|3 Stars", Award),
-    nchar(Price) <= 2, # Filtra por até 2 dinheiros locais
-    dist_km <= 2000,
+    nchar(Price) <= 4, # Filtra por até 4 dinheiros locais
+    dist_km <= 3000,   # Distância máxima de 3000 km
     Location != city_start 
   ) %>%
   nrow()
@@ -95,13 +92,13 @@ cat("Resposta 3 Questão 1:", restaurantes_aniversario, "\n")
 
 # d) 
 
-distancia_italian <- df_with_distances %>%
-  filter(Cuisine == "Italian") %>%
+distancia_modern_cuisine <- df_with_distances %>%
+  filter(Cuisine == "Modern Cuisine") %>%
   summarise(min_dist = min(dist_km)) %>%
   pull(min_dist)
 
 # Resultado:
-cat("Resposta 4 Questão 1:", round(distancia_italian, 2), "km\n")
+cat("Resposta 4 Questão 1:", round(distancia_modern_cuisine, 2), "km\n")
 
 #2) 
 
@@ -125,27 +122,27 @@ todos_juntos <- inner_join(tres_juntos, imdb,
 # a)
 
 quest_a <- todos_juntos %>%
-  filter(director == "Hettie MacDonald" & writer == "Steven Moffat")
+  filter(director == "Joe Ahearne" & writer == "Russell T Davies")
 
 # b) 
 
 quest_b <- todos_juntos %>%
-  filter(writer == "Chris Chibnall")
+  filter(writer == "Steven Moffat")
 
 # c)
 
 quest_c <- todos_juntos %>%
-  filter(writer == "Matthew Graham")
+  filter(writer == "Stephen Thompson")
 
 # d) 
 
 quest_d <- todos_juntos %>%
-  filter(writer == "Matthew Graham")
+  filter(writer == "Stephen Thompson")
 
 # e) 
 
 quest_e <- todos_juntos %>%
-  filter(director == "Daniel Nettheim")
+  filter(director == "Ben Wheatley")
 
 media_E <- mean(quest_e$duration)
 print(media_E)
