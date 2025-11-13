@@ -12,7 +12,8 @@ bibliography: citations.bib
 
 ## Introdução {#sec-01}
 
-Dados os conjuntos de dados disponibilizados para a confecção do trabalho final, o grupo optou pela escolha do conjunto da dados chamado *Allrecipes*. 
+Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. 
+Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado *Allrecipes*. Neste constam dados retirados do site [Allrecipes](https://www.allrecipes.com) sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte @noauthor_allrecipes_nodate.
 
 ### Descrição do conjunto de dados {#sec-02}
 
