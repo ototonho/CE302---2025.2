@@ -1,41 +1,39 @@
 ---
 title: "Trabalho Final - Elementos de Prog"
+date: "`r format(Sys.time(), '%d / %m / %y')`"
+author: 
+  - "Antonio Paulo Steffen Neto"
+  - "Ingrid"
+  - "Jhullya da Rosa Shalders"
+  - "Pedro"
 output: html_document
-date: "2025-11-12"
-bibliography: 
-csl: 
+bibliography: citations.bib 
 ---
-
-# Trabalho Final - Elementos de Prog
-
-**Alunos:**
-
-Antonio Paulo Steffen Neto
-Ingrid
-Jhullya da Rosa Shalders
-Pedro
 
 ## Introdução {#sec-01}
 
-Dados os conjuntos de dados disponibilizados para a confecção do trabalho final, o grupo optou pela escolha do conjunto da dados chamado *Allrecipes*
+Dados os conjuntos de dados disponibilizados para a confecção do trabalho final, o grupo optou pela escolha do conjunto da dados chamado *Allrecipes*. 
 
 ### Descrição do conjunto de dados {#sec-02}
 
 
-
-## Materiais e Métodos {#sec-03}
-
+### Viéses de análise {#sec-03}
 
 
-## Resultados e discussão {#sec-04}
+## Materiais e Métodos {#sec-04}
+
+Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro *R for data science: import, tidy, transform, visualize, and model data*, de autoria de @wickham_r_2017. Também serão utilizados para análise de observações o que é desenvolvido por @agresti_introduction_2019.
+Além de ambos, também serão utilizados materiais de @trattner_estimating_2017 e @hussain_innovative_2025, que já desenvolveram análises semelhantes à que este trabalho se propõe. Além disso, também será utilizada @silva_da_costa_percepcao_2021
+
+## Resultados e discussão {#sec-05}
 
 
 
-## Conclusão {#sec-05}
+## Conclusão {#sec-06}
 
 
 
-## Referências Bibliográficas {#sec-06}
+## Referências Bibliográficas {#sec-07}
 
 
 
