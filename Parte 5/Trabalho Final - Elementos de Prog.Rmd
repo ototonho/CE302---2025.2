@@ -15,26 +15,42 @@ bibliography: citations.bib
 Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. 
 Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado *Allrecipes*. Neste constam dados retirados do site [Allrecipes](https://www.allrecipes.com) sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte @noauthor_allrecipes_nodate.
 
-### Descrição do conjunto de dados {#sec-02}
+### Definição do Problema
+
+O problema sentral identificado após análise dos conjuntos de dados é o de analisar e compreender a popularidade de receitas publicadas online e quais os possíveis fatores se relacionam ou não a ela. 
+
+### Objetivos da Análise
 
 
-### Viéses de análise {#sec-03}
 
-
-## Materiais e Métodos {#sec-04}
+## Materiais e Métodos {#sec-02}
 
 Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro *R for data science: import, tidy, transform, visualize, and model data*, de autoria de @wickham_r_2017. Também serão utilizados para análise de observações o que é desenvolvido por @agresti_introduction_2019.
 Além de ambos, também serão utilizados materiais de @trattner_estimating_2017 e @hussain_innovative_2025, que já desenvolveram análises semelhantes à que este trabalho se propõe. Além disso, também será utilizada @silva_da_costa_percepcao_2021
 
-## Resultados e discussão {#sec-05}
+### Descrição do conjunto de dados 
 
+Para fazer a descrição dos conjuntos de dados fornecidos, começamos utilizando a função `str()` para vermos as descrições estruturais de ambos os conjuntos. 
 
+```{r}
+str(all_recipes)
+str(cuisines)
+```
 
-## Conclusão {#sec-06}
+Isto feito, podemos dizer que o primeiro conjunto, o maior, chamado `all_recipes`, é constituído de 14.426 observações e 16 variáveis; o segundo, `cuisines`, 2.218 e 17 variáveis. O segundo conjunto tem, portanto, uma variável a mais, esta sendo a variável *country*, uma variável de caracteres que descreve o país de origem da receita. Nas outras variáveis, presentes em ambos os conjuntos de dados, há informações que descrevem as receitas postadas no site, trazendo informações dos autores, url's das receitas, ingredientes e informações nutricionais, tempos de preparo, cozimento e total, avaliações e vezes reproduzidas. Três das variáveis são do tipo caracteres, um do tipo data, e o restante valores numéricos. 
+As observações vêm em uma ordem padrão de índice (definida pelo fornecedor), mas podem ser facilmente classificadas (reordenadas) de acordo com as variáveis disponíveis, como, por exemplo, ordem crescente ou decrescente de calorias, classificação média, ou tempo de preparo, etc. 
 
+### Tratamento dos Dados 
 
+### Técnicas Estatísticas e Computacionais
 
-## Referências Bibliográficas {#sec-07}
+## Resultados e discussão {#sec-03}
+
+### Análises e Interpretações
+
+## Conclusão {#sec-04}
+
+## Referências Bibliográficas {#sec-05}
 
 
 
