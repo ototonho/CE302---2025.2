@@ -17,11 +17,11 @@ Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conju
 
 ### Definição do Problema
 
-O problema sentral identificado após análise dos conjuntos de dados é o de analisar e compreender a popularidade de receitas publicadas online e quais os possíveis fatores se relacionam ou não a ela. 
+O problema sentral identificado após análise dos conjuntos de dados é o de analisar e compreender a popularidade de receitas publicadas online e quais possíveis fatores se relacionam ou não a ela. Assim, serão investigadas neste trabalho quais as características que atraem ou afastam o pública, sejam elas ligadas a questões nutricionais, de tempo de preparo, de ingredientes ou de origem dos pratos. Além disso, será medida a popularidade das receitas a partir de dois viéses, o da avaliações média e o da quantidade de reproduções. Por último, também serão analisados os autores e como eles se inserem neste contexto.
 
 ### Objetivos da Análise
 
-
+O objetivo principal da análise, portanto, será o que entender quais as dinâmicas por trás da popularidade das receitas
 
 ## Materiais e Métodos {#sec-02}
 
