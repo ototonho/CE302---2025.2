@@ -21,7 +21,8 @@ O problema sentral identificado após análise dos conjuntos de dados é o de an
 
 ### Objetivos da Análise
 
-O objetivo principal da análise, portanto, será o que entender quais as dinâmicas por trás da popularidade das receitas
+O objetivo principal da análise, portanto, será o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online. Assim sendo, a análise sserá conduzida em partes e em três diferentes frente: a do perfil nutricional; a do tempo de preparo; e a da origem das receitas. Em cada uma das frentes serão analisadas relações com as avaliações médias e com a quantidade de reproduções das receitas.
+Com relação ao perfil nutricional das receitas, serão analisados os perfis das receitas, buscando relações entre seus componentes e também os perfis de composições de ingredientes presentes. 
 
 ## Materiais e Métodos {#sec-02}
 
