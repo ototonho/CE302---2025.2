@@ -32,7 +32,7 @@ str(all_recipes)
 summary(all_recipes)
 summary(cuisines)
 
-freq_paises = cuisines %>%
+freq_culinarias = cuisines %>%
   group_by(country) %>%
   summarise(frequencia = n()) %>%
   arrange(desc(frequencia))

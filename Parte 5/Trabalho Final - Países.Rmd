@@ -76,9 +76,10 @@ diagnostico_paises <- cuisines %>%
     total_ratings_somados = sum(total_ratings, na.rm = TRUE),
     observacoes_validas = sum(!is.na(avg_rating))
   ) %>%
-  filter(observacoes_validas >= 10) # Filtra dados não confiáveis
+  # Reduzindo o filtro para 5 para incluir mais culinárias no mapa
+  filter(observacoes_validas >= 5) 
 
-# 2. Tabela de Conversão Manual
+# 2. Tabela de Conversão Manual EXPANDIDA
 # Mapeia nomes de culinárias (country) para nomes formais de países (name_long)
 tabela_conversao <- tribble(
   ~country,                       ~name_long,
@@ -87,18 +88,57 @@ tabela_conversao <- tribble(
   "Greek",                        "Greece",
   "Japanese",                     "Japan",
   "German",                       "Germany",
-  "Jewish",                       "Israel", # Mapeamento aproximado para a região cultural
+  "Jewish",                       "Israel",
   "Thai",                         "Thailand",
   "French",                       "France",
   "Indian",                       "India",
   "Chinese",                      "China",
-  "Australian and New Zealander", "Australia", # Usaremos Austrália como representante
   "British",                      "United Kingdom",
   "Spanish",                      "Spain",
   "Cuban",                        "Cuba",
   "Filipino",                     "Philippines",
   "Korean",                       "South Korea",
-  # Adicione mais mapeamentos conforme necessário para seus Top N
+  "Brazilian",                    "Brazil",
+  "Irish",                        "Ireland",
+  "American",                     "United States",
+  "Vietnamese",                   "Vietnam",
+  "Peruvian",                     "Peru",
+  "Russian",                      "Russia",
+  "Turkish",                      "Turkey",
+  "Moroccan",                     "Morocco",
+  "Scandinavian",                 "Norway", # Usando a Noruega como representante do bloco
+  "Australian and New Zealander", "Australia", 
+  "Canadian",                     "Canada",
+  "Caribbean",                    "Cuba", # Mapeando para o maior país insular para visualização
+  "Portuguese",                   "Portugal",
+  "Polish",                       "Poland",
+  "Indonesian",                   "Indonesia",
+  "Venezuelan",                   "Venezuela",
+  "Colombian",                    "Colombia",
+  "Argentinian",                  "Argentina",
+  "Cajun and Creole",             "United States", # Predominantemente Louisiana, EUA
+  "Soul Food",                    "United States", # Culinária Afro-Americana, EUA
+  "Amish and Mennonite",          "United States", # Principalmente EUA (Pensilvânia)
+  "Puerto Rican",                 "United States", # Mapeando para o país associado
+  "Tex-Mex",                      "United States", # Região de fronteira Texas, EUA
+  "Lebanese",                     "Lebanon",
+  "Southern Recipes",             "United States", # Receitas do Sul dos EUA
+  "Persian",                      "Iran", # Sinônimo principal de Persa
+  "Jamaican",                     "Jamaica",
+  "Danish",                       "Denmark",
+  "Swedish",                      "Sweden",
+  "Norwegian",                    "Norway",
+  "Pakistani",                    "Pakistan",
+  "Malaysian",                    "Malaysia",
+  "Israeli",                      "Israel",
+  "Austrian",                     "Austria",
+  "Chilean",                      "Chile",
+  "Dutch",                        "Netherlands",
+  "South African",                "South Africa",
+  "Finnish",                      "Finland",
+  "Bangladeshi",                  "Bangladesh",
+  "Swiss",                        "Switzerland",
+  "Belgian",                      "Belgium"
 )
 
 # 3. Unir o Diagnóstico com a Conversão
@@ -123,18 +163,21 @@ plot_mapa <- ggplot(data = mapa_final) +
   # Camada de países: cor cinza para países sem dados
   geom_sf(aes(fill = media_ratings), color = "gray80", linewidth = 0.1) +
   
-  # Usar uma escala de cores perceptualmente uniforme (Viridis)
-  scale_fill_viridis_c(
-    option = "plasma", 
-    direction = -1,
-    name = "Média de Avaliação (1.0-5.0)",
-    na.value = "gray90" # Países sem dados ficam cinza claro
+  # Substituição pela escala manual de gradiente divergente: Vermelho (Baixo) -> Branco (Meio) -> Azul Escuro (Alto)
+  scale_fill_gradient2(
+    low = "#8A4FFF",         # Cor para ratings baixos (ex: 3.5)
+    mid = "#F2F3D9",       # Cor para o ponto médio
+    high = "#ff8247",   # Cor para ratings altos (ex: 5.0)
+    midpoint = 4.5,      # Define o ponto de transição (ajuste este valor se a média for diferente)
+    limits = c(3.5, 5.0),# Define o intervalo de cor para evitar cores extremas
+    name = "Média de Avaliação",
+    na.value = "gray90"  # Países sem dados
   ) +
   
   labs(
-    title = "Média de Avaliação das Culinárias Populares",
+    title = "Média de Avaliação das Culinárias Populares (Mapeamento Expandido)",
     subtitle = "Cores representam a qualidade percebida (avg_rating) por país de origem.",
-    caption = "Países mapeados manualmente. Filtro: Observações Válidas >= 10."
+    caption = "Países mapeados manualmente. Filtro: Observações Válidas >= 5."
   ) +
   theme_void() + # Remove eixos e grade para um visual de mapa limpo
   # Centralizar e ajustar a projeção para um mapa-múndi clássico
