@@ -1,5 +1,5 @@
 ---
-title: "Trabalho Final"
+title: "Trabalho Final - Esboço"
 output: html_document
 date: "2025-11-12"
 ---
@@ -28,7 +28,8 @@ cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/t
 ```{r}
 
 str(cuisines)
-
+str(all_recipes)
+summary(all_recipes)
 summary(cuisines)
 
 freq_paises = cuisines %>%
