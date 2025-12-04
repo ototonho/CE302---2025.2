@@ -49,6 +49,55 @@ As observações vêm em uma ordem padrão de índice (definida pelo fornecedor)
 
 ### Dicionário de Variáveis
 
+Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de dados:
+
+1. All Recipes:
+
+| Variável | Tipo de Dado | Descrição Completa |
+|----------|--------------|--------------------|
+| recipe_id | Numérico/Inteiro | Identificador único. Chave para fusão de dados. |
+| author | Caractere/Fator | Nome do usuário que postou a receita. |
+| recipe_name | Caractere | Nome da receita. |
+| url | Caractere | Link da receita. |
+| ingredients | Caractere | Base para contagem de ingredientes. |
+| prep_time_minutes | Numérico | Tempo de preparo (minutos). |
+| cook_time_minutes | Numérico | Tempo de cozimento (minutos). |
+| total_time_minutes | Numérico | Tempo total (preparo + cozimento). Variável chave para Complexidade. |
+| servings | Numérico | Número de porções que a receita produz. |
+| calories | Numérico | Conteúdo energético (Kcal). Variável chave Nutricional. |
+| fat | Numérico | Quantidade de gordura (g). |
+| protein | Numérico | Quantidade de proteína (g). |
+| sodium | Numérico | Quantidade de sódio (mg). |
+| rating | Numérico | Avaliação média (1-5). Métrica de popularidade. |
+| n_ratings | Numérico/Inteiro | Número de avaliações recebidas. |
+| n_reproducidas | Numérico/Contagem | Principal variável de resposta (popularidade). |
+| date_published | Data | Data em que a receita foi publicada no site. |
+
+2. Cuisines:
+
+### 📋 Dicionário de Variáveis - Conjunto `cuisines`
+
+| Variável | Tipo de Dado | Descrição Completa e Relevância |
+| ---------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| recipe_id | Numérico/Inteiro | Identificador único. Chave para fusão de dados. |
+| author | Caractere/Fator | Nome do usuário. |
+| recipe_name | Caractere | Nome da receita. |
+| url | Caractere | Link da receita. |
+| ingredients | Caractere | Usado para derivar a contagem de ingredientes. |
+| prep_time_minutes | Numérico | Tempo de preparo (minutos). |
+| cook_time_minutes | Numérico | Tempo de cozimento (minutos). |
+| total_time_minutes | Numérico | Tempo total (preparo + cozimento). |
+| servings | Numérico | Número de porções. |
+| calories | Numérico | Conteúdo energético (Kcal). |
+| fat | Numérico | Quantidade de gordura (g). |
+| protein | Numérico | Quantidade de proteína (g). |
+| sodium | Numérico | Quantidade de sódio (mg). |
+| rating | Numérico | Avaliação média (1-5). Métrica de popularidade. |
+| n_ratings | Numérico/Inteiro | Número de avaliações recebidas. |
+| n_reproducidas | Numérico/Contagem | **Principal variável de resposta (popularidade)**. |
+| date_published | Data | Data de publicação. |
+| country | Caractere/Fator | **País de origem.** Variável chave para análise geocultural (vem do `cuisines`). |
+
 ### Tratamento dos Dados 
 
 

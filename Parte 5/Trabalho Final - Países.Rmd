@@ -165,9 +165,9 @@ plot_mapa <- ggplot(data = mapa_final) +
   
   # Substituição pela escala manual de gradiente divergente: Vermelho (Baixo) -> Branco (Meio) -> Azul Escuro (Alto)
   scale_fill_gradient2(
-    low = "#8A4FFF",         # Cor para ratings baixos (ex: 3.5)
-    mid = "#F2F3D9",       # Cor para o ponto médio
-    high = "#ff8247",   # Cor para ratings altos (ex: 5.0)
+    low = "#ff8247",         # Cor para ratings baixos (ex: 3.5)
+    mid = "#F2F3D9",       # Cor para o ponto médio 
+    high = "#8A4FFF",   # Cor para ratings altos (ex: 5.0)
     midpoint = 4.5,      # Define o ponto de transição (ajuste este valor se a média for diferente)
     limits = c(3.5, 5.0),# Define o intervalo de cor para evitar cores extremas
     name = "Média de Avaliação",
