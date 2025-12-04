@@ -51,7 +51,7 @@ As observações vêm em uma ordem padrão de índice (definida pelo fornecedor)
 
 Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de dados:
 
-1. All Recipes:
+1. `all_recipes`:
 
 | Variável | Tipo de Dado | Descrição Completa |
 |----------|--------------|--------------------|
@@ -73,12 +73,12 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 | n_reproducidas | Numérico/Contagem | Principal variável de resposta (popularidade). |
 | date_published | Data | Data em que a receita foi publicada no site. |
 
-2. Cuisines:
+2. `cuisines`:
 
-### 📋 Dicionário de Variáveis - Conjunto `cuisines`
+
 
 | Variável | Tipo de Dado | Descrição Completa e Relevância |
-| ---------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| ---------|------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
 | recipe_id | Numérico/Inteiro | Identificador único. Chave para fusão de dados. |
 | author | Caractere/Fator | Nome do usuário. |
 | recipe_name | Caractere | Nome da receita. |
