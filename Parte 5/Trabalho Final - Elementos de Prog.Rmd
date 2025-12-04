@@ -27,7 +27,7 @@ A análise de dados não estruturados provenientes da plataforma online *Allreci
 Dado o conjunto de dados escolhido, portanto, é possível uma análise que cubra de maneira completa todas as variáveis a disposição, ainda que, para tal, seja necessário um trabalho de grande escopo que cubra diversas frentes. Assim, abrem-se diversas direções de investigação. Tanto as informações nutricionais quanto as informações acerca dos ingredientes podem ser entrelaçadas e apresentam grande complexidade. Além destas, tem
 O panorama geral da análise será análisado em conjunto com as informações nutricionais gerais; além deles, os tempos de preparo; as quantidades de ingredientes; e, por fim, um olhar tendo como base os países de origem de cada receita.
 
-O objetivo principal da análise, portanto, será o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online. Assim sendo, a análise sserá conduzida em partes e em três diferentes frente: a do perfil nutricional; a do tempo de preparo; e a da origem das receitas. Em cada uma das frentes serão analisadas relações com as avaliações médias e com a quantidade de reproduções das receitas.
+O objetivo principal da análise, portanto, será o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online. Assim sendo, a análise sserá conduzida em partes e em três diferentes frentes: a do perfil nutricional, que investiga as relações entre variáveis nutricionais contínuas e a variável de resposta popularidade (medida por avaliações médias e totais e reproduções das receitas; a complexidade dos preparos, isto é, o impacto do tempo e das quantidades de ingredientes na impacto causado pelas receitas; e a da origem geocultural das receitas, analisando a distribuição de popularidades e perfis nutricionais dentro do conjunto de dados. Em cada uma das frentes serão analisadas relações com as avaliações médias e com a quantidade de reproduções das receitas.
 Com relação ao perfil nutricional das receitas, serão analisados os perfis das receitas, buscando relações entre seus componentes e também os perfis de composições de ingredientes presentes. 
 
 ## Materiais e Métodos {#sec-02}
@@ -46,6 +46,8 @@ str(cuisines)
 
 Isto feito, podemos dizer que o primeiro conjunto, o maior, chamado `all_recipes`, é constituído de 14.426 observações e 16 variáveis; o segundo, `cuisines`, 2.218 e 17 variáveis. O segundo conjunto tem, portanto, uma variável a mais, esta sendo a variável *country*, uma variável de caracteres que descreve o país de origem da receita. Nas outras variáveis, presentes em ambos os conjuntos de dados, há informações que descrevem as receitas postadas no site, trazendo informações dos autores, url's das receitas, ingredientes e informações nutricionais, tempos de preparo, cozimento e total, avaliações e vezes reproduzidas. Três das variáveis são do tipo caracteres, um do tipo data, e o restante valores numéricos. 
 As observações vêm em uma ordem padrão de índice (definida pelo fornecedor), mas podem ser facilmente classificadas (reordenadas) de acordo com as variáveis disponíveis, como, por exemplo, ordem crescente ou decrescente de calorias, classificação média, ou tempo de preparo, etc. 
+
+### Dicionário de Variáveis
 
 ### Tratamento dos Dados 
 
