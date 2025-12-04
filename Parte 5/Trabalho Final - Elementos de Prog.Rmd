@@ -18,8 +18,8 @@ Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conju
 ### Definição do Problema
 
 A alimentação é a base de toda a cultura humana, o momento de comunhão em diferentes culturas e religiões. Isso estende-se desde o cômodo onde as pessoas se alimentam até a como grandes festividades por todo o globo costumam ter alguma refeição como parte central das celebrações. Mais recentemente, o destaque adquirido por grandes chefes de cosinha e por produtos culturais como reality show e séries sobre culinária são sintomas deste fenômeno. 
-Mais recentemente, contudo, a relação das pessoas com a comida foi muito modificada e tornada mais complexa. Em tempos de internet, fast food e fácil acesso a ingredientes de todo o mundo, sites como o *Allrecipes* se tornaram um meio impressindível de compartilhamento de hábitos alimentares e, para pesquisadores, uma fonte preciosa de dados para entender como as pessoas se alimentam. Mas sobre o que se trata o site em questão? O *Allrecipes* consiste em um site de compartilhamento de receitas. Nele, usuários de todo o mundo podem postar suas receitas para que outras pessoas possam prová-las, acompanhar as avaliações dos outros usuários e, também, acessar receitas de outros usuários, igualmente prová-las e avaliá-las. 
-O site *Allrecipes*, portanto, e já olhando para os dados de interesse na presente análise, nos traz dados a respeito da origem das receitas e por quem foram postadas. Além disso, também inclui as informações acerca de tempos de preparo e, também, de questões nutricionais. 
+Mais recentemente, contudo, a relação das pessoas com a comida foi muito modificada e tornada mais complexa. Em tempos de internet, fast food e fácil acesso a ingredientes de todo o mundo, sites como o *Allrecipes* se tornaram um meio impressindível de compartilhamento de hábitos alimentares e, para pesquisadores, uma fonte preciosa de dados para entender como as pessoas se alimentam. Mas sobre o que se trata o site em questão? O *Allrecipes* consiste em um site de compartilhamento de receitas. Nele, usuários de todo o mundo podem postar suas receitas para que outras pessoas possam prová-las, acompanhar as avaliações dos outros usuários e, também, acessar receitas de outros usuários, igualmente prová-las e avaliá-las. O site *Allrecipes*, portanto, e já olhando para os dados de interesse na presente análise, nos traz dados a respeito da origem das receitas e por quem foram postadas. Além disso, também inclui as informações acerca de tempos de preparo e, também, de questões nutricionais. 
+A análise de dados não estruturados provenientes da plataforma online *Allrecipes* insere-se na emergente área dGastronomia Computacional, que tem por objetivo o emprego de técnicas *data-driven* para o estudo e a análise de comidas. Esse campo busca quantificar e modelar fenômenos culinários e de consumo alimentar. Neste contexto, o volume e a variedade dos dados de receitas (incluindo as avaliações, informações nutricionais e origem geográfica) constituem um conjunto de dados de nicho, que seria ideal para a aplicação de métodos de aprendizado de máquina e modelagem estatística, caso os autores deste trabalho estivessem mais adiante no curso de Estatística.
 
 
 ### Objetivos da Análise
@@ -49,7 +49,11 @@ As observações vêm em uma ordem padrão de índice (definida pelo fornecedor)
 
 ### Tratamento dos Dados 
 
+
+
 ### Técnicas Estatísticas e Computacionais
+
+As técnicas estatísticas empregadas no trabalho seguem, de maneira geral, 
 
 ## Resultados e discussão {#sec-03}
 
