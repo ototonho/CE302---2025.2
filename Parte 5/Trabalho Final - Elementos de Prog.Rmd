@@ -14,7 +14,7 @@ bibliography: citations.bib
 
 Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. Assim, este trabalho apresenta a parte técnica e teórica do que foi realizado pelo grupo. A parte da apresentação em um aplicativo em Shiny, por outro lado, será feita por meio de um vídeo de apresentação do grupo. Nesta introdução apresentamos, então, o conjunto de dados escolhido pelo grupo e, também, como a parte escrita do trabalho está estruturada.
 Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado *Allrecipes*. Neste constam dados retirados do site [Allrecipes](https://www.allrecipes.com) sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte @noauthor_allrecipes_nodate.
-
+Como definido pelas instruções dadas pela proposta de trabalho, a formatação deste segue a ordem: Definição do Problema; Objetivos de Análise; Materiais e Métodos; Resultados e Discussão; Conclusão e Referências. Cada uma das partes integrantes da ordem originalmente indicada, naturalmente, apresenta suas próprias subseções, estas são: 
 
 ### Definição do Problema
 
@@ -101,7 +101,13 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 
 ### Tratamento dos Dados 
 
+1. Fusão de Conjuntos de Dados: Inicialmente, o dataset principal (all_recipes) foi unido ao dataset auxiliar (cuisines) utilizando-se a variável de chave primária (recipe_id ou equivalente), resultando em um único data frame analítico.
 
+2. Tratamento de Valores Faltantes (NA): Verificou-se a presença de valores NA (Not Available) nas variáveis nutricionais. Foi adotada a estratégia de imputação por mediana para os NAs em variáveis contínuas, como calorias, onde a ausência de informação era considerada Missing At Random (MAR), para maximizar o número de observações úteis. Para a variável country, os NAs foram categorizados como "Não Especificado".
+
+3.  Padronização e Normalização: Variáveis com alta variabilidade, como reproduções, foram consideradas para transformação logarítmica $(\log(X+1))$ para aproximar suas distribuições de uma normalidade e mitigar a influência de outliers extremos no ajuste dos modelos de regressão.
+
+4. Codificação de Variáveis Categóricas: A variável country foi convertida para o tipo fator (factor) para uso em modelos estatísticos, sendo implementado o esquema de codificação dummy (variáveis binárias) para as análises de regressão.
 
 ### Técnicas Estatísticas e Computacionais
 
