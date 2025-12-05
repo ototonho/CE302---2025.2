@@ -25,16 +25,16 @@ A análise de dados não estruturados provenientes da plataforma online *Allreci
 
 ### Objetivos da Análise
 
-Dado o conjunto de dados escolhido, portanto, é possível fazer uma análise que cubra de maneira completa todas as variáveis a disposição, ainda que, para tal, seja necessário um trabalho que cubra diversas frentes. Assim, abrem-se diversas direções de investigação. Tanto as informações nutricionais quanto as informações acerca dos ingredientes podem ser entrelaçadas e apresentam grande complexidade. Além destas, há as informações acerca dos países de origem das receitas, suas respectivas avaliações e, também tempos de preparo, datas em que foram postadas e quantas vezes foram preparadas. 
-O objetivo principal da análise, portanto, será o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online. Assim sendo, a análise sserá conduzida em partes e em três diferentes frentes: a do perfil nutricional, que investiga as relações entre variáveis nutricionais contínuas e a variável de resposta popularidade (medida por avaliações médias e totais e reproduções das receitas; a complexidade dos preparos, isto é, o impacto do tempo e das quantidades de ingredientes na impacto causado pelas receitas; e a da origem geocultural das receitas, analisando a distribuição de popularidades e perfis nutricionais dentro do conjunto de dados. 
+Dado o conjunto de dados escolhido, portanto, é possível fazer uma análise que cubra de maneira completa todas as variáveis a disposição, e, deste modo, explorar e documentar as dinâmicas relacionadas à popularidade de receitas publicadas online. Assim, abrem-se diversas direções de investigação, pois tanto as informações nutricionais quanto as informações acerca dos ingredientes podem ser entrelaçadas e apresentam grande complexidade. Além destas, há as informações acerca dos países de origem das receitas, suas respectivas avaliações e, também tempos de preparo, datas em que foram postadas e quantas vezes foram preparadas. 
+O objetivo principal da análise, portanto, será o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online. Assim sendo, a análise será conduzida em partes e em três diferentes frentes: a do perfil nutricional, que investiga as relações entre variáveis nutricionais contínuas e a variável de resposta popularidade (medida por avaliações médias e totais e reproduções das receitas; a complexidade dos preparos, isto é, o impacto do tempo e das quantidades de ingredientes na impacto causado pelas receitas; e a da origem geocultural das receitas, analisando a distribuição de popularidades e perfis nutricionais dentro do conjunto de dados. 
 O trabalho apresenta, portanto, três divisões claras, que são, na verdade, 6 divisões para análise, sendo estas respectivamente: 
 
-1. Panorama Geral;
-2. Países e Culinárias;
-3. As avaliações de acordo com os ingredientes;
-4. Análise Nutricional;
-5. As avaliações de acordo com tempos de preparo;
-6. Popularidades das Receitas.
+1. Panorama Geral: Caracterizar o perfil nutricional predominante das receitas mais populares. Isto envolverá a limpeza e harmonização das variáveis contínuas (calorias, gordura, proteína, sódio) e o uso de métricas de dispersão para comparar a centralidade desses atributos em relação ao sucesso de reprodução.
+2. Países e Culinárias: O objetivo é identificar visualmente (via gráficos de dispersão) se existe uma correlação descritiva entre a complexidade do preparo e as avaliações médias.
+3. As avaliações de acordo com os ingredientes: Dividir e listar os ingredientes apresentados e relacioná-los com as avaliações médias e totais dis tribuídas por cada receita. 
+4. Análise Nutricional: Partindo das informações acerca de calorias, proteínas, gordura e carboidratos à disposição, serão traçados perfis a serem relacionados, também, com as avaliações das receitas.
+5. As avaliações de acordo com tempos de preparo: Seguindo a mesma lógica dos itens anteriores, as diferentes métricas de tempo de preparo das receitas serão analisadas e avaliadas de acordo com a existência, ou não, de relação com as avaliações das receitas.
+6. Popularidades das cozinhas e países: Relacionando tudo o que foi mostrado anteriormente, serão utilizadas medidas de dispersão para relacionar os itens anteriores com as informações de origes de cada prato e culinária.  
 
 ## Materiais e Métodos {#sec-02}
 
