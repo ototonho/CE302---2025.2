@@ -8,41 +8,45 @@ output: html_document
 
 # Trabalho Final
 
+## Carregamento dos dados
 
 ```{r}
 
-require(tidyverse)
-require(tidytuesdayR)
+library(tidyverse)
+library(tidytuesdayR)
 
+# Carregamento dos dados originais
+all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv', show_col_types = FALSE)
 
-all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv')
+cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv', show_col_types = FALSE)
 
-cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv')
-
-```
-
-```{r}
+# Verificação inicial da estrutura
 str(all_recipes)
 str(cuisines)
 ```
+## Limpeza e Padronização de Países e Regiões
+
 ```{r}
 cuisines_limpo <- cuisines %>%
   mutate(
     country_padrao = case_when(
+      # Padroniza "Jewish"
       country %in% c("Jewish") ~ "Israeli/Jewish",
+      # Padroniza culinárias regionais dos EUA
       country %in% c("Cajun and Creole", "Southern Recipes", "Tex-Mex", "Southwestern Recipes", "Amish and Mennonite", "Soul Food") ~ "US American", 
-      .default = country # Mantém o nome do país para todos os outros
+      # Mantém o nome do país para todos os outros
+      .default = country 
     )
   )
 
-
-table(cuisines_limpo$country)
-
+# Exibe a contagem das categorias padronizadas (opcional)
+table(cuisines_limpo$country_padrao)
 ```
 
-
+## Análise Estatística por País/Região
 
 ```{r}
+
 analise_por_pais <- cuisines_limpo %>%
   # Remove linhas onde a avaliação é NA
   filter(!is.na(avg_rating)) %>%
@@ -50,12 +54,11 @@ analise_por_pais <- cuisines_limpo %>%
   summarise(
     contagem_receitas = n(),
     media_rating = mean(avg_rating, na.rm = TRUE),
-    # NOVO: Adiciona o Desvio Padrão
     desvio_padrao_rating = sd(avg_rating, na.rm = TRUE), 
     media_porcoes = mean(servings, na.rm = TRUE),
     .groups = 'drop'
   ) %>%
-  # Opcional: Filtra países com poucas receitas para tornar a média mais robusta
+  # Filtra países com poucas receitas
   filter(contagem_receitas >= 10) %>%
   arrange(desc(media_rating))
 
@@ -63,56 +66,47 @@ analise_por_pais <- cuisines_limpo %>%
 print(analise_por_pais)
 ```
 
+## Agrupamento por Continente
+
 ```{r}
+
 analise_por_continente <- analise_por_pais %>%
   mutate(
     continente = case_when(
       # === ASIA ===
-      country_padrao %in% c("Japanese", "Indian", "Chinese", "Thai", "Filipino", "Vietnamese", "Korean", "Indonesian", "Turkish", "Malaysian", "Pakistani", "Iranian", "Israeli/Jewish", "Lebanese", "Syrian", "Yemeni", "Emirati", "Kuwaiti", "Omani", "Qatari", "Saudi Arabian", "Middle Eastern", "Persian", "Turkish", "Israeli", "Bangladeshi") ~ "Asian",
-      
+      country_padrao %in% c("Japanese", "Indian", "Chinese", "Thai", "Filipino", "Vietnamese", "Korean", "Indonesian", "Turkish", "Malaysian", "Pakistani", "Iranian", "Israeli/Jewish", "Lebanese", "Syrian", "Yemeni", "Emirati", "Kuwaiti", "Omani", "Qatari", "Saudi Arabian", "Middle Eastern", "Persian", "Turkish", "Israeli", "Bangladeshi") ~ "Ásia",
       # === EUROPA ===
-      country_padrao %in% c("British", "French", "German", "Irish", "Italian", "Spanish", "Scandinavian Region", "Greek", "Swiss", "Dutch", "Austrian", "Portuguese", "Russian", "Belgian", "Hungarian", "Polish", "Czech", "Slovakian", "Romanian", "Ukrainian", "Scandinavian", "Finnish", "Swedish", "Norwegian", "Danish") ~ "European",
-      
+      country_padrao %in% c("British", "French", "German", "Irish", "Italian", "Spanish", "Scandinavian Region", "Greek", "Swiss", "Dutch", "Austrian", "Portuguese", "Russian", "Belgian", "Hungarian", "Polish", "Czech", "Slovakian", "Romanian", "Ukrainian", "Scandinavian", "Finnish", "Swedish", "Norwegian", "Danish") ~ "Europa",
       # === AMÉRICA DO NORTE e CARIBE ===
-      country_padrao %in% c("US American", "Canadian", "Mexican", "Caribbean Region", "Puerto Rican", "Cuban", "Jamaican", "Dominican", "Haitian", "Costa Rican", "Panamanian", "Honduran", "Guatemalan", "Salvadoran") ~ "North American",
-      
+      country_padrao %in% c("US American", "Canadian", "Mexican", "Caribbean Region", "Puerto Rican", "Cuban", "Jamaican", "Dominican", "Haitian", "Costa Rican", "Panamanian", "Honduran", "Guatemalan", "Salvadoran") ~ "América do Norte",
       # === AMÉRICA DO SUL ===
-      country_padrao %in% c("Chilean", "Brazilian", "Peruvian", "Argentinian", "Venezuelan", "Colombian", "Ecuadorian", "Bolivian", "Paraguayan", "Uruguayan") ~ "South American",
-      
+      country_padrao %in% c("Chilean", "Brazilian", "Peruvian", "Argentinian", "Venezuelan", "Colombian", "Ecuadorian", "Bolivian", "Paraguayan", "Uruguayan") ~ "América do Sul",
       # === ÁFRICA ===
-      country_padrao %in% c("Moroccan", "Egyptian", "South African", "Ethiopian", "Kenyan", "Nigerian", "Algerian", "Tunisian", "Somali", "African") ~ "African",
-      
+      country_padrao %in% c("Moroccan", "Egyptian", "South African", "Ethiopian", "Kenyan", "Nigerian", "Algerian", "Tunisian", "Somali", "African") ~ "África",
       # === OCEANIA ===
       country_padrao %in% c("Australian and New Zealander", "Fijian", "Samoan") ~ "Oceania",
-      
-      # Países Transcontinentais/Culturais não classificados acima
       .default = "Outros" 
     )
   )
 
-# Agrupamento FINAL revisado
+# Agrupamento FINAL
 analise_por_continente_agregado <- analise_por_continente %>%
   group_by(continente) %>%
   summarise(
     contagem_total = sum(contagem_receitas),
-    # A Média da Média de Rating e a Média do Desvio Padrão
     media_rating_continente = mean(media_rating, na.rm = TRUE),
     desvio_padrao_continente = mean(desvio_padrao_rating, na.rm = TRUE), 
     .groups = 'drop'
   ) %>%
   arrange(desc(media_rating_continente))
 
-# Visualizando a Nova Tabela Agregada
+# Visualizando a Tabela Agregada
 print(analise_por_continente_agregado)
-
-
 ```
 
-
-
+## Visualização
 
 ```{r}
-require(ggplot2)
 
 grafico_colorido <- analise_por_continente %>%
   # Limita aos Top 15 países/regiões para visualização
@@ -120,21 +114,19 @@ grafico_colorido <- analise_por_continente %>%
   
   # Estética principal, usando 'fill' para o continente
   ggplot(aes(x = reorder(country_padrao, media_rating), 
-              y = media_rating, 
-              fill = continente)) +
+             y = media_rating, 
+             fill = continente)) +
   
   # Adiciona as barras coloridas
   geom_col(alpha = 0.8) +
   
   # Adiciona as Barras de Erro (Desvio Padrão)
   geom_errorbar(aes(ymin = media_rating - desvio_padrao_rating, 
-                    ymax = media_rating + desvio_padrao_rating,
-                    color = continente), # Usa a cor do continente para o DP também
-                width = 0.2) +
+                    ymax = media_rating + desvio_padrao_rating),
+                width = 0.2, color = "black") + # Cor das barras de erro
   
-  # Escala de cores (opcional, mas recomendado para um visual mais bonito)
+  # Escala de cores (Set2 é uma paleta amigável)
   scale_fill_brewer(palette = "Set2") +
-  scale_color_manual(values = rep("black", 6)) + # Define as barras de erro em preto
   
   # Inverte os eixos para facilitar a leitura
   coord_flip() +
@@ -142,14 +134,11 @@ grafico_colorido <- analise_por_continente %>%
   # Títulos e Rótulos
   labs(
     title = "Top 15 Culinárias por Média de Avaliação (Coloridas por Continente)",
-    subtitle = "Barras de erro representam o Desvio Padrão. Cores indicam o Continente.",
+    subtitle = "Barras de erro representam o Desvio Padrão do Rating.",
     x = "País/Região",
     y = "Média de Avaliação (1 a 5)",
     fill = "Continente" # Legenda da cor
   ) +
-  
-  # Remove a legenda de cor das barras de erro
-  guides(color = "none") + 
   
   # Tema
   theme_minimal() +
