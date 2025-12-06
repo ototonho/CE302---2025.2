@@ -70,90 +70,8 @@ summary(servings_per_country)
 
 ```
 
-#### Relacionando países e calorias
-
-```{r}
-tabela_pais_calorias <- cuisines %>%
-  group_by(country) %>%
-    summarise(
-    frequencia_receitas = n(),
-    
-    media_calories = mean(calories, na.rm = TRUE),
-    observacoes_calories = sum(!is.na(calories)),
-    
-    media_fat = mean(fat, na.rm = TRUE),
-    observacoes_fat = sum(!is.na(fat)),
-    
-    media_carbs = mean(carbs, na.rm = TRUE),
-    observacoes_carbs = sum(!is.na(carbs)),
-    
-    media_protein = mean(protein, na.rm = TRUE),
-    observacoes_protein = sum(!is.na(protein))
-  ) %>%
-  arrange(desc(media_calories))
-```
-
-### Proporção de Macronutrientes
-
-```{r}
-proporcoes_nutricionais <- tabela_pais_calorias %>%
-  # Limpar casos extremos ou países com médias de calorias muito baixas
-  filter(media_calories > 100) %>% 
-  
-  mutate(
-    # Estimativa de calorias a partir de cada macro
-    calorias_fat = media_fat * 9,
-    calorias_carbs = media_carbs * 4,
-    calorias_protein = media_protein * 4,
-    
-    # Calcular o Total de Calorias (para verificar)
-    total_macro_calories = calorias_fat + calorias_carbs + calorias_protein,
-    
-    # Calcular a proporção
-    perc_fat = (calorias_fat / total_macro_calories) * 100,
-    perc_carbs = (calorias_carbs / total_macro_calories) * 100,
-    perc_protein = (calorias_protein / total_macro_calories) * 100
-  ) %>%
-  select(country, media_calories, starts_with("perc_"))
-
-# 2. Pivotar os dados para plotagem (formato longo)
-proporcoes_longo <- proporcoes_nutricionais %>%
-  pivot_longer(
-    cols = starts_with("perc_"),
-    names_to = "macronutriente",
-    values_to = "percentual"
-  )
-
-```
-
 
 ## Visualização das Análises
-
-```{r}
-library(ggplot2)
-library(dplyr)
-
-top_10_calorias <- tabela_pais_calorias %>%
-  filter(frequencia_receitas >= 20) %>% # Filtra países com pelo menos 20 receitas
-  top_n(10, media_calories) %>%
-  mutate(country = reorder(country, media_calories)) # Ordena para o plot
-
-# Cria o gráfico de barras
-plot_calorias <- ggplot(top_10_calorias, aes(x = country, y = media_calories, fill = country)) +
-  geom_col() + # geom_col cria um gráfico de barras a partir de dados já sumarizados
-  coord_flip() + # Inverte os eixos para melhor leitura dos nomes dos países
-  labs(
-    title = "Top 10 Culinárias por Média de Calorias (Receitas >= 20)",
-    x = "País / Culinária",
-    y = "Média de Calorias por Receita",
-    caption = "Dados filtrados por países com no mínimo 20 receitas."
-  ) +
-  theme_minimal() +
-  theme(legend.position = "none") # Remove a legenda se já estiver preenchendo pelo eixo X
-
-print(plot_calorias)
-
-```
 
 
 ```{r}
@@ -174,56 +92,5 @@ plot_rating_frequencia <- raintg_per_country %>%
   theme(legend.position = "none") # Remove a legenda
 
 print(plot_rating_frequencia)
-```
-
-```{r}
-
-plot_proporcao <- proporcoes_longo %>%
-  # Filtrar Top 15 países por média calórica total (exemplo)
-  filter(country %in% head(arrange(tabela_pais_calorias, desc(media_calories)), 15)$country) %>%
-  
-  ggplot(aes(x = country, y = percentual, fill = macronutriente)) +
-  geom_bar(stat = "identity") +
-  coord_flip() +
-  labs(
-    title = "Composição Calórica Média dos Top Países",
-    x = "País / Culinária",
-    y = "Percentual da Média Calórica Total",
-    fill = "Macronutriente"
-  ) +
-  scale_fill_manual(values = c("perc_carbs" = "#4e79a7", "perc_fat" = "#f28e2b", "perc_protein" = "#e15759"),
-                    labels = c("Carboidratos", "Gordura", "Proteína")) +
-  theme_minimal()
-
-print(plot_proporcao)
-```
-```{r}
-# 1. Combinação dos dados: Juntar a média de avaliações com a média nutricional
-dados_desempenho <- raintg_per_country %>%
-  rename(frequencia_receitas = frequencia) %>%
-  select(country, media_ratings, frequencia_receitas) %>%
-  inner_join(
-    tabela_pais_calorias %>% 
-      select(country, media_fat, media_carbs, media_protein, media_calories), 
-    by = "country"
-  ) %>%
-  filter(frequencia_receitas >= 50) # Focar em países representativos
-
-# 2. Visualização: Média de Avaliação vs. Média de Gordura
-plot_desempenho <- ggplot(dados_desempenho, aes(x = media_fat, y = media_ratings)) +
-  geom_point(aes(size = frequencia_receitas, color = media_calories), alpha = 0.7) +
-  # Adiciona rótulos apenas para os países mais extremos ou frequentes (opcional)
-  geom_text(data = dados_desempenho %>% top_n(10, frequencia_receitas), 
-            aes(label = country), vjust = -1, size = 3) +
-  scale_size_continuous(name = "Frequência de Receitas") +
-  scale_color_viridis_c(name = "Média de Calorias") + # Escala de cor para as calorias
-  labs(
-    title = "Avaliação Média vs. Média de Gordura (Métricas de Desempenho)",
-    x = "Média de Gordura (Fat) por Receita",
-    y = "Média de Avaliação (avg_rating)"
-  ) +
-  theme_minimal()
-
-print(plot_desempenho)
 ```
 

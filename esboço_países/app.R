@@ -1,345 +1,290 @@
-# --- 1. CONFIGURAÇÃO E CARREGAMENTO DE PACOTES ---
-# Instale os pacotes necessários se ainda não os tiver:
-# install.packages(c("shiny", "tidyverse", "rnaturalearth", "sf", "DT"))
+# Certifique-se de ter as bibliotecas instaladas:
+# install.packages(c("shiny", "ggplot2", "dplyr", "DT", "readr", "tidyr", "leaflet", "rnaturalearth"))
 
 library(shiny)
-library(tidyverse)
-library(rnaturalearth)
-library(sf)
-library(DT) # Para renderizar tabelas interativas
+library(ggplot2)
+library(dplyr)
+library(DT) 
+library(readr) 
+library(tidyr) 
+library(leaflet) # Para mapas interativos
+library(rnaturalearth) # Para obter dados geográficos dos países
 
-# --- 2. PREPARAÇÃO GLOBAL DOS DADOS E PADRONIZAÇÃO DE NOMES (USANDO SEUS DADOS REAIS) ---
+## --- 1. Carregamento e Preparação de Dados Geográficos ---
 
-# 1. Dados Reais de Média de Avaliação (Baseado na sua análise original)
-# Usei os 10 primeiros valores da sua tabela original para garantir a classificação correta.
-dados_reais_rating <- tribble(
-  ~country, ~media_ratings, ~frequencia_receitas,
-  "Southern Recipes", 4.734783, 50,
-  "French", 4.691935, 65, # França (país de interesse)
-  "Greek", 4.677193, 62,
-  "Italian", 4.654386, 64,
-  "Cajun and Creole", 4.613333, 63,
-  "Puerto Rican", 4.608475, 60,
-  "Korean", 4.603636, 56,
-  "Persian", 4.602632, 45,
-  "Jewish", 4.590000, 61,
-  "Chinese", 4.579688, 65,
-  "Russian", 4.572308, 65,
-  "Colombian", 4.566667, 11,
-  "Swiss", 4.566667, 10,
-  "Soul Food", 4.565079, 63,
-  "Canadian", 4.547761, 67,
-  "Spanish", 4.545000, 61,
-  "Tex-Mex", 4.542593, 55,
-  "Indonesian", 4.536364, 24,
-  "Belgian", 4.533333, 6
-) %>%
-  # Adicionando uma coluna de porções médias simuladas para o filtro funcionar
-  mutate(media_servings = sample(4:12, n(), replace = TRUE))
+# Carregando os datasets reais
+all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv', show_col_types = FALSE)
+cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv', show_col_types = FALSE)
 
-
-# 2. Tabela de Conversão Manual EXPANDIDA e Adição de Regiões
-tabela_conversao <- tribble(
-  ~country, ~name_long,
-  "Mexican", "Mexico",
-  "Italian", "Italy",
-  "Greek", "Greece",
-  "Japanese", "Japan",
-  "German", "Germany",
-  "Jewish", "Israel",
-  "Thai", "Thailand",
-  "French", "France",
-  "Indian", "India",
-  "Chinese", "China",
-  "British", "United Kingdom",
-  "Spanish", "Spain",
-  "Cuban", "Cuba",
-  "Filipino", "Philippines",
-  "Korean", "South Korea",
-  "Brazilian", "Brazil",
-  "Irish", "Ireland",
-  "American", "United States",
-  "Vietnamese", "Vietnam",
-  "Peruvian", "Peru",
-  "Russian", "Russia",
-  "Turkish", "Turkey",
-  "Moroccan", "Morocco",
-  "Scandinavian", "Norway",
-  "Australian and New Zealander", "Australia",
-  "Canadian", "Canada",
-  "Caribbean", "Cuba",
-  "Portuguese", "Portugal",
-  "Polish", "Poland",
-  "Indonesian", "Indonesia",
-  "Venezuelan", "Venezuela",
-  "Colombian", "Colombia",
-  "Argentinian", "Argentina",
-  "Cajun and Creole", "United States",
-  "Soul Food", "United States",
-  "Amish and Mennonite", "United States",
-  "Puerto Rican", "United States",
-  "Tex-Mex", "United States",
-  "Lebanese", "Lebanon",
-  "Southern Recipes", "United States",
-  "Persian", "Iran",
-  "Jamaican", "Jamaica",
-  "Danish", "Denmark",
-  "Swedish", "Sweden",
-  "Norwegian", "Norway",
-  "Pakistani", "Pakistan",
-  "Malaysian", "Malaysia",
-  "Israeli", "Israel",
-  "Austrian", "Austria",
-  "Chilean", "Chile",
-  "Dutch", "Netherlands",
-  "South African", "South Africa",
-  "Finnish", "Finland",
-  "Bangladeshi", "Bangladesh",
-  "Swiss", "Switzerland",
-  "Belgian", "Belgium"
+# Mapeamento de Cozinha/País para Continente
+continent_lookup <- tribble(
+  ~country, ~continent,
+  "American", "North America",
+  "Mexican", "North America",
+  "Canadian", "North America",
+  "South American", "South America",
+  "Brazilian", "South America",
+  "Italian", "Europe",
+  "French", "Europe",
+  "German", "Europe",
+  "Greek", "Europe",
+  "British", "Europe",
+  "Spanish", "Europe",
+  "Japanese", "Asia",
+  "Chinese", "Asia",
+  "Indian", "Asia",
+  "Thai", "Asia",
+  "Middle Eastern", "Asia",
+  "Korean", "Asia",
+  "African", "Africa",
+  "Australian and New Zealander", "Oceania",
+  "Russian", "Europe"
 )
 
-# Adiciona regiões para facilitar a filtragem
-tabela_conversao <- tabela_conversao %>%
+# Dados geográficos (mapa mundial)
+world_map <- ne_countries(scale = "medium", returnclass = "sf") %>%
+  # Simplificação dos nomes dos continentes para corresponder ao lookup
+  mutate(continent_map = case_when(
+    continent == "North America" ~ "North America",
+    continent == "South America" ~ "South America",
+    continent == "Europe" ~ "Europe",
+    continent == "Asia" ~ "Asia",
+    continent == "Africa" ~ "Africa",
+    continent == "Oceania" ~ "Oceania",
+    TRUE ~ "Outros/Diversas" # Se não mapeado, cai em Outros
+  ))
+
+# Unindo os datasets e preparando os filtros (mantido do código anterior)
+data_merged <- inner_join(
+  cuisines %>% select(name, country),
+  all_recipes,
+  by = "name",
+  relationship = "many-to-many"
+) %>%
+  left_join(continent_lookup, by = "country") %>%
+  mutate(continent = replace_na(continent, "Outros/Diversas")) %>% 
+  
+  rename(avg_ranking = avg_rating) %>%
+  filter(!is.na(country) & !is.na(avg_ranking) & !is.na(servings)) %>%
+  
   mutate(
-    Region = case_when(
-      name_long %in% c("Mexico", "Cuba", "United States", "Canada", "Brazil", "Peru", "Venezuela", "Colombia", "Argentina", "Chile", "Jamaica") ~ "Américas e Caribe",
-      name_long %in% c("Italy", "Greece", "Germany", "France", "United Kingdom", "Spain", "Ireland", "Portugal", "Poland", "Netherlands", "Austria", "Switzerland", "Belgium", "Norway", "Denmark", "Sweden", "Finland") ~ "Europa",
-      name_long %in% c("Japan", "China", "India", "Thailand", "South Korea", "Vietnam", "Russia", "Turkey", "Lebanon", "Iran", "Israel", "Pakistan", "Malaysia", "Indonesia", "Bangladesh", "Philippines") ~ "Ásia e Oriente Médio",
-      name_long %in% c("Australia") ~ "Oceania",
-      name_long %in% c("Morocco", "South Africa") ~ "África",
-      .default = "Outras Regiões"
+    avg_ranking_cat = case_when(
+      avg_ranking >= 4.5 ~ "Ranking Alto (>= 4.5)",
+      avg_ranking >= 4.0 ~ "Ranking Médio (4.0 - 4.4)",
+      TRUE ~ "Ranking Baixo (< 4.0)"
     )
   )
 
-# 3. Unir Dados Reais de Rating com Conversão Geográfica
-# ALTERADO DE INNER_JOIN PARA LEFT_JOIN para manter todos os países da conversão
-dados_mapeamento_base <- tabela_conversao %>% # tabela_conversao é agora a tabela principal (esquerda)
-  left_join(dados_reais_rating, by = "country") %>%
-  # Adicionar colunas fictícias que não foram fornecidas, mas são úteis para o dashboard
-  mutate(
-    # Esses valores serão NA para países sem rating, o que é esperado
-    total_ratings_somados = frequencia_receitas * 10, 
-    observacoes_validas = frequencia_receitas 
-  )
+# Cálculo da média de servings
+media_servings <- mean(data_merged$servings, na.rm = TRUE)
 
-# Carregar dados geográficos globais (world)
-mapa_mundi <- ne_countries(scale = "medium", returnclass = "sf") %>%
-  select(name_long, geometry)
+# Variáveis disponíveis para o usuário
+choices_continente <- unique(data_merged$continent)
+choices_cozinha <- data_merged %>% count(country, sort = TRUE) %>% top_n(50, n) %>% pull(country)
+choices_ranking <- unique(data_merged$avg_ranking_cat)
+choices_servings <- c("Abaixo da Média", "Acima da Média")
 
-# Definir os limites dos sliders com base nos DADOS REAIS
-# Adicionar um pequeno valor mínimo de rating (3.0) para que o slider funcione
-min_rating <- 3.0 # Definindo um mínimo razoável para a escala
-max_rating <- ceiling(max(dados_mapeamento_base$media_ratings, na.rm = TRUE)) # Max real
-max_servings <- max(dados_mapeamento_base$media_servings, na.rm = TRUE)
-regioes_unicas <- sort(unique(dados_mapeamento_base$Region))
-
-# --- 3. UI (USER INTERFACE) ---
-
+## --- 2. Interface do Usuário (UI) ---
 ui <- fluidPage(
-  # Tema simples com foco na legibilidade
-  tags$head(
-    tags$style(HTML("
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f7f7f9;
-      }
-      .well {
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      }
-      .title {
-        color: #1a1a1a;
-        font-weight: 700;
-        margin-bottom: 20px;
-      }
-      .sidebar {
-        padding-top: 20px;
-      }
-    "))
-  ),
   
-  titlePanel(div(class = "title", "Dashboard Interativo de Culinária Mundial")),
+  titlePanel("🌎 Análise de Receitas por Região e Cozinha (Mapa)"),
   
   sidebarLayout(
-    # --- Painel Lateral (Filtros) ---
-    sidebarPanel(
-      class = "sidebar",
-      width = 3,
-      h4("Filtros de Análise"),
-      
-      # 1. Filtro por Região
-      selectInput("regiao",
-                  "Filtrar por Região:",
-                  choices = c("Todas" = "", regioes_unicas),
-                  selected = "",
-                  multiple = FALSE),
-      
-      hr(),
-      
-      # 2. Filtro por Média de Avaliação (Avg Rating)
-      sliderInput("avg_rating_range",
-                  "Média de Avaliação (Min-Max):",
-                  min = min_rating,
-                  max = max_rating,
-                  value = c(min_rating, max_rating),
-                  step = 0.01),
-      
-      hr(),
-      
-      # 3. Filtro por Porções (Servings) - Usando a média simulada
-      sliderInput("servings_range",
-                  "Porções Médias (Min-Max):",
-                  min = 1,
-                  max = max_servings,
-                  value = c(1, max_servings),
-                  step = 1),
-      
-      hr(),
-      
-      # Seletor de Visualização (Mapa ou Tabela)
-      radioButtons("visualizacao", "Selecionar Visualização:",
-                   choices = c("Mapa Geográfico" = "mapa",
-                               "Tabela de Dados" = "tabela"),
-                   selected = "mapa")
-    ),
     
-    # --- Painel Principal (Output) ---
-    mainPanel(
-      width = 9,
-      # Mostrar Mapa se "mapa" estiver selecionado
-      conditionalPanel(
-        condition = "input.visualizacao == 'mapa'",
-        plotOutput("mapa_culinario", height = "700px")
+    sidebarPanel(
+      
+      h3("⚙️ Opções de Filtro"),
+      
+      actionButton("reset_all_filters", "Limpar Todos os Filtros", icon = icon("undo"), class = "btn-warning"),
+      
+      hr(),
+      
+      # FILTRO 1: Seleção por Região (Continente)
+      selectInput(
+        inputId = "filtro_continente",
+        label = "1. Selecione a Região (Continente):",
+        choices = c("Todas" = "", choices_continente),
+        selected = ""
       ),
       
-      # Mostrar Tabela se "tabela" estiver selecionado
-      conditionalPanel(
-        condition = "input.visualizacao == 'tabela'",
-        h3("Tabela de Resultados Filtrados"),
-        DTOutput("tabela_dados")
+      hr(),
+      
+      # FILTRO 2: Seleção por Cozinha/País
+      selectInput(
+        inputId = "filtro_cozinha", 
+        label = "2. Selecione a Cozinha/País:",
+        choices = choices_cozinha,
+        selected = character(0),
+        multiple = TRUE
+      ),
+      
+      hr(),
+      
+      # FILTRO 3: Seleção por Categoria de Ranking
+      selectInput(
+        inputId = "filtro_ranking",
+        label = "3. Selecione a Categoria de Ranking Médio:",
+        choices = c("Todas" = "", choices_ranking),
+        selected = ""
+      ),
+      
+      hr(),
+      
+      # FILTRO 4: Seleção por Porções (Servings)
+      selectInput(
+        inputId = "filtro_servings",
+        label = paste0("4. Servings (Média Geral: ", round(media_servings, 1), "):"),
+        choices = c("Todas" = "", choices_servings),
+        selected = ""
       )
+      
+      # O radioButtons foi removido, pois o gráfico é fixo em mapa de média de Servings por Continente
+    ),
+    
+    # Painel Principal para o MAPA e Tabela
+    mainPanel(
+      
+      h3("🗺️ Média de Servings por Região (Continente)"),
+      p(paste0("Total de Receitas no Dataset Base Filtrado: ", nrow(data_merged))),
+      
+      # NOVO OUTPUT: Mapa Interativo
+      leafletOutput("mapa_visualizacao", height = 500),
+      
+      hr(),
+      
+      h3("📋 Tabela de Dados Filtrados"),
+      DTOutput("tabela_dados")
     )
   )
 )
 
-# --- 4. SERVER (LÓGICA) ---
-
+## --- 3. Servidor (Lógica de Filtro e Renderização) ---
 server <- function(input, output, session) {
   
-  # 1. Dados Reativos (Filtragem)
+  # Lógica para o Botão de Reset
+  observeEvent(input$reset_all_filters, {
+    updateSelectInput(session, "filtro_continente", selected = "")
+    updateSelectInput(session, "filtro_cozinha", selected = character(0))
+    updateSelectInput(session, "filtro_ranking", selected = "")
+    updateSelectInput(session, "filtro_servings", selected = "")
+  })
+  
+  # Lógica de Filtro Reativa
   dados_filtrados <- reactive({
-    data <- dados_mapeamento_base
     
-    # Filtrar por Região
-    if (input$regiao != "") {
-      data <- data %>%
-        filter(Region == input$regiao)
+    data_filtered <- data_merged
+    
+    # 1. Filtrar por Região (Continente)
+    if (input$filtro_continente != "") {
+      data_filtered <- data_filtered %>%
+        filter(continent == input$filtro_continente)
     }
     
-    # Filtrar por Média de Avaliação
-    # O filtro agora é feito apenas nos valores não NA
-    data <- data %>%
-      filter(is.na(media_ratings) | (media_ratings >= input$avg_rating_range[1] &
-                                       media_ratings <= input$avg_rating_range[2]))
+    # 2. Filtrar por Cozinha (Country)
+    if (!is.null(input$filtro_cozinha) && length(input$filtro_cozinha) > 0) {
+      data_filtered <- data_filtered %>%
+        filter(country %in% input$filtro_cozinha)
+    }
     
-    # Filtrar por Porções Médias - USANDO O INTERVALO COMPLETO
-    # O filtro agora é feito apenas nos valores não NA
-    data <- data %>%
-      filter(is.na(media_servings) | (media_servings >= input$servings_range[1] &
-                                        media_servings <= input$servings_range[2]))
+    # 3. Filtrar por Categoria de Ranking (avg_ranking_cat)
+    if (input$filtro_ranking != "") {
+      data_filtered <- data_filtered %>%
+        filter(avg_ranking_cat == input$filtro_ranking)
+    }
     
-    return(data)
+    # 4. Filtrar por Porções (Servings)
+    if (input$filtro_servings != "") {
+      if (input$filtro_servings == "Acima da Média") {
+        data_filtered <- data_filtered %>%
+          filter(servings > media_servings)
+      } else { # "Abaixo da Média"
+        data_filtered <- data_filtered %>%
+          filter(servings <= media_servings)
+      }
+    }
+    
+    # Retorna o dataset filtrado
+    data_filtered
   })
   
-  # 2. Dados Reativos para o Mapa
-  mapa_reativo <- reactive({
-    # Usamos LEFT JOIN aqui para garantir que todos os países do mapa_mundi sejam mantidos
-    # A união dos dados filtrados com o mapa_mundi é sempre um LEFT JOIN
-    dados_geo <- mapa_mundi %>%
-      left_join(dados_filtrados(), by = "name_long")
+  # Preparação dos dados para o Mapa (Agrupamento por Continente)
+  dados_mapa <- reactive({
+    req(nrow(dados_filtrados()) > 0)
     
-    return(dados_geo)
-  })
-  
-  
-  # 3. Renderização do Mapa
-  output$mapa_culinario <- renderPlot({
-    mapa_dados <- mapa_reativo()
-    
-    # O ggplot2 renderiza apenas países com dados preenchidos no 'fill' (media_ratings)
-    ggplot(data = mapa_dados) +
-      # Camada de países: cor cinza para países sem dados
-      geom_sf(aes(fill = media_ratings), color = "gray80", linewidth = 0.1) +
-      
-      # Escala Manual de Gradiente Divergente
-      scale_fill_gradient2(
-        low = "#ff8247",          # Vermelho/Laranja (Baixo)
-        mid = "#F2F3D9",          # Ponto médio (Claro)
-        high = "#8A4FFF",         # Roxo/Azul Escuro (Alto)
-        midpoint = 4.6,           # Ponto de transição mantido em 4.6 (melhor que 4.5)
-        limits = c(min_rating, max_rating), # Intervalo de cor fixo
-        name = "Média de Avaliação",
-        na.value = "gray90"       # Países sem dados
-      ) +
-      
-      labs(
-        title = paste("Média de Avaliação das Culinárias Populares: ",
-                      ifelse(input$regiao == "", "Mundo", input$regiao)),
-        # Subtítulo atualizado para mostrar o range de porções
-        subtitle = paste0("Filtrado por Ratings (", input$avg_rating_range[1], " - ", input$avg_rating_range[2],
-                          ") e Porções (", input$servings_range[1], " - ", input$servings_range[2], ")"),
-        caption = "Dados baseados na análise original do usuário (ajustado para visualização)."
-      ) +
-      theme_void() + # Remove eixos e grade para um visual de mapa limpo
-      theme(
-        legend.position = "bottom",
-        plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, margin = margin(b = 10)),
-        plot.caption = element_text(color = "gray50")
+    # 1. Agrupar dados filtrados por Continente e calcular a média de servings
+    servings_by_continent <- dados_filtrados() %>%
+      group_by(continent) %>%
+      summarise(
+        media_servings = mean(servings, na.rm = TRUE),
+        n_recipes = n(),
+        .groups = 'drop'
       )
-  }, res = 96) # Resolução razoável
-  
-  # 4. Renderização da Tabela
-  output$tabela_dados <- renderDT({
-    # Selecionar e formatar as colunas relevantes para a tabela
-    tabela_para_mostrar <- dados_filtrados() %>%
-      # Filtra linhas sem dados para evitar mostrar muitas linhas NA na tabela
-      filter(!is.na(media_ratings) | !is.na(media_servings)) %>%
-      select(
-        Região = Region,
-        Culinária = country,
-        País = name_long,
-        Receitas = frequencia_receitas,
-        Média_Avaliação = media_ratings,
-        Média_Porções = media_servings
-      ) %>%
-      # Ordenar por Média de Avaliação decrescente
-      arrange(desc(Média_Avaliação))
     
-    # Renderizar a tabela interativa
-    datatable(tabela_para_mostrar,
-              options = list(
-                pageLength = 10,
-                autoWidth = TRUE,
-                dom = 'tip' # Remove 'f' (search) e 'l' (length) - usando filtros Shiny
-              ),
-              rownames = FALSE,
-              caption = paste0("Resultados filtrados (", nrow(tabela_para_mostrar), " culinárias encontradas)")) %>%
-      # Formatação condicional para realçar a Média de Avaliação
-      formatStyle(
-        'Média_Avaliação',
-        background = styleColorBar(tabela_para_mostrar$Média_Avaliação, 'lightblue'),
-        backgroundSize = '95% 80%',
-        backgroundRepeat = 'no-repeat',
-        backgroundPosition = 'center'
+    # 2. Unir os dados de servings com os dados geográficos
+    world_map %>%
+      left_join(servings_by_continent, by = c("continent_map" = "continent")) %>%
+      # Substitui NA por 0 em média_servings se não houver receitas para aquele continente no filtro
+      mutate(media_servings = replace_na(media_servings, 0))
+  })
+  
+  # Renderizar o MAPA Reativo
+  output$mapa_visualizacao <- renderLeaflet({
+    
+    data_map <- dados_mapa()
+    
+    # Definir a paleta de cores para o mapa (baseada na média de servings)
+    pal <- colorNumeric(
+      palette = "YlOrRd", 
+      domain = data_map$media_servings
+    )
+    
+    # Rótulos (popups) para o mapa
+    labels <- paste0(
+      "<strong>Região:</strong> ", data_map$continent_map, "<br/>",
+      "<strong>Média de Servings:</strong> ", round(data_map$media_servings, 2), "<br/>",
+      "<strong>Total de Receitas (Filtradas):</strong> ", data_map$n_recipes
+    ) %>% lapply(htmltools::HTML)
+    
+    # Criação do mapa Leaflet
+    leaflet(data_map) %>%
+      addTiles() %>%
+      addPolygons(
+        fillColor = ~pal(media_servings),
+        weight = 1,
+        opacity = 1,
+        color = "white",
+        dashArray = "3",
+        fillOpacity = 0.7,
+        highlight = highlightOptions(
+          weight = 3,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.9,
+          bringToFront = TRUE
+        ),
+        label = labels,
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto"
+        )
       ) %>%
-      # Arredonda a coluna de avaliação
-      formatRound('Média_Avaliação', digits = 4)
+      addLegend(pal = pal, values = ~media_servings, opacity = 0.7, title = "Média de Servings", position = "bottomright")
+  })
+  
+  # Renderizar a Tabela Reativa (mantido do código anterior)
+  output$tabela_dados <- renderDT({
+    
+    dados_tabela <- dados_filtrados() %>%
+      select(name, continent, country, avg_ranking, total_ratings, servings, prep_time, cook_time)
+    
+    datatable(dados_tabela,
+              options = list(pageLength = 10, scrollX = TRUE),
+              colnames = c("Nome da Receita", "Região", "Cozinha", "Ranking Médio", "Total Avaliações", "Porções", "Tempo Prep (min)", "Tempo Cook (min)"),
+              caption = paste("Exibindo", nrow(dados_filtrados()), "Receitas")
+    )
   })
 }
 
-# --- 5. EXECUÇÃO DO APP ---
+## --- 4. Executar o Aplicativo Shiny ---
 shinyApp(ui = ui, server = server)
