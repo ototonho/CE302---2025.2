@@ -116,9 +116,13 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 
 ### Técnicas Estatísticas e Computacionais
 
-As técnicas estatísticas empregadas no trabalho seguem, de maneira geral, 
+Detalhando os métodos utilizados para o processamento, análise e visualização dos dados, podemos começar apontando o fato de que o estudo foi conduzido utilizando a linguagem R e o ecossistema de pacotes tidyverse (incluindo dplyr e ggplot2). As etapas iniciais de preparação de dados incluíram algumas tarefas distintas. Dentre elas pode-se apontar duas direções principais: a de padronização geográfica e a de derivação das variáveis. Ambas serão definidas nos próximos parágrafos.
+Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (e.g., agrupamento de sub-culinárias regionais dos EUA sob o rótulo "US American"). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro.
+Em segundo lugar, e olhando melhor para 
 
 ## Resultados e discussão {#sec-03}
+
+
 
 ### Análises e Interpretações
 
