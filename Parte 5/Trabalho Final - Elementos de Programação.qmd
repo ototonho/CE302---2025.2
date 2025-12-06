@@ -5,7 +5,7 @@ author:
   - "Antonio Paulo Steffen Neto"
   - "Ingrid Giacomeli"
   - "Jhullya da Rosa Shalders"
-  - "Pedro"
+  - "Pedro Henrique D’Andrea"
 output: html_document
 bibliography: citations.bib 
 ---
@@ -117,16 +117,43 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 ### Técnicas Estatísticas e Computacionais
 
 Detalhando os métodos utilizados para o processamento, análise e visualização dos dados, podemos começar apontando o fato de que o estudo foi conduzido utilizando a linguagem R e o ecossistema de pacotes tidyverse (incluindo dplyr e ggplot2). As etapas iniciais de preparação de dados incluíram algumas tarefas distintas. Dentre elas pode-se apontar duas direções principais: a de padronização geográfica e a de derivação das variáveis. Ambas serão definidas nos próximos parágrafos.
-Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (e.g., agrupamento de sub-culinárias regionais dos EUA sob o rótulo "US American"). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro.
-Em segundo lugar, e olhando melhor para 
+Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (por exemplo, o agrupamento de sub-culinárias regionais dos EUA sob o rótulo "US American"). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro.
+Em segundo lugar, e menos para a simples categorização de variáveis e observações, foram criadas duas variáveis-chave para medir a complexidade e o esforço. A primeira a Quantidade de Ingredientes ($\hat{I}$): Calculada pela contagem de vírgulas nos *strings* da lista de ingredientes, adicionada de um, como *proxy* da complexidade. A segunda, o Tempo Total de Preparo ($\hat{T}$): Variável `total_time` convertida para formato numérico (minutos), representando o esforço temporal.
+
+### Métodos Estatísticos e Modelagem
+
+Olhando para as anáises estatísticas, elas se concentraram em quatro vertentes principais. A primeira é dedicada à estatística descritiva e ao ranqueamento de observações. Foram reaizados cálculo de média de avaliação ($\bar{R}_{g}$), desvio padrão ($s_R$) e contagem de receitas ($N$) por país/região. Após isto, foi aplicado um filtro mínimo de $N \geq 10$ receitas para garantir a estabilidade das médias de avaliação. A segunda vertente diz respeito à análise das quantidades de ingredientes e dos tempos de preparo, foi empregada a análise de correlação, utilizando o Coeficiente de Correlação de Pearson ($r$) para quantificar a relação linear entre as variáveis de complexidade/esforço e a qualidade percebida (média de avaliação). 
+Além delas, a análise bivariada foi empregada para demonstrar a relação entre Popularidade e Qualidade. Um Gráfico de Bolhas foi escolhido para visualizar simultaneamente a média de avaliações por receita (Popularidade), a média de nota (Qualidade) e o número de receitas (Tamanho da Bolha) por culinária. Por fim, foi examinada a série temporal do Total de Avaliações no Ano de Publicação para rastrear a evolução da popularidade das culinárias ranqueadas ao longo do período de dados.
+
+### Visualização dos Dados 
+
+A visualização de dados é parte central para a interpretação dos resultados, sendo o pacote *ggplot2* utilizado para a criação de todos os gráficos estatísticos, como o ranking de culinárias, os gráficos de dispersão e o Gráfico de Bolhas. Os pacotes *gridExtra* e *grid* foram cruciais para a renderização e o arranjo das tabelas comparativas e seus títulos (*tableGrob*, *grid.arrange*, *textGrob*), garantindo a apresentação organizada dos sumários de dados.
 
 ## Resultados e discussão {#sec-03}
 
+Os resultados atingidos em cada parte do trabalho vão em diferentes direções. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta $\bar{R}_{g}$) frequentemente exibiam um baixo desvio padrão ($s_R$), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.
+Por outro lado, os coeficientes de correlação de Pearson entre as variáveis de esforço e a nota média foram marginalmente positivos e irrelevantes, indicando a ausência de uma relação linear significativa:
+
+| Banco de Dados | rI^,R (Ingredientes vs. Nota) | rT^,R (Tempo vs. Nota) |
+|-------------------------------------------------------------------------|
+|Cuisines | $0,100$ | $0,047$ |
+| All Recipes | $0,080$ | $0,008$ |
+
+Os gráficos de dispersão (Figura 2) confirmam visualmente a ausência de um padrão discernível, com a linha de regressão linear praticamente horizontal. Dito isto, é possível afirmar que os resultados são robustos e demonstram que a complexidade ($\hat{I}$) e o esforço temporal ($\hat{T}$) são fatores negligenciáveis na avaliação final das receitas. Isso implica que receitas simples (poucos ingredientes, rápidas) têm o mesmo potencial de excelência avaliativa que pratos complexos ou de preparo prolongado. A qualidade percebida é, portanto, guiada por outros fatores, como o sabor final e o sucesso na execução. 
+Ao olharmos para a análise bivariada, por fim, estabeleceu-se uma clara diferenciação entre as culinárias mais populares e as de maior qualidade. O Gráfico de Bolhas (Figura 3) ilustra que a alta Popularidade, medida pela média de avaliações por receita, nem sempre se traduz em alta Qualidade, medida pela média de nota. Esta divergência indica que a popularidade pode ser impulsionada por fatores de acessibilidade ou tendência, desvinculando-se da excelência na avaliação. A análise de tendência temporal complementou este achado ao mostrar que o Total de Avaliações no Ano é dinâmico, refletindo o ciclo de vida e a ascensão do interesse em certas culinárias ao longo do tempo.
 
 
 ### Análises e Interpretações
 
+As interpretações centrais do estudo convergem na primazia da qualidade intrínseca sobre o esforço extrínseco. A correlação nula entre o tempo e os ingredientes versus a nota média implica que os usuários valorizam o resultado final da receita sobre o custo de preparo, sugerindo que o foco na otimização do sabor e na clareza da instrução é mais determinante do que a complexidade.
+
+Em contraste, a diferença significativa nas médias de avaliação entre culinárias continentais sugere que as tradições gastronômicas consolidadas (origem) são um forte preditor da qualidade percebida.
+
+A distinção entre popularidade e qualidade, por sua vez, reforça a necessidade de se utilizar métricas ponderadas ao ranquear culinárias. Um alto volume de interesse (popularidade) pode não ser um substituto direto para a excelência percebida (alta média de nota), e a dinâmica temporal do conteúdo é um fator chave para o engajamento na plataforma.
+
 ## Conclusão {#sec-04}
+
+O presente estudo demonstrou, através de análises estatísticas rigorosas, que o esforço e a complexidade de uma receita não são fatores determinantes para a sua avaliação final pelos usuários, com o coeficiente de Pearson próximo de zero estabelecendo a independência entre estas variáveis e a satisfação. Em contrapartida, a origem geográfica da culinária influencia a avaliação média, sugerindo a alta relevância da tradição. O estudo também enfatizou a distinção analítica entre popularidade e qualidade, alertando contra a utilização de métricas de volume como substitutas para a percepção de excelência. Em síntese, a satisfação do usuário é primariamente guiada por fatores intrínsecos de sabor e qualidade de execução, e não por custos de tempo ou esforço.
 
 ## Referências Bibliográficas {#sec-05}
 
