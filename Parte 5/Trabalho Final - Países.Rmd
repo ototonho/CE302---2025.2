@@ -5,186 +5,158 @@ date: "2025-12-03"
 output: html_document
 ---
 
-## Diagnóstico Inicial de Desempenho por País
+
+# Trabalho Final
+
 
 ```{r}
-library(tidyverse)
 
-# 1. Carregamento dos dados (Assumindo que você tem o cuisines carregado)
-# cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv')
+require(tidyverse)
+require(tidytuesdayR)
 
-# 2. Sumarização das Métricas de Desempenho por País
-diagnostico_paises <- cuisines %>%
-  group_by(country) %>%
-  summarise(
-    # Frequência
-    frequencia_receitas = n(),
-    
-    # Métricas de Avaliação
-    media_ratings = mean(avg_rating, na.rm = TRUE),
-    total_ratings_somados = sum(total_ratings, na.rm = TRUE),
-    total_reviews_somados = sum(reviews, na.rm = TRUE),
-    
-    # Indicador de Qualidade (contagem de NAs em ratings)
-    observacoes_validas = sum(!is.na(avg_rating))
-  ) %>%
-  # Ordenar pela popularidade geral (total de ratings)
-  arrange(desc(total_ratings_somados))
 
-print("--- Diagnóstico Inicial de Desempenho por País (Top 15) ---")
-print(head(diagnostico_paises, 15))
+all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv')
+
+cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv')
+
 ```
 
-## Plotagem em Mapa
+```{r}
+str(all_recipes)
+str(cuisines)
+```
+```{r}
+cuisines_limpo <- cuisines %>%
+  mutate(
+    country_padrao = case_when(
+      country %in% c("Jewish") ~ "Israeli/Jewish",
+      country %in% c("Cajun and Creole", "Southern Recipes", "Tex-Mex", "Southwestern Recipes", "Amish and Mennonite", "Soul Food") ~ "US American", 
+      .default = country # Mantém o nome do país para todos os outros
+    )
+  )
+
+
+table(cuisines_limpo$country)
+
+```
+
+
 
 ```{r}
-# Plotagem da Média de Avaliação (filtrando ruído)
-plot_ratings_mapa_alternativa <- diagnostico_paises %>%
-  filter(observacoes_validas >= 10) %>% # Filtra culinárias com pelo menos 10 avaliações
-  top_n(20, total_ratings_somados) %>%  # Foca nas 20 mais populares
-  mutate(country = reorder(country, media_ratings)) %>%
+analise_por_pais <- cuisines_limpo %>%
+  # Remove linhas onde a avaliação é NA
+  filter(!is.na(avg_rating)) %>%
+  group_by(country_padrao) %>%
+  summarise(
+    contagem_receitas = n(),
+    media_rating = mean(avg_rating, na.rm = TRUE),
+    # NOVO: Adiciona o Desvio Padrão
+    desvio_padrao_rating = sd(avg_rating, na.rm = TRUE), 
+    media_porcoes = mean(servings, na.rm = TRUE),
+    .groups = 'drop'
+  ) %>%
+  # Opcional: Filtra países com poucas receitas para tornar a média mais robusta
+  filter(contagem_receitas >= 10) %>%
+  arrange(desc(media_rating))
+
+# Exibe o resultado da análise
+print(analise_por_pais)
+```
+
+```{r}
+analise_por_continente <- analise_por_pais %>%
+  mutate(
+    continente = case_when(
+      # === ASIA ===
+      country_padrao %in% c("Japanese", "Indian", "Chinese", "Thai", "Filipino", "Vietnamese", "Korean", "Indonesian", "Turkish", "Malaysian", "Pakistani", "Iranian", "Israeli/Jewish", "Lebanese", "Syrian", "Yemeni", "Emirati", "Kuwaiti", "Omani", "Qatari", "Saudi Arabian", "Middle Eastern", "Persian", "Turkish") ~ "Asian",
+      
+      # === EUROPA ===
+      country_padrao %in% c("British", "French", "German", "Irish", "Italian", "Spanish", "Scandinavian Region", "Greek", "Swiss", "Dutch", "Austrian", "Portuguese", "Russian", "Belgian", "Hungarian", "Polish", "Czech", "Slovakian", "Romanian", "Ukrainian", "Scandinavian") ~ "European",
+      
+      # === AMÉRICA DO NORTE e CARIBE ===
+      country_padrao %in% c("US American", "Canadian", "Mexican", "Caribbean Region", "Puerto Rican", "Cuban", "Jamaican", "Dominican", "Haitian", "Costa Rican", "Panamanian", "Honduran", "Guatemalan", "Salvadoran") ~ "North American",
+      
+      # === AMÉRICA DO SUL ===
+      country_padrao %in% c("Chilean", "Brazilian", "Peruvian", "Argentinian ", "Venezuelan", "Colombian", "Ecuadorian", "Bolivian", "Paraguayan", "Uruguayan") ~ "South American",
+      
+      # === ÁFRICA ===
+      country_padrao %in% c("Moroccan", "Egyptian", "South African", "Ethiopian", "Kenyan", "Nigerian", "Algerian", "Tunisian", "Somali", "African") ~ "African",
+      
+      # === OCEANIA ===
+      country_padrao %in% c("Australian/New Zealand", "Fijian", "Samoan") ~ "Oceania",
+      
+      # Países Transcontinentais/Culturais não classificados acima
+      .default = "Outros" 
+    )
+  )
+
+# Agrupamento FINAL revisado
+analise_por_continente_agregado <- analise_por_continente %>%
+  group_by(continente) %>%
+  summarise(
+    contagem_total = sum(contagem_receitas),
+    # A Média da Média de Rating e a Média do Desvio Padrão
+    media_rating_continente = mean(media_rating, na.rm = TRUE),
+    desvio_padrao_continente = mean(desvio_padrao_rating, na.rm = TRUE), 
+    .groups = 'drop'
+  ) %>%
+  arrange(desc(media_rating_continente))
+
+# Visualizando a Nova Tabela Agregada
+print(analise_por_continente_agregado)
+
+
+```
+
+
+
+
+```{r}
+require(ggplot2)
+
+grafico_colorido <- analise_por_continente %>%
+  # Limita aos Top 15 países/regiões para visualização
+  slice_max(media_rating, n = 15) %>% 
   
-  ggplot(aes(x = country, y = media_ratings, fill = total_ratings_somados)) +
-  geom_col() +
+  # Estética principal, usando 'fill' para o continente
+  ggplot(aes(x = reorder(country_padrao, media_rating), 
+              y = media_rating, 
+              fill = continente)) +
+  
+  # Adiciona as barras coloridas
+  geom_col(alpha = 0.8) +
+  
+  # Adiciona as Barras de Erro (Desvio Padrão)
+  geom_errorbar(aes(ymin = media_rating - desvio_padrao_rating, 
+                    ymax = media_rating + desvio_padrao_rating,
+                    color = continente), # Usa a cor do continente para o DP também
+                width = 0.2) +
+  
+  # Escala de cores (opcional, mas recomendado para um visual mais bonito)
+  scale_fill_brewer(palette = "Set2") +
+  scale_color_manual(values = rep("black", 6)) + # Define as barras de erro em preto
+  
+  # Inverte os eixos para facilitar a leitura
   coord_flip() +
-  scale_fill_viridis_c(name = "Total de Engajamento") + # Cor por engajamento total
-  labs(
-    title = "Qualidade Percebida das Culinárias (Avg. Rating)",
-    subtitle = "Filtro: Culinárias com 10 ou mais avaliações",
-    x = "País / Culinária",
-    y = "Média de Avaliação"
-  ) +
-  theme_minimal()
-
-print(plot_ratings_mapa_alternativa)
-```
-## Mapa
-
-```{r}
-library(tidyverse)
-library(rnaturalearth) # Para obter dados de mapas globais
-library(sf)            # Para trabalhar com dados geoespaciais
-
-# --- 1. PREPARAÇÃO DOS DADOS E PADRONIZAÇÃO DE NOMES ---
-
-# 1. Tabela de Sumarização (Reusando a lógica anterior)
-diagnostico_paises <- cuisines %>%
-  group_by(country) %>%
-  summarise(
-    frequencia_receitas = n(),
-    media_ratings = mean(avg_rating, na.rm = TRUE),
-    total_ratings_somados = sum(total_ratings, na.rm = TRUE),
-    observacoes_validas = sum(!is.na(avg_rating))
-  ) %>%
-  # Reduzindo o filtro para 5 para incluir mais culinárias no mapa
-  filter(observacoes_validas >= 5) 
-
-# 2. Tabela de Conversão Manual EXPANDIDA
-# Mapeia nomes de culinárias (country) para nomes formais de países (name_long)
-tabela_conversao <- tribble(
-  ~country,                       ~name_long,
-  "Mexican",                      "Mexico",
-  "Italian",                      "Italy",
-  "Greek",                        "Greece",
-  "Japanese",                     "Japan",
-  "German",                       "Germany",
-  "Jewish",                       "Israel",
-  "Thai",                         "Thailand",
-  "French",                       "France",
-  "Indian",                       "India",
-  "Chinese",                      "China",
-  "British",                      "United Kingdom",
-  "Spanish",                      "Spain",
-  "Cuban",                        "Cuba",
-  "Filipino",                     "Philippines",
-  "Korean",                       "South Korea",
-  "Brazilian",                    "Brazil",
-  "Irish",                        "Ireland",
-  "American",                     "United States",
-  "Vietnamese",                   "Vietnam",
-  "Peruvian",                     "Peru",
-  "Russian",                      "Russia",
-  "Turkish",                      "Turkey",
-  "Moroccan",                     "Morocco",
-  "Scandinavian",                 "Norway", # Usando a Noruega como representante do bloco
-  "Australian and New Zealander", "Australia", 
-  "Canadian",                     "Canada",
-  "Caribbean",                    "Cuba", # Mapeando para o maior país insular para visualização
-  "Portuguese",                   "Portugal",
-  "Polish",                       "Poland",
-  "Indonesian",                   "Indonesia",
-  "Venezuelan",                   "Venezuela",
-  "Colombian",                    "Colombia",
-  "Argentinian",                  "Argentina",
-  "Cajun and Creole",             "United States", # Predominantemente Louisiana, EUA
-  "Soul Food",                    "United States", # Culinária Afro-Americana, EUA
-  "Amish and Mennonite",          "United States", # Principalmente EUA (Pensilvânia)
-  "Puerto Rican",                 "United States", # Mapeando para o país associado
-  "Tex-Mex",                      "United States", # Região de fronteira Texas, EUA
-  "Lebanese",                     "Lebanon",
-  "Southern Recipes",             "United States", # Receitas do Sul dos EUA
-  "Persian",                      "Iran", # Sinônimo principal de Persa
-  "Jamaican",                     "Jamaica",
-  "Danish",                       "Denmark",
-  "Swedish",                      "Sweden",
-  "Norwegian",                    "Norway",
-  "Pakistani",                    "Pakistan",
-  "Malaysian",                    "Malaysia",
-  "Israeli",                      "Israel",
-  "Austrian",                     "Austria",
-  "Chilean",                      "Chile",
-  "Dutch",                        "Netherlands",
-  "South African",                "South Africa",
-  "Finnish",                      "Finland",
-  "Bangladeshi",                  "Bangladesh",
-  "Swiss",                        "Switzerland",
-  "Belgian",                      "Belgium"
-)
-
-# 3. Unir o Diagnóstico com a Conversão
-dados_mapeamento <- diagnostico_paises %>%
-  inner_join(tabela_conversao, by = "country")
-
-# --- 2. PREPARAÇÃO DO MAPA GEOGRÁFICO (SHAPEFILE) ---
-
-# Carregar dados globais de países (world)
-mapa_mundi <- ne_countries(scale = "medium", returnclass = "sf") %>%
-  # Simplificar a projeção para uma visualização mais limpa
-  select(name_long, geometry)
-
-# --- 3. JUNÇÃO E PLOTAGEM DO MAPA ---
-
-# 1. Juntar os dados da culinária com os dados geográficos
-mapa_final <- mapa_mundi %>%
-  left_join(dados_mapeamento, by = "name_long")
-
-# 2. Plotar o Mapa-Múndi (Cor por Média de Avaliação)
-plot_mapa <- ggplot(data = mapa_final) +
-  # Camada de países: cor cinza para países sem dados
-  geom_sf(aes(fill = media_ratings), color = "gray80", linewidth = 0.1) +
   
-  # Substituição pela escala manual de gradiente divergente: Vermelho (Baixo) -> Branco (Meio) -> Azul Escuro (Alto)
-  scale_fill_gradient2(
-    low = "#ff8247",         # Cor para ratings baixos (ex: 3.5)
-    mid = "#F2F3D9",       # Cor para o ponto médio 
-    high = "#8A4FFF",   # Cor para ratings altos (ex: 5.0)
-    midpoint = 4.5,      # Define o ponto de transição (ajuste este valor se a média for diferente)
-    limits = c(3.5, 5.0),# Define o intervalo de cor para evitar cores extremas
-    name = "Média de Avaliação",
-    na.value = "gray90"  # Países sem dados
+  # Títulos e Rótulos
+  labs(
+    title = "Top 15 Culinárias por Média de Avaliação (Coloridas por Continente)",
+    subtitle = "Barras de erro representam o Desvio Padrão. Cores indicam o Continente.",
+    x = "País/Região",
+    y = "Média de Avaliação (1 a 5)",
+    fill = "Continente" # Legenda da cor
   ) +
   
-  labs(
-    title = "Média de Avaliação das Culinárias Populares (Mapeamento Expandido)",
-    subtitle = "Cores representam a qualidade percebida (avg_rating) por país de origem.",
-    caption = "Países mapeados manualmente. Filtro: Observações Válidas >= 5."
-  ) +
-  theme_void() + # Remove eixos e grade para um visual de mapa limpo
-  # Centralizar e ajustar a projeção para um mapa-múndi clássico
-  theme(legend.position = "bottom",
-        plot.title = element_text(hjust = 0.5),
-        plot.subtitle = element_text(hjust = 0.5))
+  # Remove a legenda de cor das barras de erro
+  guides(color = "none") + 
+  
+  # Tema
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
 
-print(plot_mapa)
+print(grafico_colorido)
 ```
+
+
 
