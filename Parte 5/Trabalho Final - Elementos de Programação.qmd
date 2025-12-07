@@ -42,9 +42,17 @@ Além de ambos, também serão utilizados materiais de @trattner_estimating_2017
 
 ### Descrição do Conjunto de Dados 
 
-Para fazer a descrição dos conjuntos de dados fornecidos, começamos utilizando a função `str()` para vermos as descrições estruturais de ambos os conjuntos. 
+Para fazer a descrição dos conjuntos de dados fornecidos, começamos carregando os dados e utilizando a função `str()` para vermos as descrições estruturais de ambos os conjuntos. 
 
 ```{r}
+library(tidyverse)
+library(tidytuesdayR)
+
+# Carregamento dos dados originais
+all_recipes <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv', show_col_types = FALSE)
+
+cuisines <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv', show_col_types = FALSE)
+
 str(all_recipes)
 str(cuisines)
 ```
@@ -129,14 +137,103 @@ A visualização de dados é parte central para a interpretação dos resultados
 ## Resultados e discussão {#sec-03}
 
 Os resultados atingidos em cada parte do trabalho vão em diferentes direções. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta $\bar{R}_{g}$) frequentemente exibiam um baixo desvio padrão ($s_R$), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.
-Por outro lado, os coeficientes de correlação de Pearson entre as variáveis de esforço e a nota média foram marginalmente positivos e irrelevantes, indicando a ausência de uma relação linear significativa:
 
-| Banco de Dados | rI^,R (Ingredientes vs. Nota) | rT^,R (Tempo vs. Nota) |
-|-------------------------------------------------------------------------|
-|Cuisines | $0,100$ | $0,047$ |
-| All Recipes | $0,080$ | $0,008$ |
+### Relação entre Ingredientes e Avaliações
 
-Os gráficos de dispersão (Figura 2) confirmam visualmente a ausência de um padrão discernível, com a linha de regressão linear praticamente horizontal. Dito isto, é possível afirmar que os resultados são robustos e demonstram que a complexidade ($\hat{I}$) e o esforço temporal ($\hat{T}$) são fatores negligenciáveis na avaliação final das receitas. Isso implica que receitas simples (poucos ingredientes, rápidas) têm o mesmo potencial de excelência avaliativa que pratos complexos ou de preparo prolongado. A qualidade percebida é, portanto, guiada por outros fatores, como o sabor final e o sucesso na execução. 
+A análise dos dados revela uma correlação positiva, porém extremamente fraca, entre a quantidade de ingredientes e a avaliação final das receitas em ambos os bancos de dados. A Figura 1 confirma que, com coeficientes de 0,1 para "cuisines" e 0,08 para "all_recipes", conclui-se que a complexidade do prato (medida pelo número de itens) praticamente não influencia a nota atribuída pelos usuários; ou seja, embora exista uma tendência matemática muito sutil de aumento na avaliação conforme o número de ingredientes cresce, na prática essa relação é desprezível, indicando que receitas simples têm tanta chance de serem bem avaliadas quanto as mais complexas.
+
+```{r}
+#ingredientes x nota
+ingredientes_nota = function(dados, nome_do_banco) {
+  
+  #coluna de quantidade de ingredientes
+  dados_processados = dados %>%
+    filter(!is.na(avg_rating), !is.na(ingredients)) %>%
+    mutate(
+      qtd_ingredientes = str_count(ingredients, ",") + 1,
+      avg_rating = as.numeric(avg_rating)
+    )
+  
+  # Correlação
+  correlacao = cor(dados_processados$qtd_ingredientes, 
+                   dados_processados$avg_rating, 
+                   use = "complete.obs")
+  
+  cat(paste0("\nAnálise para: ", nome_do_banco, "\n"))
+  cat(paste("Correlação:", round(correlacao, 3), "\n"))
+  
+  # Gráfico
+  grafico = ggplot(dados_processados, aes(x = qtd_ingredientes, y = avg_rating)) +
+    geom_jitter(alpha = 0.2, color = "steelblue") + 
+    geom_smooth(method = "lm", color = "darkred") + 
+    labs(
+      title = paste("Ingredientes vs Nota:", nome_do_banco),
+      subtitle = paste("Correlação de Pearson:", round(correlacao, 3)),
+      x = "Quantidade de Ingredientes",
+      y = "Nota Média"
+    ) +
+    theme_minimal()
+  
+  print(grafico)
+}
+
+ingredientes_nota(cuisines, "Banco Cuisines")
+ingredientes_nota(all_recipes, "Banco All Recipes")
+```
+
+
+### Relação entre Tempo de Preparo e Avaliações
+
+Ao analisar a influência do tempo total de preparo (total_time) sobre a avaliação das receitas (avg_rating), com uma visualização (Figura 2) abrangendo até 480 minutos (8 horas), observou-se uma ausência de correlação significativa em ambos os bancos de dados. Com coeficientes irrelevantes de 0,047 para o banco 'cuisines' e 0,008 para 'all_recipes', os dados demonstram estatisticamente que a duração da receita não é um fator determinante para a sua nota final. Isso sugere que a satisfação dos usuários independe do tempo investido na cozinha, com pratos rápidos recebendo avaliações tão altas quanto preparos de longa duração.
+
+```{r}
+tempo_nota <- function(dados, nome_do_banco) {
+  
+  # 1. Limpeza e Tratamento
+  dados_processados <- dados %>%
+    mutate(
+      avg_rating = as.numeric(avg_rating),
+      total_time = as.numeric(total_time)
+    ) %>%
+    # Removemos linhas vazias ou com tempo zerado/negativo
+    filter(!is.na(avg_rating), !is.na(total_time), total_time > 0)
+  
+  # 2. Cálculo da Correlação (considerando todos os dados)
+  correlacao <- cor(dados_processados$total_time, 
+                    dados_processados$avg_rating, 
+                    use = "complete.obs")
+  
+  cat(paste0("\n--- Análise: ", nome_do_banco, " ---\n"))
+  cat(paste("Correlação geral:", round(correlacao, 3), "\n"))
+  
+  # 3. Gráfico de Dispersão
+  # OBS: Fiz um filtro NO GRÁFICO para mostrar apenas receitas até 480 min (8h)
+  # Se não fizer isso, uma única receita de 24h esmaga o gráfico todo.
+  grafico <- ggplot(dados_processados %>% filter(total_time <= 480), 
+                    aes(x = total_time, y = avg_rating)) +
+    
+    geom_jitter(alpha = 0.2, color = "forestgreen") + # Pontos verdes
+    geom_smooth(method = "lm", color = "black") +    # Linha de tendência preta
+    
+    labs(
+      title = paste("Tempo de Preparo vs Nota:", nome_do_banco),
+      subtitle = paste("Correlação de Pearson:", round(correlacao, 3)),
+      x = "Tempo de Preparo (minutos)",
+      y = "Nota (0-5)"
+    ) +
+    theme_minimal()
+  
+  print(grafico)
+}
+
+# Executando para os dois bancos
+tempo_nota(cuisines, "Banco Cuisines")
+tempo_nota(all_recipes, "Banco All Recipes")
+```
+
+
+### Relação entre 
+
 Ao olharmos para a análise bivariada, por fim, estabeleceu-se uma clara diferenciação entre as culinárias mais populares e as de maior qualidade. O Gráfico de Bolhas (Figura 3) ilustra que a alta Popularidade, medida pela média de avaliações por receita, nem sempre se traduz em alta Qualidade, medida pela média de nota. Esta divergência indica que a popularidade pode ser impulsionada por fatores de acessibilidade ou tendência, desvinculando-se da excelência na avaliação. A análise de tendência temporal complementou este achado ao mostrar que o Total de Avaliações no Ano é dinâmico, refletindo o ciclo de vida e a ascensão do interesse em certas culinárias ao longo do tempo.
 
 
