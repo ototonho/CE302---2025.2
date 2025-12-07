@@ -1,5 +1,6 @@
 ---
-title: "Trabalho Final - Elementos de Prog"
+title: "Trabalho Final - Elementos de Programação para Estatística"
+subtitle: "Prova 5"
 date: "`r format(Sys.time(), '%d / %m / %y')`"
 author: 
   - "Antonio Paulo Steffen Neto"
@@ -8,14 +9,14 @@ author:
   - "Pedro Henrique D’Andrea"
 output: html_document
 bibliography: citations.bib 
-csl: abnt-2024-numerico.csl
+csl: abnt-2024-numerico
 ---
 
 ## Introdução {#sec-01}
 
 Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. Assim, este trabalho apresenta a parte técnica e teórica do que foi realizado pelo grupo. A parte da apresentação em um aplicativo em Shiny, por outro lado, será feita por meio de um vídeo de apresentação. Nesta introdução apresentamos, então, o conjunto de dados escolhido pelo grupo e, também, como a parte escrita do trabalho está estruturada.
 Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado *Allrecipes*. Neste constam dados retirados do site [Allrecipes](https://www.allrecipes.com) sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte @noauthor_allrecipes_nodate.
-Como definido pelas instruções dadas pela proposta de trabalho, a formatação deste segue a ordem: Introdução; Materiais e Métodos; Resultados e Discussão; Conclusão e Referências. Muitas das partes integrantes da ordem originalmente indicada, naturalmente, apresentam suas próprias subseções, assim sendo, esta **Introdução** conta com duas subseções: Contextualização e Definição do Problema e Objetivos da Análise. A parte de Materiais e Métodos, por sua vez, tem como sbdivisões: Descrição do Conjunto de Dados, Dicionário de Variáveis, Tratamento de Dados e Técnicas Estatísticas e Computacionais. Na sequência, são apresentados os Resultados e Discussão, divididos de acordo com temas de análise, com suas respectivas análises e interpretações como será, posteriormente, fácil de analisar com o aplicativo Shiny feito em conjunto com esta parte escrita. Por fim, a Conclusão e as Referências Bibliográficas não apresentam quaisquer divisões.
+Como definido pelas instruções dadas pela proposta de trabalho, a formatação deste segue a ordem: Introdução; Materiais e Métodos; Resultados e Discussão; Conclusão e Referências. Muitas das partes integrantes da ordem originalmente indicada, naturalmente, apresentam suas próprias subseções, assim sendo, esta introdução conta com duas subseções: Contextualização e Definição do Problema e Objetivos da Análise. A parte de Materiais e Métodos, por sua vez, tem como sbdivisões: Descrição do Conjunto de Dados, Dicionário de Variáveis, Tratamento de Dados e Técnicas Estatísticas e Computacionais. Na sequência, são apresentados os Resultados e Discussão, divididos de acordo com temas de análise, com suas respectivas análises e interpretações como será, posteriormente, fácil de analisar com o aplicativo Shiny feito em conjunto com esta parte escrita. Por fim, a Conclusão e as Referências Bibliográficas não apresentam quaisquer divisões.
 
 ### Contextualização e Definição do Problema
 
@@ -69,46 +70,46 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 
 | Variável | Tipo de Dado | Descrição Completa |
 |----------|--------------|--------------------|
-|--------------------------------------------------------------------------------|
-| `author` | Caractere/Fator | Nome do usuário que postou a receita. |
-| `recipe_name` | Caractere | Nome da receita. |
-| `url` | Caractere | Link da receita. |
-| `ingredients` | Caractere | Base para contagem de ingredientes. |
-| `prep_time` | Numérico | Tempo de preparo (minutos). |
-| `cook_time` | Numérico | Tempo de cozimento (minutos). |
-| `total_time` | Numérico | Tempo total (preparo + cozimento). Variável chave para Complexidade. |
-| `servings` | Numérico | Número de porções que a receita produz. |
-| `calories` | Numérico | Conteúdo energético (Kcal). Variável chave Nutricional. |
-| `fat` | Numérico | Quantidade de gordura (g). |
-| `protein` | Numérico | Quantidade de proteína (g). |
-| `carbs` | Numérico | Quantidade de carboidratos (g). |
-| `avg_rating` | Numérico | Avaliação média (1-5). Métrica de popularidade. |
-| `total_rating` | Numérico | Número de avaliações. Métrica de popularidade. |
-| `reviews` | Numérico/Inteiro | Número de avaliações recebidas. |
-| `date_published` | Data | Data em que a receita foi publicada no site. |
+| `author` | Caractere/Fator | Nome do usuário que postou a receita |
+| `recipe_name` | Caractere | Nome da receita |
+| `url` | Caractere | Link da receita |
+| `ingredients` | Caractere | Base para contagem de ingredientes |
+| `prep_time` | Numérico | Tempo de preparo (minutos) |
+| `cook_time` | Numérico | Tempo de cozimento (minutos) |
+| `total_time` | Numérico | Tempo total (preparo + cozimento). Variável chave para Complexidade |
+| `servings` | Numérico | Número de porções que a receita produz |
+| `calories` | Numérico | Conteúdo energético (Kcal). Variável chave Nutricional |
+| `fat` | Numérico | Quantidade de gordura (g) |
+| `protein` | Numérico | Quantidade de proteína (g) |
+| `carbs` | Numérico | Quantidade de carboidratos (g) |
+| `avg_rating` | Numérico | Avaliação média (1-5). Métrica de popularidade |
+| `total_rating` | Numérico | Número de avaliações. Métrica de popularidade |
+| `reviews` | Numérico/Inteiro | Número de avaliações recebidas |
+| `date_published` | Data | Data em que a receita foi publicada no site |
 
 2. `cuisines`:
 
 
-| Variável | Tipo de Dado | Descrição Completa e Relevância |
-| ---------|------------------------- | ---------------- | |---------------------------------------------------------------------------------------------|
-| `author` | Caractere/Fator | Nome do usuário. |
-| `name` | Caractere | Nome da receita. |
-| `url` | Caractere | Link da receita. |
-| `ingredients` | Caractere | Usado para derivar a contagem de ingredientes. |
-| `prep_time` | Numérico | Tempo de preparo (minutos). |
-| `cook_time` | Numérico | Tempo de cozimento (minutos). |
-| `total_time` | Numérico | Tempo total (preparo + cozimento). |
-| `servings` | Numérico | Número de porções. |
-| `calories` | Numérico | Conteúdo energético (Kcal). |
-| `fat` | Numérico | Quantidade de gordura (g). |
-| `protein` | Numérico | Quantidade de proteína (g). |
-| `carbs` | Numérico | Quantidade de carboidratos (g). |
-| `avg_rating` | Numérico | Avaliação média (1-5). Métrica de popularidade. |
-| `total_rating` | Numérico | Número de avaliações. Métrica de popularidade. |
-| `reviews` | Numérico/Inteiro | Número de avaliações recebidas. |
-| `date_published` | Data | Data de publicação. |
-| `country` | Caractere/Fator | **País de origem.** Variável chave para análise geocultural (vem do `cuisines`). |
+| Variável | Tipo de Dado | Descrição Completa |
+| ---------|------------------------- | ---------------- | 
+| `author` | Caractere/Fator | Nome do usuário |
+| `name` | Caractere | Nome da receita |
+| `url` | Caractere | Link da receita |
+| `ingredients` | Caractere | Usado para derivar a contagem de ingredientes |
+| `prep_time` | Numérico | Tempo de preparo (minutos) |
+| `cook_time` | Numérico | Tempo de cozimento (minutos) |
+| `total_time` | Numérico | Tempo total (preparo + cozimento) |
+| `servings` | Numérico | Número de porções |
+| `calories` | Numérico | Conteúdo energético (Kcal) |
+| `fat` | Numérico | Quantidade de gordura (g) |
+| `protein` | Numérico | Quantidade de proteína (g) |
+| `carbs` | Numérico | Quantidade de carboidratos (g) |
+| `avg_rating` | Numérico | Avaliação média (1-5). Métrica de popularidade |
+| `total_rating` | Numérico | Número de avaliações. Métrica de popularidade |
+| `reviews` | Numérico/Inteiro | Número de avaliações recebidas |
+| `date_published` | Data | Data de publicação |
+| `country` | Caractere/Fator | **País de origem.** Variável chave para análise geocultural |
+
 
 ### Tratamento dos Dados 
 

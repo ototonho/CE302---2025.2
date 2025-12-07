@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Antonio Paulo Steffen Neto">
+<meta name="author" content="Ingrid Giacomeli">
+<meta name="author" content="Jhullya da Rosa Shalders">
+<meta name="author" content="Pedro Henrique D’Andrea">
+<meta name="dcterms.date" content="2025-07-12">
+
+<title>Trabalho Final - Elementos de Prog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 1em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="Trabalho Final - Elementos de Programação_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Trabalho Final - Elementos de Programação_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Trabalho Final - Elementos de Programação_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Trabalho Final - Elementos de Programação_files/libs/quarto-html/popper.min.js"></script>
+<script src="Trabalho Final - Elementos de Programação_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Trabalho Final - Elementos de Programação_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Trabalho Final - Elementos de Programação_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Trabalho Final - Elementos de Programação_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Trabalho Final - Elementos de Programação_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Trabalho Final - Elementos de Programação_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Trabalho Final - Elementos de Programação_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Trabalho Final - Elementos de Prog</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Antonio Paulo Steffen Neto </p>
+             <p>Ingrid Giacomeli </p>
+             <p>Jhullya da Rosa Shalders </p>
+             <p>Pedro Henrique D’Andrea </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 12, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-01" class="level2">
+<h2 class="anchored" data-anchor-id="sec-01">Introdução</h2>
+<p>Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. Assim, este trabalho apresenta a parte técnica e teórica do que foi realizado pelo grupo. A parte da apresentação em um aplicativo em Shiny, por outro lado, será feita por meio de um vídeo de apresentação. Nesta introdução apresentamos, então, o conjunto de dados escolhido pelo grupo e, também, como a parte escrita do trabalho está estruturada. Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado <em>Allrecipes</em>. Neste constam dados retirados do site <a href="https://www.allrecipes.com">Allrecipes</a> sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte <span class="citation" data-cites="noauthor_allrecipes_nodate">(<a href="#ref-noauthor_allrecipes_nodate" role="doc-biblioref">1</a>)</span>. Como definido pelas instruções dadas pela proposta de trabalho, a formatação deste segue a ordem: Introdução; Materiais e Métodos; Resultados e Discussão; Conclusão e Referências. Muitas das partes integrantes da ordem originalmente indicada, naturalmente, apresentam suas próprias subseções, assim sendo, esta introdução conta com duas subseções: Contextualização e Definição do Problema e Objetivos da Análise. A parte de Materiais e Métodos, por sua vez, tem como sbdivisões: Descrição do Conjunto de Dados, Dicionário de Variáveis, Tratamento de Dados e Técnicas Estatísticas e Computacionais. Na sequência, são apresentados os Resultados e Discussão, divididos de acordo com temas de análise, com suas respectivas análises e interpretações como será, posteriormente, fácil de analisar com o aplicativo Shiny feito em conjunto com esta parte escrita. Por fim, a Conclusão e as Referências Bibliográficas não apresentam quaisquer divisões.</p>
+<section id="contextualização-e-definição-do-problema" class="level3">
+<h3 class="anchored" data-anchor-id="contextualização-e-definição-do-problema">Contextualização e Definição do Problema</h3>
+<p>A alimentação é a base de toda a cultura humana, o momento de comunhão em diferentes culturas e religiões. Isso estende-se desde o cômodo onde as pessoas se alimentam até a como grandes festividades por todo o globo costumam ter alguma refeição como parte central das celebrações. Mais recentemente, o destaque adquirido por grandes chefes de cosinha e por produtos culturais como reality show e séries sobre culinária são sintomas deste fenômeno. Mais recentemente, contudo, a relação das pessoas com a comida foi muito modificada e tornada mais complexa. Em tempos de internet, fast food e fácil acesso a ingredientes de todo o mundo, sites como o <em>Allrecipes</em> se tornaram um meio impressindível de compartilhamento de hábitos alimentares e, para pesquisadores, uma fonte preciosa de dados para entender como as pessoas se alimentam. Mas sobre o que se trata o site em questão? O <em>Allrecipes</em> consiste em um site de compartilhamento de receitas. Nele, usuários de todo o mundo podem postar suas receitas para que outras pessoas possam prová-las, acompanhar as avaliações dos outros usuários e, também, acessar receitas de outros usuários, igualmente prová-las e avaliá-las. O site <em>Allrecipes</em>, portanto, e já olhando para os dados de interesse na presente análise, nos traz dados a respeito da origem das receitas e por quem foram postadas. Além disso, também inclui as informações acerca de tempos de preparo e, também, de questões nutricionais. A análise de dados não estruturados provenientes da plataforma online <em>Allrecipes</em> insere-se na emergente área dGastronomia Computacional, que tem por objetivo o emprego de técnicas <em>data-driven</em> para o estudo e a análise de comidas. Esse campo busca quantificar e modelar fenômenos culinários e de consumo alimentar. Neste contexto, o volume e a variedade dos dados de receitas (incluindo as avaliações, informações nutricionais e origem geográfica) constituem um conjunto de dados de nicho, que seria ideal para a aplicação de métodos de aprendizado de máquina e modelagem estatística, caso os autores deste trabalho estivessem mais adiante no curso de Estatística.</p>
+</section>
+<section id="objetivos-da-análise" class="level3">
+<h3 class="anchored" data-anchor-id="objetivos-da-análise">Objetivos da Análise</h3>
+<p>Dado o conjunto de dados escolhido, portanto, é possível fazer uma análise que cubra de maneira completa todas as variáveis a disposição, e, deste modo, explorar e documentar as dinâmicas relacionadas à popularidade de receitas publicadas online. Assim, abrem-se diversas direções de investigação, pois tanto as informações nutricionais quanto as informações acerca dos ingredientes podem ser entrelaçadas e apresentam grande complexidade. Além destas, há as informações acerca dos países de origem das receitas, suas respectivas avaliações e, também tempos de preparo, datas em que foram postadas e quantas vezes foram preparadas. O objetivo principal da análise, portanto, é o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online na plataforma <em>Allrecipes</em>. Assim sendo, a análise é conduzida em partes e em diferentes frentes que englobam os diferentes tipos de variáveis à disposição nos conjuntos de dados disponíveis olhando para questões culturais, nutricionais, temporais e de popularidade das receitas publicadas. As divisões, como foram feitas, se apresentam da seguinte maneira:</p>
+<ol type="1">
+<li>Panorama Geral: Caracterizar o perfil nutricional predominante das receitas mais populares. Isto envolverá a limpeza e harmonização das variáveis contínuas (calorias, gordura, proteína, sódio) e o uso de métricas de dispersão para comparar a centralidade desses atributos em relação ao sucesso de reprodução.</li>
+<li>Países e Culinárias: O objetivo é identificar visualmente (via gráficos de dispersão) se existe uma correlação descritiva entre a complexidade do preparo e as avaliações médias.</li>
+<li>As avaliações de acordo com os ingredientes: Dividir e listar os ingredientes apresentados e relacioná-los com as avaliações médias e totais dis tribuídas por cada receita.</li>
+<li>Análise Nutricional: Partindo das informações acerca de calorias, proteínas, gordura e carboidratos à disposição, serão traçados perfis a serem relacionados, também, com as avaliações das receitas.</li>
+<li>As avaliações de acordo com tempos de preparo: Seguindo a mesma lógica dos itens anteriores, as diferentes métricas de tempo de preparo das receitas serão analisadas e avaliadas de acordo com a existência, ou não, de relação com as avaliações das receitas.</li>
+<li>Popularidades das cozinhas e países: Relacionando tudo o que foi mostrado anteriormente, serão utilizadas medidas de dispersão para relacionar os itens anteriores com as informações de origes de cada prato e culinária.</li>
+</ol>
+</section>
+</section>
+<section id="sec-02" class="level2">
+<h2 class="anchored" data-anchor-id="sec-02">Materiais e Métodos</h2>
+<p>Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro <em>R for data science: import, tidy, transform, visualize, and model data</em>, de autoria de <span class="citation" data-cites="wickham_r_2017">(<a href="#ref-wickham_r_2017" role="doc-biblioref">2</a>)</span>. Também serão utilizados para análise de observações o que é desenvolvido por <span class="citation" data-cites="agresti_introduction_2019">(<a href="#ref-agresti_introduction_2019" role="doc-biblioref">3</a>)</span>. Além de ambos, também serão utilizados materiais de <span class="citation" data-cites="trattner_estimating_2017">(<a href="#ref-trattner_estimating_2017" role="doc-biblioref">4</a>)</span> e <span class="citation" data-cites="hussain_innovative_2025">(<a href="#ref-hussain_innovative_2025" role="doc-biblioref">5</a>)</span>, que já desenvolveram análises semelhantes à que este trabalho se propõe. Além disso, também será utilizada <span class="citation" data-cites="silva_da_costa_percepcao_2021">(<a href="#ref-silva_da_costa_percepcao_2021" role="doc-biblioref">6</a>)</span></p>
+<section id="descrição-do-conjunto-de-dados" class="level3">
+<h3 class="anchored" data-anchor-id="descrição-do-conjunto-de-dados">Descrição do Conjunto de Dados</h3>
+<p>Para fazer a descrição dos conjuntos de dados fornecidos, começamos carregando os dados e utilizando a função <code>str()</code> para vermos as descrições estruturais de ambos os conjuntos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   4.0.0     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.1.0     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytuesdayR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: pacote 'tidytuesdayR' foi compilado no R versão 4.5.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregamento dos dados originais</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>all_recipes <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/all_recipes.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cuisines <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(all_recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [14,426 × 16] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ name          : chr [1:14426] "Chewy Whole Wheat Peanut Butter Brownies" "Pumpkin Pie Eggnog" "Eggs Poached in Tomato Sauce" "Minestrone Casserole" ...
+ $ url           : chr [1:14426] "https://www.allrecipes.com/recipe/140717/chewy-whole-wheat-peanut-butter-brownies/" "https://www.allrecipes.com/recipe/269204/pumpkin-pie-eggnog/" "https://www.allrecipes.com/recipe/238054/eggs-poached-in-tomato-sauce/" "https://www.allrecipes.com/minestrone-casserole-recipe-8765618" ...
+ $ author        : chr [1:14426] "DMOMMY" "Bobbie Susan" "Bren" "Sarah Brekke" ...
+ $ date_published: Date[1:14426], format: "2020-06-18" "2022-09-26" ...
+ $ ingredients   : chr [1:14426] "⅓ cup margarine, softened, ⅔ cup white sugar, ½ cup packed brown sugar, 2  eggs, 1 cup peanut butter, ½ teaspoo"| __truncated__ "12  egg yolks, 2 cups heavy whipping cream, ½ teaspoon vanilla extract, 1 (15 ounce) can pumpkin puree, ½ cup l"| __truncated__ "2 tablespoons olive oil, or to taste, ½  onion, finely chopped, 2 cloves garlic, finely chopped, 8 cups tomato "| __truncated__ "4 cups dried mafalda pasta (mini lasagna noodles), 2 tablespoons olive oil, 2 carrots, sliced, 2 stalks celery,"| __truncated__ ...
+ $ calories      : num [1:14426] 222 477 354 356 366 709 466 782 355 395 ...
+ $ fat           : num [1:14426] 13 31 18 9 22 47 27 61 15 12 ...
+ $ carbs         : num [1:14426] 24 43 32 53 23 31 1 19 33 33 ...
+ $ protein       : num [1:14426] 6 8 20 19 19 37 52 40 23 37 ...
+ $ avg_rating    : num [1:14426] 4.4 5 4.8 4.3 4.7 4.2 4.4 4.6 4.7 4.7 ...
+ $ total_ratings : num [1:14426] 47 1 4 14 84 5 648 347 129 195 ...
+ $ reviews       : num [1:14426] 36 1 4 13 67 3 468 259 102 153 ...
+ $ prep_time     : num [1:14426] 20 10 10 20 30 45 15 10 30 20 ...
+ $ cook_time     : num [1:14426] 35 5 75 40 95 80 45 190 480 55 ...
+ $ total_time    : num [1:14426] 55 495 85 60 125 155 60 200 510 75 ...
+ $ servings      : num [1:14426] 16 8 4 8 8 12 6 8 12 6 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   name = col_character(),
+  ..   url = col_character(),
+  ..   author = col_character(),
+  ..   date_published = col_date(format = ""),
+  ..   ingredients = col_character(),
+  ..   calories = col_double(),
+  ..   fat = col_double(),
+  ..   carbs = col_double(),
+  ..   protein = col_double(),
+  ..   avg_rating = col_double(),
+  ..   total_ratings = col_double(),
+  ..   reviews = col_double(),
+  ..   prep_time = col_double(),
+  ..   cook_time = col_double(),
+  ..   total_time = col_double(),
+  ..   servings = col_double()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cuisines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [2,218 × 17] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ name          : chr [1:2218] "Saganaki (Flaming Greek Cheese)" "Coney Island Knishes" "Diana's Hawaiian Bread Rolls" "Chilean Pebre" ...
+ $ country       : chr [1:2218] "Greek" "Jewish" "Australian and New Zealander" "Chilean" ...
+ $ url           : chr [1:2218] "https://www.allrecipes.com/recipe/263750/flaming-greek-cheese-saganaki/" "https://www.allrecipes.com/recipe/272334/coney-island-knishes/" "https://www.allrecipes.com/recipe/22797/dianas-hawaiian-bread-rolls/" "https://www.allrecipes.com/recipe/273763/chilean-pebre/" ...
+ $ author        : chr [1:2218] "John Mitzewich" "John Mitzewich" "CHIPPENDALE" "Heidi" ...
+ $ date_published: Date[1:2218], format: "2024-02-07" "2024-11-26" ...
+ $ ingredients   : chr [1:2218] "1 (4 ounce) package kasseri cheese, 1 tablespoon water, or as needed, ¼ cup all-purpose flour, or as needed, 1 "| __truncated__ "2 ¾ cups all-purpose flour, or more as needed, 1 teaspoon kosher salt, 1 teaspoon baking powder, ½ cup canola o"| __truncated__ "1 ½ cups warm water (110 degrees F/45 degrees C), 1  egg, 1 teaspoon salt, 1 teaspoon vanilla extract, 1 teaspo"| __truncated__ "½ cup chopped cilantro, ¼ cup olive oil, ¼ cup red wine vinegar, 1  tomato, chopped, 1 small onion, chopped, 1 "| __truncated__ ...
+ $ calories      : num [1:2218] 391 301 64 106 449 958 378 90 157 322 ...
+ $ fat           : num [1:2218] 25 17 3 9 23 24 10 5 6 16 ...
+ $ carbs         : num [1:2218] 15 31 9 7 58 144 59 10 25 39 ...
+ $ protein       : num [1:2218] 16 7 1 1 7 46 14 1 2 7 ...
+ $ avg_rating    : num [1:2218] 4.8 4.6 4.3 5 3.8 4.4 4.3 NA 4.6 5 ...
+ $ total_ratings : num [1:2218] 25 10 126 1 13 40 3 NA 65 2 ...
+ $ reviews       : num [1:2218] 22 9 104 1 11 32 3 NA 55 2 ...
+ $ prep_time     : num [1:2218] 10 30 20 10 30 30 30 40 0 5 ...
+ $ cook_time     : num [1:2218] 5 75 15 0 15 165 75 30 0 5 ...
+ $ total_time    : num [1:2218] 15 180 180 10 45 675 585 155 0 10 ...
+ $ servings      : num [1:2218] 2 16 12 6 15 6 6 84 24 1 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   name = col_character(),
+  ..   country = col_character(),
+  ..   url = col_character(),
+  ..   author = col_character(),
+  ..   date_published = col_date(format = ""),
+  ..   ingredients = col_character(),
+  ..   calories = col_double(),
+  ..   fat = col_double(),
+  ..   carbs = col_double(),
+  ..   protein = col_double(),
+  ..   avg_rating = col_double(),
+  ..   total_ratings = col_double(),
+  ..   reviews = col_double(),
+  ..   prep_time = col_double(),
+  ..   cook_time = col_double(),
+  ..   total_time = col_double(),
+  ..   servings = col_double()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+<p>Isto feito, podemos dizer que o primeiro conjunto, o maior, chamado <code>all_recipes</code>, é constituído de 14.426 observações e 16 variáveis; o segundo, <code>cuisines</code>, 2.218 e 17 variáveis. O segundo conjunto tem, portanto, uma variável a mais, esta sendo a variável <em>country</em>, uma variável de caracteres que descreve o país de origem da receita. Nas outras variáveis, presentes em ambos os conjuntos de dados, há informações que descrevem as receitas postadas no site, trazendo informações dos autores, url’s das receitas, ingredientes e informações nutricionais, tempos de preparo, cozimento e total, avaliações e vezes reproduzidas. Três das variáveis são do tipo caracteres, um do tipo data, e o restante valores numéricos. As observações vêm em uma ordem padrão de índice (definida pelo fornecedor), mas podem ser facilmente classificadas (reordenadas) de acordo com as variáveis disponíveis, como, por exemplo, ordem crescente ou decrescente de calorias, classificação média, ou tempo de preparo, etc.</p>
+</section>
+<section id="dicionário-de-variáveis" class="level3">
+<h3 class="anchored" data-anchor-id="dicionário-de-variáveis">Dicionário de Variáveis</h3>
+<p>Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de dados:</p>
+<ol type="1">
+<li><code>all_recipes</code>:</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 31%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variável</th>
+<th>Tipo de Dado</th>
+<th>Descrição Completa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>author</code></td>
+<td>Caractere/Fator</td>
+<td>Nome do usuário que postou a receita</td>
+</tr>
+<tr class="even">
+<td><code>recipe_name</code></td>
+<td>Caractere</td>
+<td>Nome da receita</td>
+</tr>
+<tr class="odd">
+<td><code>url</code></td>
+<td>Caractere</td>
+<td>Link da receita</td>
+</tr>
+<tr class="even">
+<td><code>ingredients</code></td>
+<td>Caractere</td>
+<td>Base para contagem de ingredientes</td>
+</tr>
+<tr class="odd">
+<td><code>prep_time</code></td>
+<td>Numérico</td>
+<td>Tempo de preparo (minutos)</td>
+</tr>
+<tr class="even">
+<td><code>cook_time</code></td>
+<td>Numérico</td>
+<td>Tempo de cozimento (minutos)</td>
+</tr>
+<tr class="odd">
+<td><code>total_time</code></td>
+<td>Numérico</td>
+<td>Tempo total (preparo + cozimento). Variável chave para Complexidade</td>
+</tr>
+<tr class="even">
+<td><code>servings</code></td>
+<td>Numérico</td>
+<td>Número de porções que a receita produz</td>
+</tr>
+<tr class="odd">
+<td><code>calories</code></td>
+<td>Numérico</td>
+<td>Conteúdo energético (Kcal). Variável chave Nutricional</td>
+</tr>
+<tr class="even">
+<td><code>fat</code></td>
+<td>Numérico</td>
+<td>Quantidade de gordura (g)</td>
+</tr>
+<tr class="odd">
+<td><code>protein</code></td>
+<td>Numérico</td>
+<td>Quantidade de proteína (g)</td>
+</tr>
+<tr class="even">
+<td><code>carbs</code></td>
+<td>Numérico</td>
+<td>Quantidade de carboidratos (g)</td>
+</tr>
+<tr class="odd">
+<td><code>avg_rating</code></td>
+<td>Numérico</td>
+<td>Avaliação média (1-5). Métrica de popularidade</td>
+</tr>
+<tr class="even">
+<td><code>total_rating</code></td>
+<td>Numérico</td>
+<td>Número de avaliações. Métrica de popularidade</td>
+</tr>
+<tr class="odd">
+<td><code>reviews</code></td>
+<td>Numérico/Inteiro</td>
+<td>Número de avaliações recebidas</td>
+</tr>
+<tr class="even">
+<td><code>date_published</code></td>
+<td>Data</td>
+<td>Data em que a receita foi publicada no site</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" type="1">
+<li><code>cuisines</code>:</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 50%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variável</th>
+<th>Tipo de Dado</th>
+<th>Descrição Completa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>author</code></td>
+<td>Caractere/Fator</td>
+<td>Nome do usuário</td>
+</tr>
+<tr class="even">
+<td><code>name</code></td>
+<td>Caractere</td>
+<td>Nome da receita</td>
+</tr>
+<tr class="odd">
+<td><code>url</code></td>
+<td>Caractere</td>
+<td>Link da receita</td>
+</tr>
+<tr class="even">
+<td><code>ingredients</code></td>
+<td>Caractere</td>
+<td>Usado para derivar a contagem de ingredientes</td>
+</tr>
+<tr class="odd">
+<td><code>prep_time</code></td>
+<td>Numérico</td>
+<td>Tempo de preparo (minutos)</td>
+</tr>
+<tr class="even">
+<td><code>cook_time</code></td>
+<td>Numérico</td>
+<td>Tempo de cozimento (minutos)</td>
+</tr>
+<tr class="odd">
+<td><code>total_time</code></td>
+<td>Numérico</td>
+<td>Tempo total (preparo + cozimento)</td>
+</tr>
+<tr class="even">
+<td><code>servings</code></td>
+<td>Numérico</td>
+<td>Número de porções</td>
+</tr>
+<tr class="odd">
+<td><code>calories</code></td>
+<td>Numérico</td>
+<td>Conteúdo energético (Kcal)</td>
+</tr>
+<tr class="even">
+<td><code>fat</code></td>
+<td>Numérico</td>
+<td>Quantidade de gordura (g)</td>
+</tr>
+<tr class="odd">
+<td><code>protein</code></td>
+<td>Numérico</td>
+<td>Quantidade de proteína (g)</td>
+</tr>
+<tr class="even">
+<td><code>carbs</code></td>
+<td>Numérico</td>
+<td>Quantidade de carboidratos (g)</td>
+</tr>
+<tr class="odd">
+<td><code>avg_rating</code></td>
+<td>Numérico</td>
+<td>Avaliação média (1-5). Métrica de popularidade</td>
+</tr>
+<tr class="even">
+<td><code>total_rating</code></td>
+<td>Numérico</td>
+<td>Número de avaliações. Métrica de popularidade</td>
+</tr>
+<tr class="odd">
+<td><code>reviews</code></td>
+<td>Numérico/Inteiro</td>
+<td>Número de avaliações recebidas</td>
+</tr>
+<tr class="even">
+<td><code>date_published</code></td>
+<td>Data</td>
+<td>Data de publicação</td>
+</tr>
+<tr class="odd">
+<td><code>country</code></td>
+<td>Caractere/Fator</td>
+<td><strong>País de origem.</strong> Variável chave para análise geocultural</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tratamento-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="tratamento-dos-dados">Tratamento dos Dados</h3>
+<ol type="1">
+<li><p>Fusão de Conjuntos de Dados: Inicialmente, o dataset principal (all_recipes) foi unido ao dataset auxiliar (cuisines) utilizando-se a variável de chave primária (recipe_id ou equivalente), resultando em um único data frame analítico.</p></li>
+<li><p>Tratamento de Valores Faltantes (NA): Verificou-se a presença de valores NA (Not Available) nas variáveis nutricionais. Foi adotada a estratégia de imputação por mediana para os NAs em variáveis contínuas, como calorias, onde a ausência de informação era considerada Missing At Random (MAR), para maximizar o número de observações úteis. Para a variável country, os NAs foram categorizados como “Não Especificado”.</p></li>
+<li><p>Padronização e Normalização: Variáveis com alta variabilidade, como reproduções, foram consideradas para transformação logarítmica <span class="math inline">\((\log(X+1))\)</span> para aproximar suas distribuições de uma normalidade e mitigar a influência de outliers extremos no ajuste dos modelos de regressão.</p></li>
+<li><p>Codificação de Variáveis Categóricas: A variável country foi convertida para o tipo fator (factor) para uso em modelos estatísticos, sendo implementado o esquema de codificação dummy (variáveis binárias) para as análises de regressão.</p></li>
+</ol>
+</section>
+<section id="técnicas-estatísticas-e-computacionais" class="level3">
+<h3 class="anchored" data-anchor-id="técnicas-estatísticas-e-computacionais">Técnicas Estatísticas e Computacionais</h3>
+<p>Detalhando os métodos utilizados para o processamento, análise e visualização dos dados, podemos começar apontando o fato de que o estudo foi conduzido utilizando a linguagem R e o ecossistema de pacotes tidyverse (incluindo dplyr e ggplot2). As etapas iniciais de preparação de dados incluíram algumas tarefas distintas. Dentre elas pode-se apontar duas direções principais: a de padronização geográfica e a de derivação das variáveis. Ambas serão definidas nos próximos parágrafos. Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (por exemplo, o agrupamento de sub-culinárias regionais dos EUA sob o rótulo “US American”). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro. Em segundo lugar, e menos para a simples categorização de variáveis e observações, foram criadas duas variáveis-chave para medir a complexidade e o esforço. A primeira a Quantidade de Ingredientes (<span class="math inline">\(\hat{I}\)</span>): Calculada pela contagem de vírgulas nos <em>strings</em> da lista de ingredientes, adicionada de um, como <em>proxy</em> da complexidade. A segunda, o Tempo Total de Preparo (<span class="math inline">\(\hat{T}\)</span>): Variável <code>total_time</code> convertida para formato numérico (minutos), representando o esforço temporal.</p>
+</section>
+<section id="métodos-estatísticos-e-modelagem" class="level3">
+<h3 class="anchored" data-anchor-id="métodos-estatísticos-e-modelagem">Métodos Estatísticos e Modelagem</h3>
+<p>Olhando para as anáises estatísticas, elas se concentraram em quatro vertentes principais. A primeira é dedicada à estatística descritiva e ao ranqueamento de observações. Foram reaizados cálculo de média de avaliação (<span class="math inline">\(\bar{R}_{g}\)</span>), desvio padrão (<span class="math inline">\(s_R\)</span>) e contagem de receitas (<span class="math inline">\(N\)</span>) por país/região. Após isto, foi aplicado um filtro mínimo de <span class="math inline">\(N \geq 10\)</span> receitas para garantir a estabilidade das médias de avaliação. A segunda vertente diz respeito à análise das quantidades de ingredientes e dos tempos de preparo, foi empregada a análise de correlação, utilizando o Coeficiente de Correlação de Pearson (<span class="math inline">\(r\)</span>) para quantificar a relação linear entre as variáveis de complexidade/esforço e a qualidade percebida (média de avaliação). Além delas, a análise bivariada foi empregada para demonstrar a relação entre Popularidade e Qualidade. Um Gráfico de Bolhas foi escolhido para visualizar simultaneamente a média de avaliações por receita (Popularidade), a média de nota (Qualidade) e o número de receitas (Tamanho da Bolha) por culinária. Por fim, foi examinada a série temporal do Total de Avaliações no Ano de Publicação para rastrear a evolução da popularidade das culinárias ranqueadas ao longo do período de dados.</p>
+</section>
+<section id="visualização-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="visualização-dos-dados">Visualização dos Dados</h3>
+<p>A visualização de dados é parte central para a interpretação dos resultados, sendo o pacote <em>ggplot2</em> utilizado para a criação de todos os gráficos estatísticos, como o ranking de culinárias, os gráficos de dispersão e o Gráfico de Bolhas. Os pacotes <em>gridExtra</em> e <em>grid</em> foram cruciais para a renderização e o arranjo das tabelas comparativas e seus títulos (<em>tableGrob</em>, <em>grid.arrange</em>, <em>textGrob</em>), garantindo a apresentação organizada dos sumários de dados.</p>
+</section>
+</section>
+<section id="sec-03" class="level2">
+<h2 class="anchored" data-anchor-id="sec-03">Resultados e discussão</h2>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<p>Os resultados atingidos em cada parte do trabalho vão em diferentes direções. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta <span class="math inline">\(\bar{R}_{g}\)</span>) frequentemente exibiam um baixo desvio padrão (<span class="math inline">\(s_R\)</span>), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limpeza e organização dos dados</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cuisines_limpo <span class="ot">&lt;-</span> cuisines <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_padrao =</span> <span class="fu">case_when</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Padroniza "Jewish"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Jewish"</span>) <span class="sc">~</span> <span class="st">"Israeli/Jewish"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Padroniza culinárias regionais dos EUA</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Cajun and Creole"</span>, <span class="st">"Southern Recipes"</span>, <span class="st">"Tex-Mex"</span>, <span class="st">"Southwestern Recipes"</span>, <span class="st">"Amish and Mennonite"</span>, <span class="st">"Soul Food"</span>) <span class="sc">~</span> <span class="st">"US American"</span>, </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Mantém o nome do país para todos os outros</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> country </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibe a contagem das categorias padronizadas (opcional)</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cuisines_limpo<span class="sc">$</span>country_padrao)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                 Argentinian Australian and New Zealander 
+                          30                           65 
+                    Austrian                  Bangladeshi 
+                          22                           12 
+                     Belgian                    Brazilian 
+                           6                           67 
+                    Canadian                      Chilean 
+                          67                           22 
+                     Chinese                    Colombian 
+                          65                           11 
+                       Cuban                       Danish 
+                          65                           33 
+                       Dutch                     Filipino 
+                          22                           66 
+                     Finnish                       French 
+                          18                           65 
+                      German                        Greek 
+                          62                           62 
+                      Indian                   Indonesian 
+                          65                           24 
+                     Israeli               Israeli/Jewish 
+                          23                           61 
+                     Italian                     Jamaican 
+                          64                           43 
+                    Japanese                       Korean 
+                          63                           56 
+                    Lebanese                    Malaysian 
+                          51                           24 
+                   Norwegian                    Pakistani 
+                          26                           25 
+                     Persian                     Peruvian 
+                          45                           38 
+                      Polish                   Portuguese 
+                          61                           53 
+                Puerto Rican                      Russian 
+                          60                           65 
+                Scandinavian                South African 
+                          38                           19 
+                     Spanish                      Swedish 
+                          61                           31 
+                       Swiss                         Thai 
+                          10                           62 
+                     Turkish                  US American 
+                          36                          292 
+                  Vietnamese 
+                          62 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>analise_por_pais <span class="ot">&lt;-</span> cuisines_limpo <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Remove linhas onde a avaliação é NA</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(avg_rating)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_padrao) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">contagem_receitas =</span> <span class="fu">n</span>(),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_rating =</span> <span class="fu">mean</span>(avg_rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">desvio_padrao_rating =</span> <span class="fu">sd</span>(avg_rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_porcoes =</span> <span class="fu">mean</span>(servings, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filtra países com poucas receitas</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(contagem_receitas <span class="sc">&gt;=</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media_rating))</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibe o resultado da análise</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(analise_por_pais)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 42 × 5
+   country_padrao contagem_receitas media_rating desvio_padrao_rating
+   &lt;chr&gt;                      &lt;int&gt;        &lt;dbl&gt;                &lt;dbl&gt;
+ 1 French                        62         4.69                0.238
+ 2 Greek                         57         4.68                0.221
+ 3 Italian                       57         4.65                0.373
+ 4 Puerto Rican                  59         4.61                0.458
+ 5 Korean                        55         4.60                0.294
+ 6 Persian                       38         4.60                0.384
+ 7 Israeli/Jewish                60         4.59                0.266
+ 8 Chinese                       64         4.58                0.272
+ 9 Russian                       65         4.57                0.270
+10 US American                  282         4.55                0.354
+# ℹ 32 more rows
+# ℹ 1 more variable: media_porcoes &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>analise_por_continente <span class="ot">&lt;-</span> analise_por_pais <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">continente =</span> <span class="fu">case_when</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># === ASIA ===</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      country_padrao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Japanese"</span>, <span class="st">"Indian"</span>, <span class="st">"Chinese"</span>, <span class="st">"Thai"</span>, <span class="st">"Filipino"</span>, <span class="st">"Vietnamese"</span>, <span class="st">"Korean"</span>, <span class="st">"Indonesian"</span>, <span class="st">"Turkish"</span>, <span class="st">"Malaysian"</span>, <span class="st">"Pakistani"</span>, <span class="st">"Iranian"</span>, <span class="st">"Israeli/Jewish"</span>, <span class="st">"Lebanese"</span>, <span class="st">"Syrian"</span>, <span class="st">"Yemeni"</span>, <span class="st">"Emirati"</span>, <span class="st">"Kuwaiti"</span>, <span class="st">"Omani"</span>, <span class="st">"Qatari"</span>, <span class="st">"Saudi Arabian"</span>, <span class="st">"Middle Eastern"</span>, <span class="st">"Persian"</span>, <span class="st">"Turkish"</span>, <span class="st">"Israeli"</span>, <span class="st">"Bangladeshi"</span>) <span class="sc">~</span> <span class="st">"Ásia"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># === EUROPA ===</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>      country_padrao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"British"</span>, <span class="st">"French"</span>, <span class="st">"German"</span>, <span class="st">"Irish"</span>, <span class="st">"Italian"</span>, <span class="st">"Spanish"</span>, <span class="st">"Scandinavian Region"</span>, <span class="st">"Greek"</span>, <span class="st">"Swiss"</span>, <span class="st">"Dutch"</span>, <span class="st">"Austrian"</span>, <span class="st">"Portuguese"</span>, <span class="st">"Russian"</span>, <span class="st">"Belgian"</span>, <span class="st">"Hungarian"</span>, <span class="st">"Polish"</span>, <span class="st">"Czech"</span>, <span class="st">"Slovakian"</span>, <span class="st">"Romanian"</span>, <span class="st">"Ukrainian"</span>, <span class="st">"Scandinavian"</span>, <span class="st">"Finnish"</span>, <span class="st">"Swedish"</span>, <span class="st">"Norwegian"</span>, <span class="st">"Danish"</span>) <span class="sc">~</span> <span class="st">"Europa"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># === AMÉRICA DO NORTE e CARIBE ===</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>      country_padrao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"US American"</span>, <span class="st">"Canadian"</span>, <span class="st">"Mexican"</span>, <span class="st">"Caribbean Region"</span>, <span class="st">"Puerto Rican"</span>, <span class="st">"Cuban"</span>, <span class="st">"Jamaican"</span>, <span class="st">"Dominican"</span>, <span class="st">"Haitian"</span>, <span class="st">"Costa Rican"</span>, <span class="st">"Panamanian"</span>, <span class="st">"Honduran"</span>, <span class="st">"Guatemalan"</span>, <span class="st">"Salvadoran"</span>) <span class="sc">~</span> <span class="st">"América do Norte"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># === AMÉRICA DO SUL ===</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>      country_padrao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chilean"</span>, <span class="st">"Brazilian"</span>, <span class="st">"Peruvian"</span>, <span class="st">"Argentinian"</span>, <span class="st">"Venezuelan"</span>, <span class="st">"Colombian"</span>, <span class="st">"Ecuadorian"</span>, <span class="st">"Bolivian"</span>, <span class="st">"Paraguayan"</span>, <span class="st">"Uruguayan"</span>) <span class="sc">~</span> <span class="st">"América do Sul"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># === ÁFRICA ===</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>      country_padrao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Moroccan"</span>, <span class="st">"Egyptian"</span>, <span class="st">"South African"</span>, <span class="st">"Ethiopian"</span>, <span class="st">"Kenyan"</span>, <span class="st">"Nigerian"</span>, <span class="st">"Algerian"</span>, <span class="st">"Tunisian"</span>, <span class="st">"Somali"</span>, <span class="st">"African"</span>) <span class="sc">~</span> <span class="st">"África"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>      <span class="co"># === OCEANIA ===</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>      country_padrao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Australian and New Zealander"</span>, <span class="st">"Fijian"</span>, <span class="st">"Samoan"</span>) <span class="sc">~</span> <span class="st">"Oceania"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> <span class="st">"Outros"</span> </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Agrupamento FINAL</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>analise_por_continente_agregado <span class="ot">&lt;-</span> analise_por_continente <span class="sc">%&gt;%</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continente) <span class="sc">%&gt;%</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">contagem_total =</span> <span class="fu">sum</span>(contagem_receitas),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_rating_continente =</span> <span class="fu">mean</span>(media_rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">desvio_padrao_continente =</span> <span class="fu">mean</span>(desvio_padrao_rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media_rating_continente))</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizando a Tabela Agregada</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(analise_por_continente_agregado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  continente       contagem_total media_rating_continente desvio_padrao_contin…¹
+  &lt;chr&gt;                     &lt;int&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;
+1 América do Norte            515                    4.54                  0.362
+2 Europa                      658                    4.52                  0.356
+3 África                       19                    4.49                  0.371
+4 Ásia                        697                    4.49                  0.383
+5 Oceania                      62                    4.36                  0.478
+6 América do Sul              146                    4.34                  0.515
+# ℹ abbreviated name: ¹​desvio_padrao_continente</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grafico_colorido <span class="ot">&lt;-</span> analise_por_continente <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Limita aos Top 15 países/regiões para visualização</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(media_rating, <span class="at">n =</span> <span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Estética principal, usando 'fill' para o continente</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country_padrao, media_rating), </span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> media_rating, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> continente)) <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adiciona as barras coloridas</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adiciona as Barras de Erro (Desvio Padrão)</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> media_rating <span class="sc">-</span> desvio_padrao_rating, </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> media_rating <span class="sc">+</span> desvio_padrao_rating),</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="co"># Cor das barras de erro</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Escala de cores (Set2 é uma paleta amigável)</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set2"</span>) <span class="sc">+</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inverte os eixos para facilitar a leitura</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Títulos e Rótulos</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Top 15 Culinárias por Média de Avaliação (Coloridas por Continente)"</span>,</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Barras de erro representam o Desvio Padrão do Rating."</span>,</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"País/Região"</span>,</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Média de Avaliação (1 a 5)"</span>,</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Continente"</span> <span class="co"># Legenda da cor</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Tema</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_colorido)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="relação-entre-ingredientes-e-avaliações" class="level3">
+<h3 class="anchored" data-anchor-id="relação-entre-ingredientes-e-avaliações">Relação entre Ingredientes e Avaliações</h3>
+<p>A análise dos dados revela uma correlação positiva, porém extremamente fraca, entre a quantidade de ingredientes e a avaliação final das receitas em ambos os bancos de dados. A Figura 2 confirma que, com coeficientes de 0,1 para “cuisines” e 0,08 para “all_recipes”, conclui-se que a complexidade do prato (medida pelo número de itens) praticamente não influencia a nota atribuída pelos usuários; ou seja, embora exista uma tendência matemática muito sutil de aumento na avaliação conforme o número de ingredientes cresce, na prática essa relação é desprezível, indicando que receitas simples têm tanta chance de serem bem avaliadas quanto as mais complexas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ingredientes x nota</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ingredientes_nota <span class="ot">=</span> <span class="cf">function</span>(dados, nome_do_banco) {</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#coluna de quantidade de ingredientes</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  dados_processados <span class="ot">=</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(avg_rating), <span class="sc">!</span><span class="fu">is.na</span>(ingredients)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">qtd_ingredientes =</span> <span class="fu">str_count</span>(ingredients, <span class="st">","</span>) <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">avg_rating =</span> <span class="fu">as.numeric</span>(avg_rating)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Correlação</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  correlacao <span class="ot">=</span> <span class="fu">cor</span>(dados_processados<span class="sc">$</span>qtd_ingredientes, </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                   dados_processados<span class="sc">$</span>avg_rating, </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Análise para: "</span>, nome_do_banco, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste</span>(<span class="st">"Correlação:"</span>, <span class="fu">round</span>(correlacao, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gráfico</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  grafico <span class="ot">=</span> <span class="fu">ggplot</span>(dados_processados, <span class="fu">aes</span>(<span class="at">x =</span> qtd_ingredientes, <span class="at">y =</span> avg_rating)) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span> </span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">+</span> </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Ingredientes vs Nota:"</span>, nome_do_banco),</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Correlação de Pearson:"</span>, <span class="fu">round</span>(correlacao, <span class="dv">3</span>)),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Quantidade de Ingredientes"</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Nota Média"</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(grafico)</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ingredientes_nota</span>(cuisines, <span class="st">"Banco Cuisines"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Análise para: Banco Cuisines
+Correlação: 0.1 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ingredientes_nota</span>(all_recipes, <span class="st">"Banco All Recipes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Análise para: Banco All Recipes
+Correlação: 0.08 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="relação-entre-tempo-de-preparo-e-avaliações" class="level3">
+<h3 class="anchored" data-anchor-id="relação-entre-tempo-de-preparo-e-avaliações">Relação entre Tempo de Preparo e Avaliações</h3>
+<p>Ao analisar a influência do tempo total de preparo (total_time) sobre a avaliação das receitas (avg_rating), com uma visualização (Figura 3) abrangendo até 480 minutos (8 horas), observou-se uma ausência de correlação significativa em ambos os bancos de dados. Com coeficientes irrelevantes de 0,047 para o banco ‘cuisines’ e 0,008 para ‘all_recipes’, os dados demonstram estatisticamente que a duração da receita não é um fator determinante para a sua nota final. Isso sugere que a satisfação dos usuários independe do tempo investido na cozinha, com pratos rápidos recebendo avaliações tão altas quanto preparos de longa duração.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tempo_nota <span class="ot">&lt;-</span> <span class="cf">function</span>(dados, nome_do_banco) {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Limpeza e Tratamento</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  dados_processados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">avg_rating =</span> <span class="fu">as.numeric</span>(avg_rating),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">total_time =</span> <span class="fu">as.numeric</span>(total_time)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Removemos linhas vazias ou com tempo zerado/negativo</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(avg_rating), <span class="sc">!</span><span class="fu">is.na</span>(total_time), total_time <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2. Cálculo da Correlação (considerando todos os dados)</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  correlacao <span class="ot">&lt;-</span> <span class="fu">cor</span>(dados_processados<span class="sc">$</span>total_time, </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>                    dados_processados<span class="sc">$</span>avg_rating, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">--- Análise: "</span>, nome_do_banco, <span class="st">" ---</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste</span>(<span class="st">"Correlação geral:"</span>, <span class="fu">round</span>(correlacao, <span class="dv">3</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>))</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 3. Gráfico de Dispersão</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># OBS: Fiz um filtro NO GRÁFICO para mostrar apenas receitas até 480 min (8h)</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Se não fizer isso, uma única receita de 24h esmaga o gráfico todo.</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  grafico <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados_processados <span class="sc">%&gt;%</span> <span class="fu">filter</span>(total_time <span class="sc">&lt;=</span> <span class="dv">480</span>), </span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">aes</span>(<span class="at">x =</span> total_time, <span class="at">y =</span> avg_rating)) <span class="sc">+</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"forestgreen"</span>) <span class="sc">+</span> <span class="co"># Pontos verdes</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>    <span class="co"># Linha de tendência preta</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Tempo de Preparo vs Nota:"</span>, nome_do_banco),</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="fu">paste</span>(<span class="st">"Correlação de Pearson:"</span>, <span class="fu">round</span>(correlacao, <span class="dv">3</span>)),</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Tempo de Preparo (minutos)"</span>,</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Nota (0-5)"</span></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(grafico)</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Executando para os dois bancos</span></span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="fu">tempo_nota</span>(cuisines, <span class="st">"Banco Cuisines"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Análise: Banco Cuisines ---
+Correlação geral: 0.047 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tempo_nota</span>(all_recipes, <span class="st">"Banco All Recipes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Análise: Banco All Recipes ---
+Correlação geral: 0.008 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="relação-entre-culinárias-e-qualidade-de-acordo-com-uma-análise-bivarida" class="level3">
+<h3 class="anchored" data-anchor-id="relação-entre-culinárias-e-qualidade-de-acordo-com-uma-análise-bivarida">Relação entre Culinárias e Qualidade de acordo com uma análise bivarida</h3>
+<p>Ao olharmos para a análise bivariada, por fim, estabeleceu-se uma clara diferenciação entre as culinárias mais populares e as de maior qualidade. O Gráfico de Bolhas (Figura 4) ilustra que a alta Popularidade, medida pela média de avaliações por receita, nem sempre se traduz em alta Qualidade, medida pela média de nota. Esta divergência indica que a popularidade pode ser impulsionada por fatores de acessibilidade ou tendência, desvinculando-se da excelência na avaliação. A análise de tendência temporal complementou este achado ao mostrar que o Total de Avaliações no Ano é dinâmico, refletindo o ciclo de vida e a ascensão do interesse em certas culinárias ao longo do tempo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Instalar e carregar pacotes</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"readr"</span>, <span class="st">"DT"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verifica e instala pacotes faltantes (opcional em R Markdown)</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>installed <span class="ot">&lt;-</span> packages <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">any</span>(<span class="sc">!</span>installed)) {</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(packages[<span class="sc">!</span>installed])</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os pacotes</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: pacote 'DT' foi compilado no R versão 4.5.2</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+ [1] "tidytuesdayR" "lubridate"    "forcats"      "stringr"      "dplyr"       
+ [6] "purrr"        "readr"        "tidyr"        "tibble"       "ggplot2"     
+[11] "tidyverse"    "stats"        "graphics"     "grDevices"    "utils"       
+[16] "datasets"     "methods"      "base"        
+
+[[2]]
+ [1] "tidytuesdayR" "lubridate"    "forcats"      "stringr"      "dplyr"       
+ [6] "purrr"        "readr"        "tidyr"        "tibble"       "ggplot2"     
+[11] "tidyverse"    "stats"        "graphics"     "grDevices"    "utils"       
+[16] "datasets"     "methods"      "base"        
+
+[[3]]
+ [1] "tidytuesdayR" "lubridate"    "forcats"      "stringr"      "dplyr"       
+ [6] "purrr"        "readr"        "tidyr"        "tibble"       "ggplot2"     
+[11] "tidyverse"    "stats"        "graphics"     "grDevices"    "utils"       
+[16] "datasets"     "methods"      "base"        
+
+[[4]]
+ [1] "DT"           "tidytuesdayR" "lubridate"    "forcats"      "stringr"     
+ [6] "dplyr"        "purrr"        "readr"        "tidyr"        "tibble"      
+[11] "ggplot2"      "tidyverse"    "stats"        "graphics"     "grDevices"   
+[16] "utils"        "datasets"     "methods"      "base"        </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Carregar e preparar os dados</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>cuisines <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv"</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2218 Columns: 17
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr   (5): name, country, url, author, ingredients
+dbl  (11): calories, fat, carbs, protein, avg_rating, total_ratings, reviews...
+date  (1): date_published
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar data e extrair ano</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>cuisines <span class="ot">&lt;-</span> cuisines <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">date_published =</span> <span class="fu">as.Date</span>(date_published),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">as.integer</span>(<span class="fu">format</span>(date_published, <span class="st">"%Y"</span>))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>year_min <span class="ot">&lt;-</span> <span class="fu">min</span>(cuisines<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>year_max <span class="ot">&lt;-</span> <span class="fu">max</span>(cuisines<span class="sc">$</span>year, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumo por país/cozinha (usado para ranking e popularidade x qualidade)</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>cuisine_country_summary <span class="ot">&lt;-</span> cuisines <span class="sc">|&gt;</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_receitas      =</span> <span class="fu">n</span>(),</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_rating    =</span> <span class="fu">mean</span>(avg_rating, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_avaliacoes =</span> <span class="fu">sum</span>(total_ratings, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_avaliacoes =</span> <span class="fu">mean</span>(total_ratings, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_reviews   =</span> <span class="fu">sum</span>(reviews, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_reviews   =</span> <span class="fu">mean</span>(reviews, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Dados por país e ano (para tendência)</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>cuisine_year <span class="ot">&lt;-</span> cuisines <span class="sc">|&gt;</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(year)) <span class="sc">|&gt;</span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country, year) <span class="sc">|&gt;</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_receitas       =</span> <span class="fu">n</span>(),</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_avaliacoes =</span> <span class="fu">sum</span>(total_ratings, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Definições para o R Markdown (Valores de Filtro Fixo) ---</span></span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Como não temos os inputs do Shiny, definimos valores fixos para simular os filtros:</span></span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>MIN_RECEITAS_FIXO <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># Simula input$min_receitas</span></span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>METRICA_RANK_FIXO <span class="ot">&lt;-</span> <span class="st">"total_avaliacoes"</span> <span class="co"># Simula input$metrica_rank</span></span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>TOP_N_FIXO        <span class="ot">&lt;-</span> <span class="dv">10</span>   <span class="co"># Simula input$top_n</span></span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a>ANO_MIN_FIXO      <span class="ot">&lt;-</span> year_min <span class="co"># Simula input$ano_range[1]</span></span>
+<span id="cb33-40"><a href="#cb33-40" aria-hidden="true" tabindex="-1"></a>ANO_MAX_FIXO      <span class="ot">&lt;-</span> year_max <span class="co"># Simula input$ano_range[2]</span></span>
+<span id="cb33-41"><a href="#cb33-41" aria-hidden="true" tabindex="-1"></a>PAIS_TENDENCIA_FIXO <span class="ot">&lt;-</span> <span class="st">"top"</span> <span class="co"># Simula input$pais_tendencia</span></span>
+<span id="cb33-42"><a href="#cb33-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-43"><a href="#cb33-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplica filtro fixo de mínimo de receitas</span></span>
+<span id="cb33-44"><a href="#cb33-44" aria-hidden="true" tabindex="-1"></a>resumo_filtrado <span class="ot">&lt;-</span> cuisine_country_summary <span class="sc">|&gt;</span></span>
+<span id="cb33-45"><a href="#cb33-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_receitas <span class="sc">&gt;=</span> MIN_RECEITAS_FIXO)</span>
+<span id="cb33-46"><a href="#cb33-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-47"><a href="#cb33-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria o ranking fixo</span></span>
+<span id="cb33-48"><a href="#cb33-48" aria-hidden="true" tabindex="-1"></a>col_ord <span class="ot">&lt;-</span> <span class="cf">switch</span>(</span>
+<span id="cb33-49"><a href="#cb33-49" aria-hidden="true" tabindex="-1"></a>  METRICA_RANK_FIXO,</span>
+<span id="cb33-50"><a href="#cb33-50" aria-hidden="true" tabindex="-1"></a>  <span class="st">"total_avaliacoes"</span> <span class="ot">=</span> resumo_filtrado<span class="sc">$</span>total_avaliacoes,</span>
+<span id="cb33-51"><a href="#cb33-51" aria-hidden="true" tabindex="-1"></a>  <span class="st">"n_receitas"</span>       <span class="ot">=</span> resumo_filtrado<span class="sc">$</span>n_receitas,</span>
+<span id="cb33-52"><a href="#cb33-52" aria-hidden="true" tabindex="-1"></a>  <span class="st">"media_rating"</span>     <span class="ot">=</span> resumo_filtrado<span class="sc">$</span>media_rating</span>
+<span id="cb33-53"><a href="#cb33-53" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-54"><a href="#cb33-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-55"><a href="#cb33-55" aria-hidden="true" tabindex="-1"></a>ranking_paises <span class="ot">&lt;-</span> resumo_filtrado <span class="sc">|&gt;</span></span>
+<span id="cb33-56"><a href="#cb33-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(col_ord)) <span class="sc">|&gt;</span></span>
+<span id="cb33-57"><a href="#cb33-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> TOP_N_FIXO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de ranking por país</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df_ranking <span class="ot">&lt;-</span> ranking_paises</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="cf">switch</span>(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  METRICA_RANK_FIXO,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"total_avaliacoes"</span> <span class="ot">=</span> <span class="st">"Total de avaliações"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"n_receitas"</span>       <span class="ot">=</span> <span class="st">"Número de receitas"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"media_rating"</span>     <span class="ot">=</span> <span class="st">"Média de nota"</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_ranking, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(country, </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="cf">if</span> (METRICA_RANK_FIXO <span class="sc">==</span> <span class="st">"media_rating"</span>) media_rating <span class="cf">else</span> <span class="fu">get</span>(METRICA_RANK_FIXO)),</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>                       <span class="at">y =</span> <span class="cf">if</span> (METRICA_RANK_FIXO <span class="sc">==</span> <span class="st">"media_rating"</span>) media_rating <span class="cf">else</span> <span class="fu">get</span>(METRICA_RANK_FIXO))) <span class="sc">+</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"#56B4E9"</span>) <span class="sc">+</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Top"</span>, TOP_N_FIXO, <span class="st">"países / cozinhas por"</span>, y_lab),</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"País / cozinha"</span>,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> y_lab</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico: popularidade x qualidade por culinária</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>df_pop_rating <span class="ot">&lt;-</span> resumo_filtrado</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_pop_rating, <span class="fu">aes</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> media_avaliacoes,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> media_rating,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> n_receitas,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> country</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#CC79A7"</span>) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">check_overlap =</span> <span class="cn">TRUE</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">10</span>)) <span class="sc">+</span> <span class="co"># Ajusta o tamanho das bolhas</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Popularidade x qualidade por país / cozinha"</span>,</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Média de avaliações por receita (Popularidade)"</span>,</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Média de nota (Qualidade - avg_rating)"</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="st">"Número de receitas"</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico: tendência por ano</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>df_year <span class="ot">&lt;-</span> cuisine_year <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&gt;=</span> ANO_MIN_FIXO,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&lt;=</span> ANO_MAX_FIXO</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleciona os países para a tendência</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (PAIS_TENDENCIA_FIXO <span class="sc">==</span> <span class="st">"top"</span>) {</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  paises_sel <span class="ot">&lt;-</span> ranking_paises<span class="sc">$</span>country <span class="co"># Usa o ranking fixo</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  df_tendencia <span class="ot">&lt;-</span> df_year <span class="sc">|&gt;</span></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">%in%</span> paises_sel)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  df_tendencia <span class="ot">&lt;-</span> df_year <span class="sc">|&gt;</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(country <span class="sc">==</span> PAIS_TENDENCIA_FIXO)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_tendencia, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> total_avaliacoes, <span class="at">color =</span> country, <span class="at">group =</span> country)) <span class="sc">+</span></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Tendência de popularidade (Total de avaliações)"</span>, </span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">ifelse</span>(PAIS_TENDENCIA_FIXO <span class="sc">==</span> <span class="st">"top"</span>, <span class="st">"para os Top países"</span>, <span class="fu">paste</span>(<span class="st">"para"</span>, PAIS_TENDENCIA_FIXO))),</span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Ano de publicação"</span>,</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total de avaliações no ano"</span>,</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"País / cozinha"</span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="análises-e-interpretações" class="level3">
+<h3 class="anchored" data-anchor-id="análises-e-interpretações">Análises e Interpretações</h3>
+<p>As interpretações centrais do estudo convergem na primazia da qualidade intrínseca sobre o esforço extrínseco. A correlação nula entre o tempo e os ingredientes versus a nota média implica que os usuários valorizam o resultado final da receita sobre o custo de preparo, sugerindo que o foco na otimização do sabor e na clareza da instrução é mais determinante do que a complexidade.</p>
+<p>Em contraste, a diferença significativa nas médias de avaliação entre culinárias continentais sugere que as tradições gastronômicas consolidadas (origem) são um forte preditor da qualidade percebida.</p>
+<p>A distinção entre popularidade e qualidade, por sua vez, reforça a necessidade de se utilizar métricas ponderadas ao ranquear culinárias. Um alto volume de interesse (popularidade) pode não ser um substituto direto para a excelência percebida (alta média de nota), e a dinâmica temporal do conteúdo é um fator chave para o engajamento na plataforma.</p>
+</section>
+</section>
+<section id="sec-04" class="level2">
+<h2 class="anchored" data-anchor-id="sec-04">Conclusão</h2>
+<p>O presente estudo demonstrou, através de análises estatísticas rigorosas, que o esforço e a complexidade de uma receita não são fatores determinantes para a sua avaliação final pelos usuários, com o coeficiente de Pearson próximo de zero estabelecendo a independência entre estas variáveis e a satisfação. Em contrapartida, a origem geográfica da culinária influencia a avaliação média, sugerindo a alta relevância da tradição. O estudo também enfatizou a distinção analítica entre popularidade e qualidade, alertando contra a utilização de métricas de volume como substitutas para a percepção de excelência. Em síntese, a satisfação do usuário é primariamente guiada por fatores intrínsecos de sabor e qualidade de execução, e não por custos de tempo ou esforço.</p>
+</section>
+<section id="sec-05" class="level2 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências Bibliográficas</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
+<div id="ref-noauthor_allrecipes_nodate" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><strong>Allrecipes <span></span> <span>Recipes</span>, <span>How</span>-<span>Tos</span>, <span>Videos</span> and <span>More</span></strong>. <strong>Allrecipes</strong>, [s.d.]. Disponível em: &lt;<a href="https://www.allrecipes.com/">https://www.allrecipes.com/</a>&gt;. Acesso em: 13 nov. 2025</div>
+</div>
+<div id="ref-wickham_r_2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">WICKHAM, H.; GROLEMUND, G. <strong>R for data science: Import, tidy, transform, visualize, and model data</strong>. Sebastopol, CA: O’Reilly Media, Inc, 2017. </div>
+</div>
+<div id="ref-agresti_introduction_2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">AGRESTI, A. <strong>An introduction to categorical data analysis</strong>. Third edition ed. Hoboken, NJ: Wiley, 2019. </div>
+</div>
+<div id="ref-trattner_estimating_2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">TRATTNER, C.; ELSWEILER, D.; HOWARD, S. <a href="https://doi.org/10.3389/fpubh.2017.00016">Estimating the <span>Healthiness</span> of <span>Internet</span> <span>Recipes</span>: <span>A</span> <span>Cross</span>-sectional <span>Study</span></a>. <strong>Frontiers in Public Health</strong>, v. 5, Feb. 2017. </div>
+</div>
+<div id="ref-hussain_innovative_2025" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">HUSSAIN, Z. et al. (EDS.). <strong><a href="https://doi.org/10.4018/979-8-3693-8542-5">Innovative <span>Trends</span> <span>Shaping</span> <span>Food</span> <span>Marketing</span> and <span>Consumption</span>:</a></strong> [s.l.] IGI Global, 2025. </div>
+</div>
+<div id="ref-silva_da_costa_percepcao_2021" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">SILVA DA COSTA, A. C.; AMORIM, M. M. A. <a href="https://doi.org/10.33448/rsd-v10i12.20461">A percepção de internautas sobre as receitas mais acessadas em mídia digital</a>. <strong>Research, Society and Development</strong>, v. 10, n. 12, p. e455101220461, Sep. 2021. </div>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
