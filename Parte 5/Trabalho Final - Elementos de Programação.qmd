@@ -8,7 +8,7 @@ author:
   - "Pedro Henrique D’Andrea"
 output: html_document
 bibliography: citations.bib 
-csl: abnt-associacao-brasileira-de-normas-tecnicas.csl
+csl: abnt-2024-numerico.csl
 ---
 
 ## Introdução {#sec-01}
