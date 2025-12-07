@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.33">
@@ -10,9 +10,8 @@
 <meta name="author" content="Ingrid Giacomeli">
 <meta name="author" content="Jhullya da Rosa Shalders">
 <meta name="author" content="Pedro Henrique D’Andrea">
-<meta name="dcterms.date" content="2025-07-12">
 
-<title>Trabalho Final - Elementos de Prog</title>
+<title>Trabalho Final - Elementos de Programação para Estatística</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,7 +134,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Trabalho Final - Elementos de Prog</h1>
+<h1 class="title">Trabalho Final - Elementos de Programação para Estatística</h1>
+<p class="subtitle lead">Prova 5</p>
 </div>
 
 
@@ -143,7 +143,7 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Autores</div>
     <div class="quarto-title-meta-contents">
              <p>Antonio Paulo Steffen Neto </p>
              <p>Ingrid Giacomeli </p>
@@ -153,9 +153,9 @@ window.Quarto = {
   </div>
     
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 12, 2025</p>
+      <p class="date">12 de julho de 2025</p>
     </div>
   </div>
   
@@ -167,16 +167,28 @@ window.Quarto = {
 </header>
 
 
+<div class="cell">
+<style type="text/css">
+.justify {
+  text-align: justify !important
+}
+</style>
+</div>
 <section id="sec-01" class="level2">
 <h2 class="anchored" data-anchor-id="sec-01">Introdução</h2>
-<p>Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. Assim, este trabalho apresenta a parte técnica e teórica do que foi realizado pelo grupo. A parte da apresentação em um aplicativo em Shiny, por outro lado, será feita por meio de um vídeo de apresentação. Nesta introdução apresentamos, então, o conjunto de dados escolhido pelo grupo e, também, como a parte escrita do trabalho está estruturada. Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado <em>Allrecipes</em>. Neste constam dados retirados do site <a href="https://www.allrecipes.com">Allrecipes</a> sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte <span class="citation" data-cites="noauthor_allrecipes_nodate">(<a href="#ref-noauthor_allrecipes_nodate" role="doc-biblioref">1</a>)</span>. Como definido pelas instruções dadas pela proposta de trabalho, a formatação deste segue a ordem: Introdução; Materiais e Métodos; Resultados e Discussão; Conclusão e Referências. Muitas das partes integrantes da ordem originalmente indicada, naturalmente, apresentam suas próprias subseções, assim sendo, esta introdução conta com duas subseções: Contextualização e Definição do Problema e Objetivos da Análise. A parte de Materiais e Métodos, por sua vez, tem como sbdivisões: Descrição do Conjunto de Dados, Dicionário de Variáveis, Tratamento de Dados e Técnicas Estatísticas e Computacionais. Na sequência, são apresentados os Resultados e Discussão, divididos de acordo com temas de análise, com suas respectivas análises e interpretações como será, posteriormente, fácil de analisar com o aplicativo Shiny feito em conjunto com esta parte escrita. Por fim, a Conclusão e as Referências Bibliográficas não apresentam quaisquer divisões.</p>
+<p>Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. Assim, este trabalho apresenta a parte técnica e teórica do que foi realizado pelo grupo. A parte da apresentação em um aplicativo em Shiny, por outro lado, será feita por meio de um vídeo de apresentação. Nesta introdução apresentamos, então, o conjunto de dados escolhido pelo grupo e, também, como a parte escrita do trabalho está estruturada.</p>
+<p>Sobre a escolha do conjuntos de dados disponibilizados, o grupo optou pelo conjunto da dados chamado <em>Allrecipes</em>. Neste constam dados retirados do site <a href="https://www.allrecipes.com">Allrecipes</a> sobre receitas, seus países de origem e autores, informações nutricionais, tempo de preparo, avaliações e vezes em que foram reproduzidas. Assim sendo, todas as informações a serem referenciadas no texto têm como fonte a base de dados da própria plataforma <span class="citation" data-cites="noauthor_allrecipes_nodate"><span>«Allrecipes <span></span> <span>Recipes</span>, <span>How</span>-<span>Tos</span>, <span>Videos</span> and <span>More</span>»</span> (<a href="#ref-noauthor_allrecipes_nodate" role="doc-biblioref"><em>[S.d.]</em></a>)</span>.</p>
+<p>Como definido pelas instruções dadas pela proposta de trabalho, a formatação deste segue a ordem: Introdução; Materiais e Métodos; Resultados e Discussão; Conclusão e Referências. Muitas das partes integrantes da ordem originalmente indicada, naturalmente, apresentam suas próprias subseções, assim sendo, esta introdução conta com duas subseções: Contextualização e Definição do Problema e Objetivos da Análise. A parte de Materiais e Métodos, por sua vez, tem como sbdivisões: Descrição do Conjunto de Dados, Dicionário de Variáveis, Tratamento de Dados e Técnicas Estatísticas e Computacionais. Na sequência, são apresentados os Resultados e Discussão, divididos de acordo com temas de análise, com suas respectivas análises e interpretações como será, posteriormente, fácil de analisar com o aplicativo Shiny feito em conjunto com esta parte escrita. Por fim, a Conclusão e as Referências Bibliográficas não apresentam quaisquer divisões.</p>
 <section id="contextualização-e-definição-do-problema" class="level3">
 <h3 class="anchored" data-anchor-id="contextualização-e-definição-do-problema">Contextualização e Definição do Problema</h3>
-<p>A alimentação é a base de toda a cultura humana, o momento de comunhão em diferentes culturas e religiões. Isso estende-se desde o cômodo onde as pessoas se alimentam até a como grandes festividades por todo o globo costumam ter alguma refeição como parte central das celebrações. Mais recentemente, o destaque adquirido por grandes chefes de cosinha e por produtos culturais como reality show e séries sobre culinária são sintomas deste fenômeno. Mais recentemente, contudo, a relação das pessoas com a comida foi muito modificada e tornada mais complexa. Em tempos de internet, fast food e fácil acesso a ingredientes de todo o mundo, sites como o <em>Allrecipes</em> se tornaram um meio impressindível de compartilhamento de hábitos alimentares e, para pesquisadores, uma fonte preciosa de dados para entender como as pessoas se alimentam. Mas sobre o que se trata o site em questão? O <em>Allrecipes</em> consiste em um site de compartilhamento de receitas. Nele, usuários de todo o mundo podem postar suas receitas para que outras pessoas possam prová-las, acompanhar as avaliações dos outros usuários e, também, acessar receitas de outros usuários, igualmente prová-las e avaliá-las. O site <em>Allrecipes</em>, portanto, e já olhando para os dados de interesse na presente análise, nos traz dados a respeito da origem das receitas e por quem foram postadas. Além disso, também inclui as informações acerca de tempos de preparo e, também, de questões nutricionais. A análise de dados não estruturados provenientes da plataforma online <em>Allrecipes</em> insere-se na emergente área dGastronomia Computacional, que tem por objetivo o emprego de técnicas <em>data-driven</em> para o estudo e a análise de comidas. Esse campo busca quantificar e modelar fenômenos culinários e de consumo alimentar. Neste contexto, o volume e a variedade dos dados de receitas (incluindo as avaliações, informações nutricionais e origem geográfica) constituem um conjunto de dados de nicho, que seria ideal para a aplicação de métodos de aprendizado de máquina e modelagem estatística, caso os autores deste trabalho estivessem mais adiante no curso de Estatística.</p>
+<p>A alimentação é a base de toda a cultura humana, o momento de comunhão em diferentes culturas e religiões. Isso estende-se desde o cômodo onde as pessoas se alimentam até a como grandes festividades por todo o globo costumam ter alguma refeição como parte central das celebrações. Mais recentemente, o destaque adquirido por grandes chefes de cosinha e por produtos culturais como reality show e séries sobre culinária são sintomas deste fenômeno.</p>
+<p>Mais recentemente, contudo, a relação das pessoas com a comida foi muito modificada e tornada mais complexa. Em tempos de internet, fast food e fácil acesso a ingredientes de todo o mundo, sites como o <em>Allrecipes</em> se tornaram um meio impressindível de compartilhamento de hábitos alimentares e, para pesquisadores, uma fonte preciosa de dados para entender como as pessoas se alimentam. Mas sobre o que se trata o site em questão? O <em>Allrecipes</em> consiste em um site de compartilhamento de receitas. Nele, usuários de todo o mundo podem postar suas receitas para que outras pessoas possam prová-las, acompanhar as avaliações dos outros usuários e, também, acessar receitas de outros usuários, igualmente prová-las e avaliá-las. O site <em>Allrecipes</em>, portanto, e já olhando para os dados de interesse na presente análise, nos traz dados a respeito da origem das receitas e por quem foram postadas. Além disso, também inclui as informações acerca de tempos de preparo e, também, de questões nutricionais.</p>
+<p>A análise de dados não estruturados provenientes da plataforma online <em>Allrecipes</em> insere-se na emergente área dGastronomia Computacional, que tem por objetivo o emprego de técnicas <em>data-driven</em> para o estudo e a análise de comidas. Esse campo busca quantificar e modelar fenômenos culinários e de consumo alimentar. Neste contexto, o volume e a variedade dos dados de receitas (incluindo as avaliações, informações nutricionais e origem geográfica) constituem um conjunto de dados de nicho, que seria ideal para a aplicação de métodos de aprendizado de máquina e modelagem estatística, caso os autores deste trabalho estivessem mais adiante no curso de Estatística.</p>
 </section>
 <section id="objetivos-da-análise" class="level3">
 <h3 class="anchored" data-anchor-id="objetivos-da-análise">Objetivos da Análise</h3>
-<p>Dado o conjunto de dados escolhido, portanto, é possível fazer uma análise que cubra de maneira completa todas as variáveis a disposição, e, deste modo, explorar e documentar as dinâmicas relacionadas à popularidade de receitas publicadas online. Assim, abrem-se diversas direções de investigação, pois tanto as informações nutricionais quanto as informações acerca dos ingredientes podem ser entrelaçadas e apresentam grande complexidade. Além destas, há as informações acerca dos países de origem das receitas, suas respectivas avaliações e, também tempos de preparo, datas em que foram postadas e quantas vezes foram preparadas. O objetivo principal da análise, portanto, é o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online na plataforma <em>Allrecipes</em>. Assim sendo, a análise é conduzida em partes e em diferentes frentes que englobam os diferentes tipos de variáveis à disposição nos conjuntos de dados disponíveis olhando para questões culturais, nutricionais, temporais e de popularidade das receitas publicadas. As divisões, como foram feitas, se apresentam da seguinte maneira:</p>
+<p>Dado o conjunto de dados escolhido, portanto, é possível fazer uma análise que cubra de maneira completa todas as variáveis a disposição, e, deste modo, explorar e documentar as dinâmicas relacionadas à popularidade de receitas publicadas online. Assim, abrem-se diversas direções de investigação, pois tanto as informações nutricionais quanto as informações acerca dos ingredientes podem ser entrelaçadas e apresentam grande complexidade. Além destas, há as informações acerca dos países de origem das receitas, suas respectivas avaliações e, também tempos de preparo, datas em que foram postadas e quantas vezes foram preparadas.</p>
+<p>O objetivo principal da análise, portanto, é o de entender quais as dinâmicas por trás da popularidade de receitas publicadas online na plataforma <em>Allrecipes</em>. Assim sendo, a análise é conduzida em partes e em diferentes frentes que englobam os diferentes tipos de variáveis à disposição nos conjuntos de dados disponíveis olhando para questões culturais, nutricionais, temporais e de popularidade das receitas publicadas. As divisões, como foram feitas, se apresentam da seguinte maneira:</p>
 <ol type="1">
 <li>Panorama Geral: Caracterizar o perfil nutricional predominante das receitas mais populares. Isto envolverá a limpeza e harmonização das variáveis contínuas (calorias, gordura, proteína, sódio) e o uso de métricas de dispersão para comparar a centralidade desses atributos em relação ao sucesso de reprodução.</li>
 <li>Países e Culinárias: O objetivo é identificar visualmente (via gráficos de dispersão) se existe uma correlação descritiva entre a complexidade do preparo e as avaliações médias.</li>
@@ -189,12 +201,13 @@ window.Quarto = {
 </section>
 <section id="sec-02" class="level2">
 <h2 class="anchored" data-anchor-id="sec-02">Materiais e Métodos</h2>
-<p>Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro <em>R for data science: import, tidy, transform, visualize, and model data</em>, de autoria de <span class="citation" data-cites="wickham_r_2017">(<a href="#ref-wickham_r_2017" role="doc-biblioref">2</a>)</span>. Também serão utilizados para análise de observações o que é desenvolvido por <span class="citation" data-cites="agresti_introduction_2019">(<a href="#ref-agresti_introduction_2019" role="doc-biblioref">3</a>)</span>. Além de ambos, também serão utilizados materiais de <span class="citation" data-cites="trattner_estimating_2017">(<a href="#ref-trattner_estimating_2017" role="doc-biblioref">4</a>)</span> e <span class="citation" data-cites="hussain_innovative_2025">(<a href="#ref-hussain_innovative_2025" role="doc-biblioref">5</a>)</span>, que já desenvolveram análises semelhantes à que este trabalho se propõe. Além disso, também será utilizada <span class="citation" data-cites="silva_da_costa_percepcao_2021">(<a href="#ref-silva_da_costa_percepcao_2021" role="doc-biblioref">6</a>)</span></p>
+<p>Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro <em>R for data science: import, tidy, transform, visualize, and model data</em>, de autoria de <span class="citation" data-cites="wickham_r_2017">Wickham; Grolemund (<a href="#ref-wickham_r_2017" role="doc-biblioref">2017</a>)</span>. Também serão utilizados para análise de observações o que é desenvolvido por <span class="citation" data-cites="agresti_introduction_2019">Agresti (<a href="#ref-agresti_introduction_2019" role="doc-biblioref">2019</a>)</span>.</p>
+<p>Além de ambos, também serão utilizados materiais de <span class="citation" data-cites="trattner_estimating_2017">Trattner; Elsweiler; Howard (<a href="#ref-trattner_estimating_2017" role="doc-biblioref">2017</a>)</span> e <span class="citation" data-cites="hussain_innovative_2025">Hussain et al. (<a href="#ref-hussain_innovative_2025" role="doc-biblioref">2025</a>)</span>, que já desenvolveram análises semelhantes à que este trabalho se propõe. Além disso, também será utilizada <span class="citation" data-cites="silva_da_costa_percepcao_2021">Silva Da Costa; Amorim (<a href="#ref-silva_da_costa_percepcao_2021" role="doc-biblioref">2021</a>)</span></p>
 <section id="descrição-do-conjunto-de-dados" class="level3">
 <h3 class="anchored" data-anchor-id="descrição-do-conjunto-de-dados">Descrição do Conjunto de Dados</h3>
 <p>Para fazer a descrição dos conjuntos de dados fornecidos, começamos carregando os dados e utilizando a função <code>str()</code> para vermos as descrições estruturais de ambos os conjuntos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -207,7 +220,7 @@ window.Quarto = {
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytuesdayR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytuesdayR)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: pacote 'tidytuesdayR' foi compilado no R versão 4.5.2</code></pre>
 </div>
@@ -216,7 +229,7 @@ window.Quarto = {
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cuisines <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(all_recipes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(all_recipes)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [14,426 × 16] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ name          : chr [1:14426] "Chewy Whole Wheat Peanut Butter Brownies" "Pumpkin Pie Eggnog" "Eggs Poached in Tomato Sauce" "Minestrone Casserole" ...
@@ -256,7 +269,7 @@ window.Quarto = {
   .. )
  - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cuisines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cuisines)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [2,218 × 17] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ name          : chr [1:2218] "Saganaki (Flaming Greek Cheese)" "Coney Island Knishes" "Diana's Hawaiian Bread Rolls" "Chilean Pebre" ...
@@ -299,7 +312,8 @@ window.Quarto = {
  - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
 </div>
-<p>Isto feito, podemos dizer que o primeiro conjunto, o maior, chamado <code>all_recipes</code>, é constituído de 14.426 observações e 16 variáveis; o segundo, <code>cuisines</code>, 2.218 e 17 variáveis. O segundo conjunto tem, portanto, uma variável a mais, esta sendo a variável <em>country</em>, uma variável de caracteres que descreve o país de origem da receita. Nas outras variáveis, presentes em ambos os conjuntos de dados, há informações que descrevem as receitas postadas no site, trazendo informações dos autores, url’s das receitas, ingredientes e informações nutricionais, tempos de preparo, cozimento e total, avaliações e vezes reproduzidas. Três das variáveis são do tipo caracteres, um do tipo data, e o restante valores numéricos. As observações vêm em uma ordem padrão de índice (definida pelo fornecedor), mas podem ser facilmente classificadas (reordenadas) de acordo com as variáveis disponíveis, como, por exemplo, ordem crescente ou decrescente de calorias, classificação média, ou tempo de preparo, etc.</p>
+<p>Isto feito, podemos dizer que o primeiro conjunto, o maior, chamado <code>all_recipes</code>, é constituído de 14.426 observações e 16 variáveis; o segundo, <code>cuisines</code>, 2.218 e 17 variáveis. O segundo conjunto tem, portanto, uma variável a mais, esta sendo a variável <em>country</em>, uma variável de caracteres que descreve o país de origem da receita. Nas outras variáveis, presentes em ambos os conjuntos de dados, há informações que descrevem as receitas postadas no site, trazendo informações dos autores, url’s das receitas, ingredientes e informações nutricionais, tempos de preparo, cozimento e total, avaliações e vezes reproduzidas. Três das variáveis são do tipo caracteres, um do tipo data, e o restante valores numéricos.</p>
+<p>As observações vêm em uma ordem padrão de índice (definida pelo fornecedor), mas podem ser facilmente classificadas (reordenadas) de acordo com as variáveis disponíveis, como, por exemplo, ordem crescente ou decrescente de calorias, classificação média, ou tempo de preparo, etc.</p>
 </section>
 <section id="dicionário-de-variáveis" class="level3">
 <h3 class="anchored" data-anchor-id="dicionário-de-variáveis">Dicionário de Variáveis</h3>
@@ -519,11 +533,14 @@ window.Quarto = {
 </section>
 <section id="técnicas-estatísticas-e-computacionais" class="level3">
 <h3 class="anchored" data-anchor-id="técnicas-estatísticas-e-computacionais">Técnicas Estatísticas e Computacionais</h3>
-<p>Detalhando os métodos utilizados para o processamento, análise e visualização dos dados, podemos começar apontando o fato de que o estudo foi conduzido utilizando a linguagem R e o ecossistema de pacotes tidyverse (incluindo dplyr e ggplot2). As etapas iniciais de preparação de dados incluíram algumas tarefas distintas. Dentre elas pode-se apontar duas direções principais: a de padronização geográfica e a de derivação das variáveis. Ambas serão definidas nos próximos parágrafos. Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (por exemplo, o agrupamento de sub-culinárias regionais dos EUA sob o rótulo “US American”). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro. Em segundo lugar, e menos para a simples categorização de variáveis e observações, foram criadas duas variáveis-chave para medir a complexidade e o esforço. A primeira a Quantidade de Ingredientes (<span class="math inline">\(\hat{I}\)</span>): Calculada pela contagem de vírgulas nos <em>strings</em> da lista de ingredientes, adicionada de um, como <em>proxy</em> da complexidade. A segunda, o Tempo Total de Preparo (<span class="math inline">\(\hat{T}\)</span>): Variável <code>total_time</code> convertida para formato numérico (minutos), representando o esforço temporal.</p>
+<p>Detalhando os métodos utilizados para o processamento, análise e visualização dos dados, podemos começar apontando o fato de que o estudo foi conduzido utilizando a linguagem R e o ecossistema de pacotes <code>tidyverse</code> (incluindo <code>dplyr</code> e <code>ggplot2</code>). As etapas iniciais de preparação de dados incluíram algumas tarefas distintas. Dentre elas pode-se apontar duas direções principais: a de padronização geográfica e a de derivação das variáveis. Ambas serão definidas nos próximos parágrafos.</p>
+<p>Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (por exemplo, o agrupamento de sub-culinárias regionais dos EUA sob o rótulo “US American”). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro.</p>
+<p>Em segundo lugar, e menos para a simples categorização de variáveis e observações, foram criadas duas variáveis-chave para medir a complexidade e o esforço. A primeira a Quantidade de Ingredientes (<span class="math inline">\(\hat{I}\)</span>): Calculada pela contagem de vírgulas nos <em>strings</em> da lista de ingredientes, adicionada de um, como <em>proxy</em> da complexidade. A segunda, o Tempo Total de Preparo (<span class="math inline">\(\hat{T}\)</span>): Variável <code>total_time</code> convertida para formato numérico (minutos), representando o esforço temporal.</p>
 </section>
 <section id="métodos-estatísticos-e-modelagem" class="level3">
 <h3 class="anchored" data-anchor-id="métodos-estatísticos-e-modelagem">Métodos Estatísticos e Modelagem</h3>
-<p>Olhando para as anáises estatísticas, elas se concentraram em quatro vertentes principais. A primeira é dedicada à estatística descritiva e ao ranqueamento de observações. Foram reaizados cálculo de média de avaliação (<span class="math inline">\(\bar{R}_{g}\)</span>), desvio padrão (<span class="math inline">\(s_R\)</span>) e contagem de receitas (<span class="math inline">\(N\)</span>) por país/região. Após isto, foi aplicado um filtro mínimo de <span class="math inline">\(N \geq 10\)</span> receitas para garantir a estabilidade das médias de avaliação. A segunda vertente diz respeito à análise das quantidades de ingredientes e dos tempos de preparo, foi empregada a análise de correlação, utilizando o Coeficiente de Correlação de Pearson (<span class="math inline">\(r\)</span>) para quantificar a relação linear entre as variáveis de complexidade/esforço e a qualidade percebida (média de avaliação). Além delas, a análise bivariada foi empregada para demonstrar a relação entre Popularidade e Qualidade. Um Gráfico de Bolhas foi escolhido para visualizar simultaneamente a média de avaliações por receita (Popularidade), a média de nota (Qualidade) e o número de receitas (Tamanho da Bolha) por culinária. Por fim, foi examinada a série temporal do Total de Avaliações no Ano de Publicação para rastrear a evolução da popularidade das culinárias ranqueadas ao longo do período de dados.</p>
+<p>Olhando para as anáises estatísticas, elas se concentraram em quatro vertentes principais. A primeira é dedicada à estatística descritiva e ao ranqueamento de observações. Foram reaizados cálculo de média de avaliação (<span class="math inline">\(\bar{R}_{g}\)</span>), desvio padrão (<span class="math inline">\(s_R\)</span>) e contagem de receitas (<span class="math inline">\(N\)</span>) por país/região. Após isto, foi aplicado um filtro mínimo de <span class="math inline">\(N \geq 10\)</span> receitas para garantir a estabilidade das médias de avaliação. A segunda vertente diz respeito à análise das quantidades de ingredientes e dos tempos de preparo, foi empregada a análise de correlação, utilizando o Coeficiente de Correlação de Pearson (<span class="math inline">\(r\)</span>) para quantificar a relação linear entre as variáveis de complexidade/esforço e a qualidade percebida (média de avaliação).</p>
+<p>Além delas, a análise bivariada foi empregada para demonstrar a relação entre Popularidade e Qualidade. Um Gráfico de Bolhas foi escolhido para visualizar simultaneamente a média de avaliações por receita (Popularidade), a média de nota (Qualidade) e o número de receitas (Tamanho da Bolha) por culinária. Por fim, foi examinada a série temporal do Total de Avaliações no Ano de Publicação para rastrear a evolução da popularidade das culinárias ranqueadas ao longo do período de dados.</p>
 </section>
 <section id="visualização-dos-dados" class="level3">
 <h3 class="anchored" data-anchor-id="visualização-dos-dados">Visualização dos Dados</h3>
@@ -534,7 +551,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="sec-03">Resultados e discussão</h2>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"></h3>
-<p>Os resultados atingidos em cada parte do trabalho vão em diferentes direções. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta <span class="math inline">\(\bar{R}_{g}\)</span>) frequentemente exibiam um baixo desvio padrão (<span class="math inline">\(s_R\)</span>), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.</p>
+<p>Os resultados atingidos em cada parte do trabalho seguem em conformidade com as diferentes direções tomadas em cada análise. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta <span class="math inline">\(\bar{R}_{g}\)</span>) frequentemente exibiam um baixo desvio padrão (<span class="math inline">\(s_R\)</span>), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># limpeza e organização dos dados</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -551,7 +568,7 @@ window.Quarto = {
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibe a contagem das categorias padronizadas (opcional)</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cuisines_limpo<span class="sc">$</span>country_padrao)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cuisines_limpo<span class="sc">$</span>country_padrao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
                  Argentinian Australian and New Zealander 
@@ -617,7 +634,7 @@ window.Quarto = {
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media_rating))</span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Exibe o resultado da análise</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(analise_por_pais)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(analise_por_pais)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 42 × 5
    country_padrao contagem_receitas media_rating desvio_padrao_rating
@@ -668,7 +685,7 @@ window.Quarto = {
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(media_rating_continente))</span>
 <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizando a Tabela Agregada</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(analise_por_continente_agregado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(analise_por_continente_agregado)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   continente       contagem_total media_rating_continente desvio_padrao_contin…¹
@@ -719,11 +736,11 @@ window.Quarto = {
 <span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>))</span>
 <span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_colorido)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_colorido)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -767,7 +784,7 @@ window.Quarto = {
 <span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(grafico)</span>
 <span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ingredientes_nota</span>(cuisines, <span class="st">"Banco Cuisines"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ingredientes_nota</span>(cuisines, <span class="st">"Banco Cuisines"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Análise para: Banco Cuisines
@@ -779,11 +796,11 @@ Correlação: 0.1 </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ingredientes_nota</span>(all_recipes, <span class="st">"Banco All Recipes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ingredientes_nota</span>(all_recipes, <span class="st">"Banco All Recipes"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Análise para: Banco All Recipes
@@ -795,7 +812,7 @@ Correlação: 0.08 </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -845,7 +862,7 @@ Correlação: 0.08 </code></pre>
 <span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Executando para os dois bancos</span></span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="fu">tempo_nota</span>(cuisines, <span class="st">"Banco Cuisines"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a><span class="fu">tempo_nota</span>(cuisines, <span class="st">"Banco Cuisines"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 --- Análise: Banco Cuisines ---
@@ -857,11 +874,11 @@ Correlação geral: 0.047 </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tempo_nota</span>(all_recipes, <span class="st">"Banco All Recipes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tempo_nota</span>(all_recipes, <span class="st">"Banco All Recipes"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 --- Análise: Banco All Recipes ---
@@ -873,7 +890,7 @@ Correlação geral: 0.008 </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -893,7 +910,7 @@ Correlação geral: 0.008 </code></pre>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os pacotes</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: pacote 'DT' foi compilado no R versão 4.5.2</code></pre>
 </div>
@@ -927,7 +944,7 @@ Correlação geral: 0.008 </code></pre>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Carregar e preparar os dados</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>cuisines <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv"</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 2218 Columns: 17
 ── Column specification ────────────────────────────────────────────────────────
@@ -995,7 +1012,7 @@ date  (1): date_published
 <span id="cb33-54"><a href="#cb33-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-55"><a href="#cb33-55" aria-hidden="true" tabindex="-1"></a>ranking_paises <span class="ot">&lt;-</span> resumo_filtrado <span class="sc">|&gt;</span></span>
 <span id="cb33-56"><a href="#cb33-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(col_ord)) <span class="sc">|&gt;</span></span>
-<span id="cb33-57"><a href="#cb33-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> TOP_N_FIXO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-57"><a href="#cb33-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> TOP_N_FIXO)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de ranking por país</span></span>
@@ -1018,11 +1035,11 @@ date  (1): date_published
 <span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"País / cozinha"</span>,</span>
 <span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> y_lab</span>
 <span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1046,11 +1063,11 @@ date  (1): date_published
 <span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Média de nota (Qualidade - avg_rating)"</span>,</span>
 <span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="st">"Número de receitas"</span></span>
 <span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1084,11 +1101,11 @@ date  (1): date_published
 <span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"País / cozinha"</span></span>
 <span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Trabalho-Final---Elementos-de-Programação_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1111,23 +1128,23 @@ date  (1): date_published
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências Bibliográficas</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
-<div id="ref-noauthor_allrecipes_nodate" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline"><strong>Allrecipes <span></span> <span>Recipes</span>, <span>How</span>-<span>Tos</span>, <span>Videos</span> and <span>More</span></strong>. <strong>Allrecipes</strong>, [s.d.]. Disponível em: &lt;<a href="https://www.allrecipes.com/">https://www.allrecipes.com/</a>&gt;. Acesso em: 13 nov. 2025</div>
-</div>
-<div id="ref-wickham_r_2017" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">WICKHAM, H.; GROLEMUND, G. <strong>R for data science: Import, tidy, transform, visualize, and model data</strong>. Sebastopol, CA: O’Reilly Media, Inc, 2017. </div>
-</div>
 <div id="ref-agresti_introduction_2019" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">AGRESTI, A. <strong>An introduction to categorical data analysis</strong>. Third edition ed. Hoboken, NJ: Wiley, 2019. </div>
+AGRESTI, Alan. <strong>An introduction to categorical data analysis</strong>. Third edition ed. Hoboken, NJ: Wiley, 2019.
 </div>
-<div id="ref-trattner_estimating_2017" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">TRATTNER, C.; ELSWEILER, D.; HOWARD, S. <a href="https://doi.org/10.3389/fpubh.2017.00016">Estimating the <span>Healthiness</span> of <span>Internet</span> <span>Recipes</span>: <span>A</span> <span>Cross</span>-sectional <span>Study</span></a>. <strong>Frontiers in Public Health</strong>, v. 5, Feb. 2017. </div>
+<div id="ref-noauthor_allrecipes_nodate" class="csl-entry" role="listitem">
+<strong>Allrecipes <span></span> <span>Recipes</span>, <span>How</span>-<span>Tos</span>, <span>Videos</span> and <span>More</span></strong>. <strong>Allrecipes</strong>, <em>[S.d.]</em>. Disponível em: &lt;<a href="https://www.allrecipes.com/">https://www.allrecipes.com/</a>&gt;. Acesso em: 13 nov. 2025
 </div>
 <div id="ref-hussain_innovative_2025" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">HUSSAIN, Z. et al. (EDS.). <strong><a href="https://doi.org/10.4018/979-8-3693-8542-5">Innovative <span>Trends</span> <span>Shaping</span> <span>Food</span> <span>Marketing</span> and <span>Consumption</span>:</a></strong> [s.l.] IGI Global, 2025. </div>
+HUSSAIN, Zahid <em>et al.</em> (EDS.). <strong><a href="https://doi.org/10.4018/979-8-3693-8542-5">Innovative <span>Trends</span> <span>Shaping</span> <span>Food</span> <span>Marketing</span> and <span>Consumption</span>:</a></strong> <em>[S.l.]</em>: IGI Global, 2025.
 </div>
 <div id="ref-silva_da_costa_percepcao_2021" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">SILVA DA COSTA, A. C.; AMORIM, M. M. A. <a href="https://doi.org/10.33448/rsd-v10i12.20461">A percepção de internautas sobre as receitas mais acessadas em mídia digital</a>. <strong>Research, Society and Development</strong>, v. 10, n. 12, p. e455101220461, Sep. 2021. </div>
+SILVA DA COSTA, Ana Carolina; AMORIM, Maria Marta Amancio. <a href="https://doi.org/10.33448/rsd-v10i12.20461">A percepção de internautas sobre as receitas mais acessadas em mídia digital</a>. <strong>Research, Society and Development</strong>, v. 10, n. 12, p. e455101220461, set. 2021.
+</div>
+<div id="ref-trattner_estimating_2017" class="csl-entry" role="listitem">
+TRATTNER, Christoph; ELSWEILER, David; HOWARD, Simon. <a href="https://doi.org/10.3389/fpubh.2017.00016">Estimating the <span>Healthiness</span> of <span>Internet</span> <span>Recipes</span>: <span>A</span> <span>Cross</span>-sectional <span>Study</span></a>. <strong>Frontiers in Public Health</strong>, v. 5, fev. 2017.
+</div>
+<div id="ref-wickham_r_2017" class="csl-entry" role="listitem">
+WICKHAM, Hadley; GROLEMUND, Garrett. <strong>R for data science: import, tidy, transform, visualize, and model data</strong>. Sebastopol, CA: O’Reilly Media, Inc, 2017.
 </div>
 </div></section></div></main>
 <!-- /main column -->
@@ -1156,12 +1173,12 @@ date  (1): date_published
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
+      button.setAttribute("title", "Copiada");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
+        button.setAttribute("data-bs-title", "Copiada");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",

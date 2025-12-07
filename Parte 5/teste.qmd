@@ -7,11 +7,12 @@ author:
   - "Ingrid Giacomeli"
   - "Jhullya da Rosa Shalders"
   - "Pedro Henrique D’Andrea"
-lang: pt
 format: pdf
+editor: visual
 bibliography: citations.bib 
 csl: associacao-brasileira-de-normas-tecnicas.csl
 ---
+
 
 ```{css, echo = FALSE}
 .justify {
