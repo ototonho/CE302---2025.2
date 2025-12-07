@@ -136,11 +136,126 @@ A visualização de dados é parte central para a interpretação dos resultados
 
 ## Resultados e discussão {#sec-03}
 
+### 
+
 Os resultados atingidos em cada parte do trabalho vão em diferentes direções. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta $\bar{R}_{g}$) frequentemente exibiam um baixo desvio padrão ($s_R$), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.
+
+```{r}
+# limpeza e organização dos dados
+
+cuisines_limpo <- cuisines %>%
+  mutate(
+    country_padrao = case_when(
+      # Padroniza "Jewish"
+      country %in% c("Jewish") ~ "Israeli/Jewish",
+      # Padroniza culinárias regionais dos EUA
+      country %in% c("Cajun and Creole", "Southern Recipes", "Tex-Mex", "Southwestern Recipes", "Amish and Mennonite", "Soul Food") ~ "US American", 
+      # Mantém o nome do país para todos os outros
+      .default = country 
+    )
+  )
+
+# Exibe a contagem das categorias padronizadas (opcional)
+table(cuisines_limpo$country_padrao)
+
+analise_por_pais <- cuisines_limpo %>%
+  # Remove linhas onde a avaliação é NA
+  filter(!is.na(avg_rating)) %>%
+  group_by(country_padrao) %>%
+  summarise(
+    contagem_receitas = n(),
+    media_rating = mean(avg_rating, na.rm = TRUE),
+    desvio_padrao_rating = sd(avg_rating, na.rm = TRUE), 
+    media_porcoes = mean(servings, na.rm = TRUE),
+    .groups = 'drop'
+  ) %>%
+  # Filtra países com poucas receitas
+  filter(contagem_receitas >= 10) %>%
+  arrange(desc(media_rating))
+
+# Exibe o resultado da análise
+print(analise_por_pais)
+```
+
+```{r}
+analise_por_continente <- analise_por_pais %>%
+  mutate(
+    continente = case_when(
+      # === ASIA ===
+      country_padrao %in% c("Japanese", "Indian", "Chinese", "Thai", "Filipino", "Vietnamese", "Korean", "Indonesian", "Turkish", "Malaysian", "Pakistani", "Iranian", "Israeli/Jewish", "Lebanese", "Syrian", "Yemeni", "Emirati", "Kuwaiti", "Omani", "Qatari", "Saudi Arabian", "Middle Eastern", "Persian", "Turkish", "Israeli", "Bangladeshi") ~ "Ásia",
+      # === EUROPA ===
+      country_padrao %in% c("British", "French", "German", "Irish", "Italian", "Spanish", "Scandinavian Region", "Greek", "Swiss", "Dutch", "Austrian", "Portuguese", "Russian", "Belgian", "Hungarian", "Polish", "Czech", "Slovakian", "Romanian", "Ukrainian", "Scandinavian", "Finnish", "Swedish", "Norwegian", "Danish") ~ "Europa",
+      # === AMÉRICA DO NORTE e CARIBE ===
+      country_padrao %in% c("US American", "Canadian", "Mexican", "Caribbean Region", "Puerto Rican", "Cuban", "Jamaican", "Dominican", "Haitian", "Costa Rican", "Panamanian", "Honduran", "Guatemalan", "Salvadoran") ~ "América do Norte",
+      # === AMÉRICA DO SUL ===
+      country_padrao %in% c("Chilean", "Brazilian", "Peruvian", "Argentinian", "Venezuelan", "Colombian", "Ecuadorian", "Bolivian", "Paraguayan", "Uruguayan") ~ "América do Sul",
+      # === ÁFRICA ===
+      country_padrao %in% c("Moroccan", "Egyptian", "South African", "Ethiopian", "Kenyan", "Nigerian", "Algerian", "Tunisian", "Somali", "African") ~ "África",
+      # === OCEANIA ===
+      country_padrao %in% c("Australian and New Zealander", "Fijian", "Samoan") ~ "Oceania",
+      .default = "Outros" 
+    )
+  )
+
+# Agrupamento FINAL
+analise_por_continente_agregado <- analise_por_continente %>%
+  group_by(continente) %>%
+  summarise(
+    contagem_total = sum(contagem_receitas),
+    media_rating_continente = mean(media_rating, na.rm = TRUE),
+    desvio_padrao_continente = mean(desvio_padrao_rating, na.rm = TRUE), 
+    .groups = 'drop'
+  ) %>%
+  arrange(desc(media_rating_continente))
+
+# Visualizando a Tabela Agregada
+print(analise_por_continente_agregado)
+```
+
+```{r}
+grafico_colorido <- analise_por_continente %>%
+  # Limita aos Top 15 países/regiões para visualização
+  slice_max(media_rating, n = 15) %>% 
+  
+  # Estética principal, usando 'fill' para o continente
+  ggplot(aes(x = reorder(country_padrao, media_rating), 
+             y = media_rating, 
+             fill = continente)) +
+  
+  # Adiciona as barras coloridas
+  geom_col(alpha = 0.8) +
+  
+  # Adiciona as Barras de Erro (Desvio Padrão)
+  geom_errorbar(aes(ymin = media_rating - desvio_padrao_rating, 
+                    ymax = media_rating + desvio_padrao_rating),
+                width = 0.2, color = "black") + # Cor das barras de erro
+  
+  # Escala de cores (Set2 é uma paleta amigável)
+  scale_fill_brewer(palette = "Set2") +
+  
+  # Inverte os eixos para facilitar a leitura
+  coord_flip() +
+  
+  # Títulos e Rótulos
+  labs(
+    title = "Top 15 Culinárias por Média de Avaliação (Coloridas por Continente)",
+    subtitle = "Barras de erro representam o Desvio Padrão do Rating.",
+    x = "País/Região",
+    y = "Média de Avaliação (1 a 5)",
+    fill = "Continente" # Legenda da cor
+  ) +
+  
+  # Tema
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"))
+
+print(grafico_colorido)
+```
+
 
 ### Relação entre Ingredientes e Avaliações
 
-A análise dos dados revela uma correlação positiva, porém extremamente fraca, entre a quantidade de ingredientes e a avaliação final das receitas em ambos os bancos de dados. A Figura 1 confirma que, com coeficientes de 0,1 para "cuisines" e 0,08 para "all_recipes", conclui-se que a complexidade do prato (medida pelo número de itens) praticamente não influencia a nota atribuída pelos usuários; ou seja, embora exista uma tendência matemática muito sutil de aumento na avaliação conforme o número de ingredientes cresce, na prática essa relação é desprezível, indicando que receitas simples têm tanta chance de serem bem avaliadas quanto as mais complexas.
+A análise dos dados revela uma correlação positiva, porém extremamente fraca, entre a quantidade de ingredientes e a avaliação final das receitas em ambos os bancos de dados. A Figura 2 confirma que, com coeficientes de 0,1 para "cuisines" e 0,08 para "all_recipes", conclui-se que a complexidade do prato (medida pelo número de itens) praticamente não influencia a nota atribuída pelos usuários; ou seja, embora exista uma tendência matemática muito sutil de aumento na avaliação conforme o número de ingredientes cresce, na prática essa relação é desprezível, indicando que receitas simples têm tanta chance de serem bem avaliadas quanto as mais complexas.
 
 ```{r}
 #ingredientes x nota
@@ -184,7 +299,7 @@ ingredientes_nota(all_recipes, "Banco All Recipes")
 
 ### Relação entre Tempo de Preparo e Avaliações
 
-Ao analisar a influência do tempo total de preparo (total_time) sobre a avaliação das receitas (avg_rating), com uma visualização (Figura 2) abrangendo até 480 minutos (8 horas), observou-se uma ausência de correlação significativa em ambos os bancos de dados. Com coeficientes irrelevantes de 0,047 para o banco 'cuisines' e 0,008 para 'all_recipes', os dados demonstram estatisticamente que a duração da receita não é um fator determinante para a sua nota final. Isso sugere que a satisfação dos usuários independe do tempo investido na cozinha, com pratos rápidos recebendo avaliações tão altas quanto preparos de longa duração.
+Ao analisar a influência do tempo total de preparo (total_time) sobre a avaliação das receitas (avg_rating), com uma visualização (Figura 3) abrangendo até 480 minutos (8 horas), observou-se uma ausência de correlação significativa em ambos os bancos de dados. Com coeficientes irrelevantes de 0,047 para o banco 'cuisines' e 0,008 para 'all_recipes', os dados demonstram estatisticamente que a duração da receita não é um fator determinante para a sua nota final. Isso sugere que a satisfação dos usuários independe do tempo investido na cozinha, com pratos rápidos recebendo avaliações tão altas quanto preparos de longa duração.
 
 ```{r}
 tempo_nota <- function(dados, nome_do_banco) {
@@ -232,9 +347,167 @@ tempo_nota(all_recipes, "Banco All Recipes")
 ```
 
 
-### Relação entre 
+### Relação entre Culinárias e Qualidade de acordo com uma análise bivarida
 
-Ao olharmos para a análise bivariada, por fim, estabeleceu-se uma clara diferenciação entre as culinárias mais populares e as de maior qualidade. O Gráfico de Bolhas (Figura 3) ilustra que a alta Popularidade, medida pela média de avaliações por receita, nem sempre se traduz em alta Qualidade, medida pela média de nota. Esta divergência indica que a popularidade pode ser impulsionada por fatores de acessibilidade ou tendência, desvinculando-se da excelência na avaliação. A análise de tendência temporal complementou este achado ao mostrar que o Total de Avaliações no Ano é dinâmico, refletindo o ciclo de vida e a ascensão do interesse em certas culinárias ao longo do tempo.
+Ao olharmos para a análise bivariada, por fim, estabeleceu-se uma clara diferenciação entre as culinárias mais populares e as de maior qualidade. O Gráfico de Bolhas (Figura 4) ilustra que a alta Popularidade, medida pela média de avaliações por receita, nem sempre se traduz em alta Qualidade, medida pela média de nota. Esta divergência indica que a popularidade pode ser impulsionada por fatores de acessibilidade ou tendência, desvinculando-se da excelência na avaliação. A análise de tendência temporal complementou este achado ao mostrar que o Total de Avaliações no Ano é dinâmico, refletindo o ciclo de vida e a ascensão do interesse em certas culinárias ao longo do tempo.
+
+```{r}
+# 1) Instalar e carregar pacotes
+packages <- c("dplyr", "ggplot2", "readr", "DT")
+
+# Verifica e instala pacotes faltantes (opcional em R Markdown)
+installed <- packages %in% rownames(installed.packages())
+if (any(!installed)) {
+  install.packages(packages[!installed])
+}
+
+# Carrega os pacotes
+lapply(packages, library, character.only = TRUE)
+```
+
+```{r}
+# 2) Carregar e preparar os dados
+cuisines <- readr::read_csv(
+  "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-09-16/cuisines.csv"
+)
+
+# Ajustar data e extrair ano
+cuisines <- cuisines |>
+  mutate(
+    date_published = as.Date(date_published),
+    year = as.integer(format(date_published, "%Y"))
+  )
+
+year_min <- min(cuisines$year, na.rm = TRUE)
+year_max <- max(cuisines$year, na.rm = TRUE)
+
+# Resumo por país/cozinha (usado para ranking e popularidade x qualidade)
+cuisine_country_summary <- cuisines |>
+  group_by(country) |>
+  summarise(
+    n_receitas      = n(),
+    media_rating    = mean(avg_rating, na.rm = TRUE),
+    total_avaliacoes = sum(total_ratings, na.rm = TRUE),
+    media_avaliacoes = mean(total_ratings, na.rm = TRUE),
+    total_reviews   = sum(reviews, na.rm = TRUE),
+    media_reviews   = mean(reviews, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Dados por país e ano (para tendência)
+cuisine_year <- cuisines |>
+  filter(!is.na(year)) |>
+  group_by(country, year) |>
+  summarise(
+    n_receitas       = n(),
+    total_avaliacoes = sum(total_ratings, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# --- Definições para o R Markdown (Valores de Filtro Fixo) ---
+# Como não temos os inputs do Shiny, definimos valores fixos para simular os filtros:
+MIN_RECEITAS_FIXO <- 10  # Simula input$min_receitas
+METRICA_RANK_FIXO <- "total_avaliacoes" # Simula input$metrica_rank
+TOP_N_FIXO        <- 10   # Simula input$top_n
+ANO_MIN_FIXO      <- year_min # Simula input$ano_range[1]
+ANO_MAX_FIXO      <- year_max # Simula input$ano_range[2]
+PAIS_TENDENCIA_FIXO <- "top" # Simula input$pais_tendencia
+
+# Aplica filtro fixo de mínimo de receitas
+resumo_filtrado <- cuisine_country_summary |>
+  filter(n_receitas >= MIN_RECEITAS_FIXO)
+
+# Cria o ranking fixo
+col_ord <- switch(
+  METRICA_RANK_FIXO,
+  "total_avaliacoes" = resumo_filtrado$total_avaliacoes,
+  "n_receitas"       = resumo_filtrado$n_receitas,
+  "media_rating"     = resumo_filtrado$media_rating
+)
+
+ranking_paises <- resumo_filtrado |>
+  arrange(desc(col_ord)) |>
+  slice_head(n = TOP_N_FIXO)
+```
+
+```{r}
+# Gráfico de ranking por país
+df_ranking <- ranking_paises
+
+y_lab <- switch(
+  METRICA_RANK_FIXO,
+  "total_avaliacoes" = "Total de avaliações",
+  "n_receitas"       = "Número de receitas",
+  "media_rating"     = "Média de nota"
+)
+
+ggplot(df_ranking, aes(x = reorder(country, 
+                                   if (METRICA_RANK_FIXO == "media_rating") media_rating else get(METRICA_RANK_FIXO)),
+                       y = if (METRICA_RANK_FIXO == "media_rating") media_rating else get(METRICA_RANK_FIXO))) +
+  geom_col(fill = "#56B4E9") +
+  coord_flip() +
+  labs(
+    title = paste("Top", TOP_N_FIXO, "países / cozinhas por", y_lab),
+    x = "País / cozinha",
+    y = y_lab
+  ) +
+  theme_minimal()
+```
+
+
+```{r}
+# Gráfico: popularidade x qualidade por culinária
+df_pop_rating <- resumo_filtrado
+
+ggplot(df_pop_rating, aes(
+  x = media_avaliacoes,
+  y = media_rating,
+  size = n_receitas,
+  label = country
+)) +
+  geom_point(alpha = 0.6, color = "#CC79A7") +
+  geom_text(check_overlap = TRUE, vjust = -1, size = 3) +
+  scale_size_continuous(range = c(2, 10)) + # Ajusta o tamanho das bolhas
+  labs(
+    title = "Popularidade x qualidade por país / cozinha",
+    x = "Média de avaliações por receita (Popularidade)",
+    y = "Média de nota (Qualidade - avg_rating)",
+    size = "Número de receitas"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+# Gráfico: tendência por ano
+df_year <- cuisine_year |>
+  filter(
+    year >= ANO_MIN_FIXO,
+    year <= ANO_MAX_FIXO
+  )
+
+# Seleciona os países para a tendência
+if (PAIS_TENDENCIA_FIXO == "top") {
+  paises_sel <- ranking_paises$country # Usa o ranking fixo
+  df_tendencia <- df_year |>
+    filter(country %in% paises_sel)
+} else {
+  df_tendencia <- df_year |>
+    filter(country == PAIS_TENDENCIA_FIXO)
+}
+
+ggplot(df_tendencia, aes(x = year, y = total_avaliacoes, color = country, group = country)) +
+  geom_line(linewidth = 1) +
+  geom_point() +
+  labs(
+    title = paste("Tendência de popularidade (Total de avaliações)", 
+                  ifelse(PAIS_TENDENCIA_FIXO == "top", "para os Top países", paste("para", PAIS_TENDENCIA_FIXO))),
+    x = "Ano de publicação",
+    y = "Total de avaliações no ano",
+    color = "País / cozinha"
+  ) +
+  theme_minimal() +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+```
 
 
 ### Análises e Interpretações
