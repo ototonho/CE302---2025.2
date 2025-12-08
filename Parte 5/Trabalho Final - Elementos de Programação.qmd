@@ -13,12 +13,6 @@ bibliography: citations.bib
 csl: associacao-brasileira-de-normas-tecnicas.csl
 ---
 
-```{css, echo = FALSE}
-.justify {
-  text-align: justify !important
-}
-```
-
 ## Introdução {#sec-01}
 
 Este trabalho se propõe a ser a parte de conclusão do Módulo 5 da discilpina CE302 - Elementos de Programação para Estatística. Para tal, ele consiste em uma análise de um conjunto de dados disponibilizado pelos professores responsáveis e subsequente desenvolvimento de um aplicativo em Shiny para visualização dos resultados encontrados. Assim, este trabalho apresenta a parte técnica e teórica do que foi realizado pelo grupo. A parte da apresentação em um aplicativo em Shiny, por outro lado, será feita por meio de um vídeo de apresentação. Nesta introdução apresentamos, então, o conjunto de dados escolhido pelo grupo e, também, como a parte escrita do trabalho está estruturada.
