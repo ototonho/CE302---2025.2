@@ -143,7 +143,7 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 
 Detalhando os métodos utilizados para o processamento, análise e visualização dos dados, podemos começar apontando o fato de que o estudo foi conduzido utilizando a linguagem R e o ecossistema de pacotes `tidyverse` (incluindo `dplyr` e `ggplot2`). As etapas iniciais de preparação de dados incluíram algumas tarefas distintas. Dentre elas pode-se apontar duas direções principais: a de padronização geográfica e a de derivação das variáveis. Ambas serão definidas nos próximos parágrafos.
 
-Primeiramente, a padronização geográfica. Esta consistiu na padronizaçõ de países e regiões para categorias consistentes (por exemplo, o agrupamento de sub-culinárias regionais dos EUA sob o rótulo "US American"). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro.
+Primeiramente, a padronização geográfica. Esta consistiu na padronização de países e regiões para categorias consistentes (por exemplo, o agrupamento de sub-culinárias regionais dos EUA sob o rótulo "US American"). Posteriormente, as culinárias foram agrupadas em seis categorias continentais (Ásia, Europa, América do Norte, América do Sul, África e Oceania) para análises macro.
 
 Em segundo lugar, e menos para a simples categorização de variáveis e observações, foram criadas duas variáveis-chave para medir a complexidade e o esforço. A primeira a Quantidade de Ingredientes ($\hat{I}$): Calculada pela contagem de vírgulas nos *strings* da lista de ingredientes, adicionada de um, como *proxy* da complexidade. A segunda, o Tempo Total de Preparo ($\hat{T}$): Variável `total_time` convertida para formato numérico (minutos), representando o esforço temporal. 
 
@@ -151,7 +151,7 @@ Em segundo lugar, e menos para a simples categorização de variáveis e observa
 
 Olhando para as anáises estatísticas, elas se concentraram em quatro vertentes principais. A primeira é dedicada à estatística descritiva e ao ranqueamento de observações. Foram reaizados cálculo de média de avaliação ($\bar{R}_{g}$), desvio padrão ($s_R$) e contagem de receitas ($N$) por país/região. Após isto, foi aplicado um filtro mínimo de $N \geq 10$ receitas para garantir a estabilidade das médias de avaliação. A segunda vertente diz respeito à análise das quantidades de ingredientes e dos tempos de preparo, foi empregada a análise de correlação, utilizando o Coeficiente de Correlação de Pearson ($r$) para quantificar a relação linear entre as variáveis de complexidade/esforço e a qualidade percebida (média de avaliação). 
 
-Além delas, a análise bivariada foi empregada para demonstrar a relação entre Popularidade e Qualidade. Um Gráfico de Bolhas foi escolhido para visualizar simultaneamente a média de avaliações por receita (Popularidade), a média de nota (Qualidade) e o número de receitas (Tamanho da Bolha) por culinária. Por fim, foi examinada a série temporal do Total de Avaliações no Ano de Publicação para rastrear a evolução da popularidade das culinárias ranqueadas ao longo do período de dados.
+Além delas, a análise bivariada foi empregada para demonstrar a relação entre Popularidade (Média de Avaliações por Receita) e Qualidade (Média de Nota). Um **Gráfico de Bolhas** foi escolhido para visualizar simultaneamente estas duas métricas e o número de receitas (Tamanho da Bolha) por culinária.
 
 ### Visualização dos Dados 
 
@@ -159,9 +159,9 @@ A visualização de dados é parte central para a interpretação dos resultados
 
 ## Resultados e discussão {#sec-03}
 
-### 
+### Relação entre Países, Avaliações e Porções Servidas
 
-Os resultados atingidos em cada parte do trabalho seguem em conformidade com as diferentes direções tomadas em cada análise. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta $\bar{R}_{g}$) frequentemente exibiam um baixo desvio padrão ($s_R$), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Após análise, A variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.
+Os resultados atingidos em cada parte do trabalho seguem em conformidade com as diferentes direções tomadas em cada análise. Inicialmente, a análise das médias de avaliação revelou um ranking onde culinárias com alta qualidade percebida (alta $\bar{R}_{g}$) frequentemente exibiam um baixo desvio padrão ($s_R$), sugerindo consistência na excelência. O agrupamento continental permitiu observar tendências regionais na satisfação do usuário. A Figura 1 apresenta o ranking das top 15 culinárias, destacando a média de avaliação com barras de erro representando o desvio padrão. Esta análise da variação na qualidade entre continentes sugere que a tradição e a identidade gastronômica específica de uma região exercem maior influência na satisfação do que fatores universais de preparação.
 
 ```{r}
 # limpeza e organização dos dados
