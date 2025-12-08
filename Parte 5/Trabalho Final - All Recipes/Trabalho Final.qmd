@@ -543,7 +543,9 @@ A distinção entre popularidade e qualidade, por sua vez, reforça a necessidad
 
 ## Conclusão {#sec-04}
 
-O presente estudo demonstrou, através de análises estatísticas rigorosas, que o esforço e a complexidade de uma receita não são fatores determinantes para a sua avaliação final pelos usuários, com o coeficiente de Pearson próximo de zero estabelecendo a independência entre estas variáveis e a satisfação. Em contrapartida, a origem geográfica da culinária influencia a avaliação média, sugerindo a alta relevância da tradição. O estudo também enfatizou a distinção analítica entre popularidade e qualidade, alertando contra a utilização de métricas de volume como substitutas para a percepção de excelência. Em síntese, a satisfação do usuário é primariamente guiada por fatores intrínsecos de sabor e qualidade de execução, e não por custos de tempo ou esforço.
+A aplicação dos métodos e o conjunto de resultados aqui apresentados serviram de base para a construção do aplicativo Shiny, que oferece uma ferramenta de visualização interativa para explorar as dinâmicas de popularidade e qualidade, tornando os achados acessíveis ao público. Este trabalho conclui, assim, o que foi proposto como Avaliação 5 da disciplina de Elementos de Programação para Estatística. 
+
+O presente estudo demonstrou, através de análises estatísticas, que o esforço e a complexidade de uma receita não são fatores determinantes para a sua avaliação final pelos usuários, com o coeficiente de Pearson próximo de zero estabelecendo a independência entre estas variáveis e a satisfação. Em contrapartida, a origem geográfica da culinária influencia a avaliação média, sugerindo a alta relevância da tradição. O estudo também enfatizou a distinção analítica entre popularidade e qualidade, alertando contra a utilização de métricas de volume como substitutas para a percepção de excelência. Em síntese, a satisfação do usuário é primariamente guiada por fatores intrínsecos de sabor e qualidade de execução, e não por custos de tempo ou esforço.
 
 ## Referências Bibliográficas {#sec-05}
 
