@@ -55,9 +55,9 @@ O objetivo principal da análise,  é o de entender quais as dinâmicas por trá
 
 ## Materiais e Métodos {#sec-02}
 
-Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro *R for data science: import, tidy, transform, visualize, and model data*, de autoria de @wickham_r_2017. Também serão utilizados para análise de observações o que é desenvolvido por @agresti_introduction_2019.
+Teremos como principal material de apoio, suplemntar aos materiais da disciplina, o livro *R for data science: import, tidy, transform, visualize, and model data*, de autoria de @wickham_r_2017. Também serão utilizados para fundamentação da análise de observações e para o tratamento de variáveis categóricas os conceitos desenvolvidos por @agresti_introduction_2019.
 
-Além de ambos, também serão utilizados materiais de @trattner_estimating_2017 e @hussain_innovative_2025, que já desenvolveram análises semelhantes à que este trabalho se propõe. Além disso, também será utilizada @silva_da_costa_percepcao_2021
+Além de ambos, o presente estudo é informado por trabalhos prévios que investigaram a culinária online. Em particular, serão utilizados os materiais de @trattner_estimating_2017 e @hussain_innovative_2025. O trabalho de Trattner et al. (2017), que analisou a saudabilidade das receitas no [Allrecipes](https://www.allrecipes.com), é um referencial metodológico e contextual crucial para a presente análise. Além disso, também será utilizada como base conceitual o trabalho desenvolvidor por @silva_da_costa_percepcao_2021, que aborda a questão da percepção de internautas sobre receitas publicadas online.
 
 ### Descrição do Conjunto de Dados 
 
@@ -137,7 +137,7 @@ Abaixo, temos um dicionário das variáveis existentes em ambos os conjuntos de 
 
 3.  Padronização e Normalização: Variáveis com alta variabilidade, como reproduções, foram consideradas para transformação logarítmica $(\log(X+1))$ para aproximar suas distribuições de uma normalidade e mitigar a influência de outliers extremos no ajuste dos modelos de regressão.
 
-4. Codificação de Variáveis Categóricas: A variável country foi convertida para o tipo fator (factor) para uso em modelos estatísticos, sendo implementado o esquema de codificação dummy (variáveis binárias) para as análises de regressão.
+4. Codificação de Variáveis Categóricas: A variável country foi convertida para o tipo fator (factor) para uso em modelos estatísticos, sendo implementado o esquema de codificação dummy (variáveis binárias) para as análises de regressão. Esta abordagem é fundamental para o tratamento rigoroso de variáveis nominais em contextos de modelagem, conforme diretrizes da análise de dados categóricos @agresti_introduction_2019.
 
 ### Técnicas Estatísticas e Computacionais
 
